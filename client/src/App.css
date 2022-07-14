@@ -50,7 +50,12 @@ body{
   background: transparent;
   border: 1px solid var(--orange);
 }
-
+.button:disabled{
+  background-color: silver;
+  pointer-events:none;
+  color: whitesmoke;
+  border: solid 1px whitesmoke
+}
 ::-webkit-scrollbar{
   display: none;
 }

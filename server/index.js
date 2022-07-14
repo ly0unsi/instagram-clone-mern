@@ -5,9 +5,10 @@ import dotenv from 'dotenv'
 import AuthRoute from "./routes/AuthRoute.js";
 import UserRoute from "./routes/UserRoute.js";
 import postRoute from "./routes/PostRoute.js";
-//routes
+import cors from "cors";
 
 const app=express();
+app.use(cors());
 //middleware
 app.use(bodyParser.json({limit:'30mb',extended:true}))
 app.use(bodyParser.urlencoded({limit:'30mb',extended:true}))
@@ -17,6 +18,7 @@ mongoose.connect(process.env.MONGO_DB,{useNewUrlParser:true,useUnifiedTopology:t
 .then(()=>app.listen(process.env.PORT,()=>console.log("listening at port 5000")))
 .catch((e)=>console.log(e))
 
+//routes
 app.use('/auth',AuthRoute)
 app.use('/user',UserRoute)
 app.use('/post',postRoute)

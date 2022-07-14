@@ -7,22 +7,40 @@ import { UilPlayCircle } from "@iconscout/react-unicons";
 import { UilLocationPoint } from "@iconscout/react-unicons";
 import { UilSchedule } from "@iconscout/react-unicons";
 import { UilTimes } from "@iconscout/react-unicons";
+import { useSelector } from 'react-redux';
 const PostShare = () => {
     const [image,setImage]=useState(null)
     const [showImage, setshowImage] = useState(false)
+    const {user}=useSelector((state)=>state.authReducer.authData)
     const imageRef=useRef()
+    const desc =useRef()
     const onImageChange=(event)=>{
         if (event.target.files && event.target.files[0]){
             let img=event.target.files[0]
-            setImage({image:URL.createObjectURL(img)})
+            setImage(img)
             setshowImage(true)
+        }
+    }
+    const handleSubmit =(e)=>{
+        e.preventDefault()
+        const newPost={
+            userId:user._id,
+            desc:desc.current.value
+        }
+        if(image){
+            const data =new FormData()
+            const filename=Date.now() +image.name
+            data.append("name",filename)
+            data.append("file",image)
+            newPost.image=filename
+            console.log(newPost)
         }
     }
   return (
     <div className="PostShare">
         <img src={profileImage} alt="" />
         <div>
-            <input type="text" placeholder='What's hapening />
+            <input  ref={desc} type="text" placeholder='What's hapening />
             <div className="postOptions">
                 <div className="option" style={{ color: "var(--photo)" }} 
                     onClick={()=>imageRef.current.click()}
@@ -42,7 +60,7 @@ const PostShare = () => {
                     <UilSchedule />
                     Shedule
                 </div>
-                <button className="button ps-button">Share</button>
+                <button className="button ps-button" onClick={handleSubmit}>Share</button>
                 <div style={{ display: "none" }}>
                     <input
                     type="file"
@@ -61,8 +79,11 @@ const PostShare = () => {
                 
             >
                     <div className="previewImage">    
-                        <UilTimes onClick={()=>setshowImage(false)} />
-                            <img src={image?.image} alt="" />
+                        <UilTimes onClick={()=>{setshowImage(false)
+                            setImage(null)
+                        }
+                        } />
+                            <img src={URL.createObjectURL(image)} alt="" />
                     </div>
             </CSSTransition> 
 
