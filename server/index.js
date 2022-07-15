@@ -6,6 +6,7 @@ import AuthRoute from "./routes/AuthRoute.js";
 import UserRoute from "./routes/UserRoute.js";
 import postRoute from "./routes/PostRoute.js";
 import cors from "cors";
+import uploadRoute from "./routes/UploadRoute.js";
 
 const app=express();
 app.use(cors());
@@ -22,3 +23,4 @@ mongoose.connect(process.env.MONGO_DB,{useNewUrlParser:true,useUnifiedTopology:t
 app.use('/auth',AuthRoute)
 app.use('/user',UserRoute)
 app.use('/post',postRoute)
+app.use('/upload',uploadRoute)

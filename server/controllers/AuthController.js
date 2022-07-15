@@ -7,15 +7,19 @@ export const registerUser=async(req,res)=>{
     const hashPass=await bcrypt.hash(password,salt)
     const newUser=new UserModel({username,password:hashPass,firstname,lastname})
     try {
-       const user= await newUser.save()
-        const token =jwt.sign({
-            username:user.username,id:user._id
-        },
-        process.env.JWT_KEY,{expiresIn:'1h'}
-        )
-        res.status(200).json({newUser,token})
+        const existed=UserModel.findOne(username)
+        
+            const user= await newUser.save()
+            const token =jwt.sign({
+                username:user.username,id:user._id
+            },
+            process.env.JWT_KEY,{expiresIn:'1h'}
+            )
+            res.status(200).json({newUser,token})
+        
+       
     } catch (error) {
-        res.status(500).json({message:error.message})
+        res.status(500).json(error.message)
     }
 }
 export const loginUser=async(req,res)=>{

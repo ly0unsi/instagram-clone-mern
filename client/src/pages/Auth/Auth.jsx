@@ -1,4 +1,6 @@
 import React,{useState,useEffect} from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "./Auth.css";
 import {useDispatch, useSelector} from 'react-redux'
 import Logo from "../../img/logo.png";
@@ -9,9 +11,13 @@ const Auth = () => {
   const [data, setdata] = useState({firstname:"",lastname:"",password:"",confirmpass:"",username:""})
   const [confirmPass, setconfirmPass] = useState(true)
   const [buttDis,setButtDis]=useState(false)
+  const [errorMsg,setErrorMsg]=useState(null)
+
   const loading =useSelector((state)=>state.authReducer.loading)
-  console.log(loading)
+  const error =useSelector((state)=>state.authReducer.error)
   const dispatch=useDispatch()
+
+
   const handleChange=(e)=>{
     setdata({...data,[e.target.name]:e.target.value})
   }
@@ -35,10 +41,12 @@ const Auth = () => {
        setconfirmPass(true)
        setButtDis(false)
      }
+    
   },[data.confirmpass,data.password,isSignUp])
   return (
     <div className="Auth">
     {/* left side */}
+    <ToastContainer />
 
     <div className="a-left">
       <img src={Logo} alt="" />
@@ -122,6 +130,20 @@ const Auth = () => {
         >
           *Confirm password is not same
         </span>
+        {errorMsg &&
+               <span
+               style={{
+                 color: "red",
+                 fontSize: "12px",
+                 alignSelf: "flex-end",
+                 marginRight: "5px",
+                 display:"block"
+               }}
+             >
+              {errorMsg}
+             </span>
+        }
+   
         <div>
           <span
             style={{

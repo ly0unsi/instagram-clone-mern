@@ -7,11 +7,11 @@ export const authReducer=(state={authData:null,loading:false,error:false},action
                 localStorage.setItem("profile",JSON.stringify({...action?.data}))
                 return {...state,authData:action.data,loading:false,error:false}
             break;
-        case "AUTH_FAILED":
+        case "AUTH_ERROR":
                 return {...state,loading:false,error:true}
             break;
         default:
-            return state
+            return {...state,error:false}
             break;
     }
 }
