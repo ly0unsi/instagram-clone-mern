@@ -53,38 +53,23 @@ export const deletePost=async (req,res)=>{
         res.status(400).json(error.message)
     }
 }
-export const likePost=async (req,res)=>{
-    const id =req.params.id
-    const {userId}=req.body
+export const likePost = async (req, res) => {
+    const id = req.params.id;
+    const { userId } = req.body;
     try {
-        const post=await PostModel.findById(id)
-        if (!post.likes.includes(userId)) {
-            await post.updateOne({$push :{likes:userId}})
-            res.status(200).json("post liked")
-        }else{
-            res.status(403).json("You already liked the post")
-        }
+      const post = await PostModel.findById(id);
+      if (post.likes.includes(userId)) {
+        await post.updateOne({ $pull: { likes: userId } });
+        res.status(200).json("Post disliked");
+      } else {
+        await post.updateOne({ $push: { likes: userId } });
+        res.status(200).json("Post liked");
+      }
     } catch (error) {
-        res.status(400).json(error.message)
+      res.status(500).json(error);
     }
+  };
 
-}
-export const dislikePost=async (req,res)=>{
-    const id =req.params.id
-    const {userId}=req.body
-    try {
-        const post=await PostModel.findById(id)
-        if (post.likes.includes(userId)) {
-            await post.updateOne({$pull :{likes:userId}})
-            res.status(200).json("post disliked")
-        }else{
-            res.status(403).json("You are not liking the post")
-        }
-    } catch (error) {
-        res.status(400).json(error.message)
-    }
-
-}
 export const getTimelinePosts=async (req,res)=>{
     const userId=req.params.id
     try {

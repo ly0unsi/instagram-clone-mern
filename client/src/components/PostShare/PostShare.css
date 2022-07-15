@@ -81,20 +81,3 @@
     object-fit: cover;
     border-radius: 0.5rem;
 }
-.alert-enter {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  .alert-enter-active {
-    opacity: 1;
-    transform: translateX(0);
-    transition: all 400ms cubic-bezier(.47,2,.41,1.5);
-  }
-  .alert-exit {
-    opacity: 1;
-  }
-  .alert-exit-active {
-    opacity: 0;
-    transform: scale(0.9);
-    transition: all 400ms cubic-bezier(.47,2,.41,1.5);
-  }

@@ -9,6 +9,9 @@ import cors from "cors";
 import uploadRoute from "./routes/UploadRoute.js";
 
 const app=express();
+app.use(express.static('public'))
+app.use('/images',express.static('images'))
+
 app.use(cors());
 //middleware
 app.use(bodyParser.json({limit:'30mb',extended:true}))
