@@ -5,7 +5,7 @@ import ProfileCard from '../profileCard/ProfileCard'
 import './ProfileSide.css'
 const ProfileSide = () => {
   return (
-    <div className='profileSide'>
+    <div className='profileSide columns-1'>
         <LogoSearch/>
         <ProfileCard location="HomePage"/>
         <FollowersCard/>

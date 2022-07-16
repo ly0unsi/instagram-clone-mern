@@ -16,7 +16,7 @@ export const uploadPost=(data)=>async (dispatch)=>{
         toast.success('Post added succesfully ', {
             position: "bottom-center",
             autoClose: 3000,
-            hideProgressBar: true,
+            hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
@@ -27,7 +27,7 @@ export const uploadPost=(data)=>async (dispatch)=>{
         toast.error('Desc Field is required', {
             position: "bottom-center",
             autoClose: 2000,
-            hideProgressBar: true,
+            hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,

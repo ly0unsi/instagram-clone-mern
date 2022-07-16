@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <div className='Home'>
       <ProfileSide/>
-      <PostSide/>
+      <PostSide page="homePage"/>
       <RightSide/>
       <ToastContainer />
     </div>

@@ -5,7 +5,7 @@ import { getTimelinePosts } from '../../Actions/PostAction'
 import Post from '../Post/Post'
 import './Posts.css'
 import PulseLoader from "react-spinners/ClipLoader";
-const Posts = () => {
+const Posts = ({page}) => {
   const dispatch =useDispatch()
   const {user} =useSelector((state)=>state.authReducer.authData)
   const {posts,loading} =useSelector((state)=>state.postReducer)
@@ -21,13 +21,13 @@ const Posts = () => {
   
   return (
 
-    <div className='Posts'>
+    <div className='Posts columns-3'>
       {
         loading ? <PulseLoader cssOverride={override}/>:
         posts.map((post,id)=>{
           return(
             <div key={id}>
-               <Post post={post}/>
+               <Post post={post} page={page}/>
             </div>
              
           )

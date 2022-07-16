@@ -9,7 +9,7 @@ import ShareModal from '../ShareModal/ShareModal';
 const RightSide = () => {
   const [modalOpened, setModalOpened] = useState(false)
   return (
-    <div className="RightSide">
+    <div className="RightSide columns-3">
     <div className="navIcons">
       <img src={Home} alt="" />
       <UilSetting />

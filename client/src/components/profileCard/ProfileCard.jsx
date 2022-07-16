@@ -1,33 +1,39 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import {Link} from 'react-router-dom'
 import Cover from '../../img/cover.jpg'
-import Profile from '../../img/profileImg.jpg'
+import Profile from '../../img/defaultProfile.png'
 import './ProfileCard.css'
 const ProfileCard = ({location}) => {
   const {user}=useSelector((state)=>state.authReducer.authData)
   const {posts} =useSelector((state)=>state.postReducer)
   const storageLink =process.env.REACT_APP_STORAGE_URL
   return (
-    <div className='ProfileCard'>
+    <div className='ProfileCard mt-4'>
         <div className="ProfileImages">
           <img src={ user.coverPicture
               ? storageLink + user.coverPicture
-              : storageLink + "defaultCover.jpg"
+              : Cover
           } alt="" />
-          <img src={Profile} alt="" />
+          <img src={user.profilePicture ? storageLink + user.profilePicture: Profile} alt="" />
         </div>
         <div className="ProfileName">
           <span>
-            Zendaya MJ
+            {user.firstname} {user.lastname}
           </span>
-          <span>Senior ui/ux designer</span>
+          <span>{user.worksAt}</span>
         </div>
         <div className="followStatus">
           <hr />
           <div>
             <div className="follow">
-              <span>6582</span>
+              <span>{user.followings? user.followings.length :0}</span>
               <span>Followings</span>
+            </div>
+            <div className="vl"></div>
+            <div className="follow">
+              <span>{user.followers? user.followers.length:0}</span>
+              <span>Followers</span>
             </div>
             {location === "profilePage" && (
             <>
