@@ -1,23 +1,23 @@
 import React from 'react'
-import { Followers } from '../../Data/FollowesData'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import User from '../User/User'
 import './FollowersCard.css'
+import { getFollowers } from '../../Actions/UserAction'
 const FollowersCard = () => {
+    const {user}=useSelector((state)=>state.authReducer.authData)
+    const dispatch =useDispatch()
+    const {followers}=useSelector((state)=>state.userReducer)
+    useEffect(() => {
+      dispatch(getFollowers(user._id))
+    },[dispatch])  
   return (
     <div className='FollowersCard'>
         <h3>Who is following you</h3>
-        {Followers.map((follower,id)=>{
+        {followers.map((follower,id)=>{
             return (
-                <div className="follower" key={id}>
-                    <div>
-                        <img src={follower.img} alt="" className='followerImage' />
-                        <div className="name">
-                            <span>{follower.name}</span>
-                            <span>{follower.username}</span>
-                        </div>
-                    </div>
-                    <button className='button fc-button'>
-                        Follow
-                    </button>
+                <div key={id}>
+                    <User follower={follower}/>
                 </div>
             )
         })}

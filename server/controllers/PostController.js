@@ -3,8 +3,8 @@ import PostModel from "../models/PostModel.js"
 import UserModel from "../models/UserModel.js"
 
 export const addPost=async (req,res)=>{
-    const {userId,desc,image} =req.body
-    const newPost =new PostModel({userId,desc,image})
+    const {userId,desc,image,user} =req.body
+    const newPost =new PostModel({userId,desc,image,user})
     try {
         await newPost.save()
         res.status(200).json({msg:"post created",post:newPost})

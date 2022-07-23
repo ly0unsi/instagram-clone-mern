@@ -11,37 +11,65 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useState } from 'react'
 import { likePost } from '../../Actions/PostAction'
 import { useEffect } from 'react'
-const Post = ({post,page}) => {
+import FollowButton from '../FollowButon/FollowButton'
+import { useLocation } from 'react-router-dom'
+import { getUser } from '../../Api/UserApi'
+const Post = ({post}) => {
   const {user} =useSelector((state)=>state.authReducer.authData)
   const [liked, setliked] = useState(post.likes.includes(user._id))
   const [likes, setlikes] = useState(post.likes.length)
+  const [postOwner, setpostOwner] = useState(null)
+  const location =useLocation()
   const dispatch =useDispatch()
+  
   const like=(id)=>{
     setliked((prev)=>!prev)
     liked ? setlikes((prev)=>prev-1):setlikes((prev)=>prev+1)
     dispatch (likePost(id,user._id))
   }
-  useEffect(() => {
+  const setLikekedEffect=()=>{
     setliked(post.likes.includes(user._id))
     setlikes(post.likes.length)
+  }
+  const getPostOwnerEffect=async()=>{
+    const {data}=await getUser(post.userId)
+    setpostOwner(data)
+  }
+  useEffect(() => {
+    return()=>{
+      setLikekedEffect()
+    }
   }, [post])
+  useEffect(() => {
+    getPostOwnerEffect()
+  }, [postOwner])
   
+
   return (
     <div className='Post'>
-      {page==="homePage" && 
+      {  postOwner && location.pathname=="/home" && 
         <div className='flex items-center'> 
-        <img className='w-7 mr-2' src={post.user?.profilePicture ? process.env.REACT_APP_STORAGE_URL + post.user.profilePicture: Profile} alt="" />
+        <img className='w-9 h-9 mr-2 object-cover rounded-full' src={postOwner?.profilePicture ? process.env.REACT_APP_STORAGE_URL + postOwner?.profilePicture: Profile} alt="" />
         <span className='font-medium text-sm'>
-        {post.user?.firstname} {post.user?.lastname}
+         {postOwner?.username}
         </span> 
+        {
+        
+          postOwner?._id !== user._id &&
+          <div className='float-right ml-4'>
+            <FollowButton profile={postOwner} />
+          </div>
+        }
+       
+        
       </div>
       }
-        <img src={post.image && process.env.REACT_APP_STORAGE_URL+ post.image} alt="" />
-            <div className="postReact w-60">
+        <img src={post.image && process.env.REACT_APP_STORAGE_URL+ post.image} alt="" className='object-cover'  />
+            <div className="postReact items-center">
                 <img src={liked?Heart:NotLike} alt="" style={{cursor:"pointer"}} onClick={()=>like(post._id)}/>
                 <img src={Comment} alt="" />
                 <img src={Share} alt="" />
-                <span className='float-right'>{moment(post.createdAt).startOf('hour').fromNow()}</span>
+                <span className='float-right text-xs'>{moment(post.createdAt).startOf('hour').fromNow()}</span>
             </div>
             <span style={{color: "var(--gray)", fontSize: '12px'}}>{likes} likes</span>
             

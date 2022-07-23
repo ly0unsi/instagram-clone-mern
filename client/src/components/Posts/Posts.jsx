@@ -5,11 +5,14 @@ import { getTimelinePosts } from '../../Actions/PostAction'
 import Post from '../Post/Post'
 import './Posts.css'
 import PulseLoader from "react-spinners/ClipLoader";
-const Posts = ({page}) => {
+import { useLocation } from 'react-router-dom'
+import { useState } from 'react'
+const Posts = () => {
   const dispatch =useDispatch()
+  const {followers}=useSelector((state)=>state.userReducer)
   const {user} =useSelector((state)=>state.authReducer.authData)
   const {posts,loading} =useSelector((state)=>state.postReducer)
-
+  const location =useLocation()
   const override = {
     display: "block",
     margin: "0 auto",
@@ -17,20 +20,29 @@ const Posts = ({page}) => {
   };
   useEffect(() => {
     dispatch(getTimelinePosts(user._id))
-  }, [dispatch])
+  }, [dispatch,followers])
   
   return (
 
     <div className='Posts columns-3'>
       {
-        loading ? <PulseLoader cssOverride={override}/>:
-        posts.map((post,id)=>{
+        loading ? <PulseLoader cssOverride={override}/>: location.pathname!=="/home" ?
+        posts.filter((post)=>post.userId===user._id).map((post,id)=>{
           return(
             <div key={id}>
-               <Post post={post} page={page}/>
+               <Post post={post} />
             </div>
              
           )
+      } )
+      :
+      posts.map((post,id)=>{
+        return(
+          <div key={id}>
+             <Post post={post}/>
+          </div>
+           
+        )
       } )
       }
         

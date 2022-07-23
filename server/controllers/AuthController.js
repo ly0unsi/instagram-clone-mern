@@ -5,17 +5,15 @@ export const registerUser=async(req,res)=>{
     const {username,password,firstname,lastname}=req.body
     const salt=await bcrypt.genSalt(10)
     const hashPass=await bcrypt.hash(password,salt)
-    const newUser=new UserModel({username,password:hashPass,firstname,lastname})
-    try {
-        const existed=UserModel.findOne(username)
-        
-            const user= await newUser.save()
+    let user=new UserModel({username,password:hashPass,firstname,lastname})
+    try {        
+            user= await user.save()
             const token =jwt.sign({
                 username:user.username,id:user._id
             },
             process.env.JWT_KEY,{expiresIn:'1h'}
             )
-            res.status(200).json({newUser,token})
+            res.status(200).json({user,token})
         
        
     } catch (error) {

@@ -5,13 +5,16 @@ import Noti from "../../img/noti.png";
 import Comment from "../../img/comment.png";
 import { UilSetting } from "@iconscout/react-unicons";
 import TrendsCard from '../TrendsCard/TrendsCard';
+import {Link} from 'react-router-dom'
 import ShareModal from '../ShareModal/ShareModal';
 const RightSide = () => {
   const [modalOpened, setModalOpened] = useState(false)
   return (
     <div className="RightSide columns-3">
     <div className="navIcons">
-      <img src={Home} alt="" />
+    <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+      <img src={Home} className="w-6" alt="" />
+      </Link>
       <UilSetting />
       <img src={Noti} alt="" />
       <img src={Comment} alt="" />

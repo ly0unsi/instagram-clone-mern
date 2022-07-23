@@ -20,6 +20,8 @@ const PostShare = () => {
     const imageRef=useRef()
     const desc =useRef()
     const dispatch =useDispatch()
+
+
     const onImageChange=(event)=>{
        console.log("changed") 
         if (event.target.files && event.target.files[0]){
@@ -29,18 +31,21 @@ const PostShare = () => {
             setshowImage(true)
         }
     }
+
+
     const resetForm =()=>{
         setImage(null)
         setshowImage(false)
         desc.current.value=""
     }
+
+
     const handleSubmit =(e)=>{
         e.preventDefault()
-     
         const newPost={
             userId:user._id,
             desc:desc.current.value,
-            user:{profilePicture:user.profilePicture,firstname:user.firstname,lastname:user.lastname,_id:user._id,username:user.username}
+            user:{profilePicture:user.profilePicture,firstname:user.firstname,lastname:user.lastname,_id:user._id,username:user.username,followers:user.followers}
         }
         if(image){
             const data =new FormData()
@@ -59,9 +64,11 @@ const PostShare = () => {
             resetForm()
         }
     }
+
+
   return (
     <div className="PostShare">
-        <img src={user.profilePicture ? storageLink + user.profilePicture: profileImage} alt="" />
+        <img src={user.profilePicture ? storageLink + user.profilePicture: profileImage} alt="" className='object-cover' />
         <div>
             <input  ref={desc} type="text" placeholder="What's Popin ?" />
             <div className="postOptions">
@@ -103,12 +110,13 @@ const PostShare = () => {
                 
             >
                     <div className="previewImage">    
-                        <UilTimes onClick={()=>{setshowImage(false)
+                        <UilTimes onClick={()=>{
+                            setshowImage(false)
                             setImage(null)
                             imageRef.current.value=null
                         }
                         } />
-                            <img src={image && URL.createObjectURL(image)} alt="" />
+                            <img src={image && URL.createObjectURL(image)} alt="" className='object-cover'  />
                     </div>
             </CSSTransition> 
 
