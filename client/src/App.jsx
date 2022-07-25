@@ -1,6 +1,7 @@
 
 import Auth from "./pages/Auth/Auth";
 import 'animate.css';
+import 'antd/dist/antd.min.css'
 import Home from "./pages/Home/Home";
 import Profile from "./pages/Profile/Profile";
 import {Navigate,Routes,Route,location, useLocation} from 'react-router-dom'

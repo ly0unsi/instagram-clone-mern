@@ -14,7 +14,10 @@ const User = ({follower}) => {
               </Link>
             </div>
         </div>
-       <FollowButton profile={follower}/>
+        {
+          follower &&  <FollowButton profile={follower}/>
+        }
+      
     </div>
   )
 }

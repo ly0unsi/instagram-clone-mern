@@ -14,6 +14,7 @@ const Profile = () => {
   const profileUserId=params.id
   const [profileUser, setprofileUser] = useState(null)
   const {user}=useSelector((state)=>state.authReducer.authData)
+  const {followers}=useSelector((state)=>state.userReducer)
   useEffect(() => {
     const fetchProfile=async ()=>{
       if (profileUserId===user._id){
@@ -24,18 +25,22 @@ const Profile = () => {
       }
     }
     fetchProfile()
-  }, [profileUserId,user])
+  }, [profileUserId,user,followers])
+  
   return (
+  
     <div className="Profile">
-      <ProfileLeft profileUser={profileUser}/>
+       
+          <ProfileLeft profileUser={profileUser}/>
 
-      <div className="Profile-center">
-          <ProfileCard location="profilePage" profileUser={profileUser}/>
-          <PostSide profileUser={profileUser}/>
-      </div>
+          <div className="Profile-center">
+              <ProfileCard location="profilePage" profileUser={profileUser}/>
+              <PostSide profileUser={profileUser}/>
+          </div>
 
-      <RightSide/>
-      <ToastContainer />
+          <RightSide/>
+          <ToastContainer />
+            
     </div>
     
   )

@@ -1,6 +1,7 @@
 import { Modal, useMantineTheme } from "@mantine/core";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import  {  Button  } from  'antd';
 import { updateUser } from "../../Actions/UserAction";
 import { uploadImage } from "../../Api/UplaodApi";
 function ProfileModal({ modalOpened, setModalOpened}) {
@@ -25,6 +26,7 @@ function ProfileModal({ modalOpened, setModalOpened}) {
   const handleChange=(e)=>{
         if (e.target.files && e.target.files[0]){
             let img=e.target.files[0]
+            console.log("hhhhhhhhh")
             setformData({...formData,[e.target.name]:img})
         }else{
         setformData({...formData,[e.target.name]:e.target.value})
@@ -38,7 +40,7 @@ function ProfileModal({ modalOpened, setModalOpened}) {
     let profileName=user.profilePicture
     let coverName=user.coverPicture
     console.log(profileName,coverName)
-    if (formData.profilePicture.name!==user.profilePicture) {
+    if (formData.profilePicture.name) {
       console.log("fuck")
       const data =new FormData()
       profileName=Date.now() +formData.profilePicture.name
@@ -51,8 +53,8 @@ function ProfileModal({ modalOpened, setModalOpened}) {
           console.log(error)
       }
     }
-      if (formData.coverPicture.name!==user.coverPicture){
-        console.log("fuck",formData.coverPicture.name,user.coverPicture)
+      if (formData.coverPicture.name){
+        console.log("fuck",formData,user.coverPicture)
         const data =new FormData()
         coverName=Date.now() +formData.coverPicture.name
         data.append("name",coverName)
@@ -152,7 +154,9 @@ function ProfileModal({ modalOpened, setModalOpened}) {
             <input type="file" name="coverPicture"   onChange={handleChange}/>
         </div>
 
-        <button className="button infoButton" onClick={handleSubmit}>{loading ? "Updating" :"Update"}</button>
+        <Button  loading={loading} className='button fc-button' onClick={handleSubmit}>
+         Update
+        </Button>
       </form>
     </Modal>
   );

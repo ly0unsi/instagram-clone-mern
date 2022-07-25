@@ -16,3 +16,19 @@ export const likePost=(id,userId)=>async (dispatch)=>{
     console.log(error)
   }
 }
+export const deletePost=(postId,userId)=>async (dispatch)=>{
+  try {
+    await PostsApi.deletePost(postId,userId)
+    dispatch({type:"DELETE_SUCCESS",postId:postId})
+  } catch (error) {
+    console.log(error)
+  }
+}
+export const updatePost=(postId,updatedPost)=>async (dispatch)=>{
+  try {
+    await PostsApi.updatePost(postId,updatedPost)
+    dispatch({type:"UPDATE_POST_SUCCESS",data:{updatedPost:updatedPost,updatePostId:postId}})
+  } catch (error) {
+   console.log(error) 
+  }
+}

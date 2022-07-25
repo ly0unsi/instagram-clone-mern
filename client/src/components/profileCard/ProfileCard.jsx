@@ -24,8 +24,8 @@ const ProfileCard = ({location,profileUser}) => {
           </span>
          
           <span>{profileUser?.worksAt}</span>
-          {
-            profileUser?._id!==user._id &&
+          {profileUser &&
+            profileUser._id!==user._id &&
             <FollowButton profile={profileUser}/>
           }
          
@@ -34,7 +34,7 @@ const ProfileCard = ({location,profileUser}) => {
           <hr />
           <div>
             <div className="follow">
-              <span>{profileUser?.followings? profileUser?.followings.length :0}</span>
+              <span>{profileUser?.following? profileUser?.following.length :0}</span>
               <span>Followings</span>
             </div>
             <div className="vl"></div>

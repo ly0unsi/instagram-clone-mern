@@ -10,6 +10,7 @@ import { UilTimes } from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from 'react-redux';
 import { uploadImage } from '../../Api/UplaodApi';
 import { uploadPost } from '../../Actions/uploadAction';
+import { Button } from 'antd/lib/radio';
 const storageLink =process.env.REACT_APP_STORAGE_URL
 const PostShare = () => {
     const [image,setImage]=useState(null)
@@ -37,10 +38,11 @@ const PostShare = () => {
         setImage(null)
         setshowImage(false)
         desc.current.value=""
+        imageRef.current.value=null
     }
 
 
-    const handleSubmit =(e)=>{
+    const handleSubmit =async (e)=>{
         e.preventDefault()
         const newPost={
             userId:user._id,
@@ -59,7 +61,7 @@ const PostShare = () => {
                 console.log(error)
             }
         }
-        dispatch(uploadPost(newPost))
+        await dispatch(uploadPost(newPost))
         if(!error){
             resetForm()
         }
@@ -90,7 +92,8 @@ const PostShare = () => {
                     <UilSchedule />
                     Shedule
                 </div>
-                <button  disabled={loading ? true :false} className="button ps-button" onClick={handleSubmit}>{loading ? "uploading":"Share"}</button>
+                <Button  loading={loading} className='button ps-button' onClick={handleSubmit}> {loading ? "uploading":"Share"}</Button>
+               
                 <div style={{ display: "none" }}>
                     <input
                     type="file"

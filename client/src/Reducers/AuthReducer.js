@@ -23,6 +23,15 @@ export const authReducer=(state={authData:null,loading:false,error:false},action
         case "LOGOUT":
             return {...state,authData:null}
             break;
+        case "FOLLOW_SUCCESS":
+            const{id}=action.data
+            if(state.authData.user.following.includes(id)){
+                state.authData.user.following.splice(state.authData.user.following.indexOf(id),1)
+            }else{
+                state.authData.user.following.push(id)
+            }
+            return {...state,authData:state.authData}
+            break
         default:
             return {...state,error:false}
             break;
