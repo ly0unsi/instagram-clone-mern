@@ -30,7 +30,7 @@ const postReducer=(state={posts:[],loading:false,error:null,uploading:false},act
                     }
                 }
               
-                return state
+                return {...state,posts:state.posts}
             break
             case "UPDATE_POST_SUCCESS":
                 const {updatePostId}=action.data

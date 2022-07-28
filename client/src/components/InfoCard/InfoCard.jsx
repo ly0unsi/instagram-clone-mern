@@ -15,7 +15,7 @@ const InfoCard = ({profileUser}) => {
 
   const userLogout=()=>{
     dispatch(logout())
-    navigate("../auth");
+    navigate("/auth");
   }
  
   return (

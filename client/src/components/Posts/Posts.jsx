@@ -14,6 +14,7 @@ const Posts = () => {
   const location =useLocation()
   useEffect(() => {
       dispatch(getTimelinePosts(user._id))
+      console.log(posts.length);
   }, [dispatch,user.following.length,posts.length])
   return (
 

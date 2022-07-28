@@ -71,7 +71,7 @@ export const followUser=async (req,res)=>{
                 res.status(200).json('User unfollowed')
             }
         } catch (error) {
-            res.status(400).json(error)
+            res.status(400).json(error.message)
         }
     }
     

@@ -25,23 +25,29 @@ const Profile = () => {
       }
     }
     fetchProfile()
-  }, [profileUserId,user,followers])
+  }, [profileUserId,user,user.following.length])
   
   return (
   
-    <div className="Profile">
-       
+   <div className="Profile">
+   {profileUser && 
+   <>
+   
           <ProfileLeft profileUser={profileUser}/>
 
-          <div className="Profile-center">
-              <ProfileCard location="profilePage" profileUser={profileUser}/>
-              <PostSide profileUser={profileUser}/>
-          </div>
+        <div className="Profile-center">
+            <ProfileCard location="profilePage" profileUser={profileUser}/>
+            <PostSide profileUser={profileUser}/>
+        </div>
 
-          <RightSide/>
-          <ToastContainer />
-            
-    </div>
+        <RightSide/>
+        <ToastContainer />
+   </>
+       
+   }
+</div>
+  
+    
     
   )
 }

@@ -7,6 +7,7 @@ import UserRoute from "./routes/UserRoute.js";
 import postRoute from "./routes/PostRoute.js";
 import cors from "cors";
 import uploadRoute from "./routes/UploadRoute.js";
+import CommentRoute from "./routes/CommentRoute.js";
 
 const app=express();
 app.use(express.static('public'))
@@ -27,3 +28,4 @@ app.use('/auth',AuthRoute)
 app.use('/user',UserRoute)
 app.use('/post',postRoute)
 app.use('/upload',uploadRoute)
+app.use('/comment',CommentRoute)

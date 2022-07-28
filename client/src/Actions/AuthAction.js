@@ -7,7 +7,12 @@ export const login = (formData)=>async (dispatch)=>{
         const {data}=await AuthApi.login(formData)
         dispatch({type:"AUTH_COMPLETE",data:data})
     } catch (error) {
-        toast.error('Something Wentwrong', {
+        var errMsg
+        if (error.response.data.message) 
+            errMsg=error.response.data.message
+        else
+            errMsg=error.response.data
+        toast.error(errMsg, {
             position: "bottom-center",
             autoClose: 3000,
             hideProgressBar: false,
@@ -16,6 +21,7 @@ export const login = (formData)=>async (dispatch)=>{
             draggable: true,
             progress: undefined,
             });
+        
         dispatch({type:"AUTH_FAILED"})
     }
     
@@ -26,7 +32,12 @@ export const signup = (formData)=>async (dispatch)=>{
         const {data}=await AuthApi.signup(formData)
         dispatch({type:"AUTH_COMPLETE",data:data})
     } catch (error) {
-        toast.error('Please choose another username', {
+        var errMsg
+        if (error.response.data.message) 
+            errMsg=error.response.data.message
+        else
+            errMsg=error.response.data
+        toast.error(errMsg, {
             position: "bottom-center",
             autoClose: 3000,
             hideProgressBar: false,

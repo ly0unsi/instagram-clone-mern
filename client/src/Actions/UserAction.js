@@ -16,8 +16,12 @@ export const updateUser=(id, formData)=> async(dispatch)=> {
             });
     }   
     catch(error){
-        dispatch({type: "UPDATING_FAIL"})
-        toast.error('Something went wrong', {
+        var errMsg
+        if (error.response.data.message) 
+            errMsg=error.response.data.message
+        else
+            errMsg=error.response.data
+        toast.error(errMsg, {
             position: "bottom-center",
             autoClose: 3000,
             hideProgressBar: false,
@@ -26,6 +30,8 @@ export const updateUser=(id, formData)=> async(dispatch)=> {
             draggable: true,
             progress: undefined,
             });
+        dispatch({type: "UPDATING_FAIL"})
+        
     }
 }
 export const getFollowers=(id)=>async(dispatch)=>{
@@ -34,8 +40,12 @@ export const getFollowers=(id)=>async(dispatch)=>{
         const{data}=await UserApi.getFollowers(id)
         dispatch({type:'FETCH_FOLLOWERS_SUCCESS',data:data})
     } catch (error) {
-        dispatch({type: "FETCH_FOLLOWERS_FAIL"})
-        toast.error('Fetching followers failed', {
+        var errMsg
+        if (error.response.data.message) 
+            errMsg=error.response.data.message
+        else
+            errMsg=error.response.data
+        toast.error(errMsg, {
             position: "bottom-center",
             autoClose: 3000,
             hideProgressBar: false,
@@ -44,6 +54,8 @@ export const getFollowers=(id)=>async(dispatch)=>{
             draggable: true,
             progress: undefined,
             });
+        dispatch({type: "FETCH_FOLLOWERS_FAIL"})
+        
     }
 }
 export const followUser=(id,authUserId)=>async(dispatch)=>{
@@ -51,8 +63,12 @@ export const followUser=(id,authUserId)=>async(dispatch)=>{
         await UserApi.followUser(id,authUserId)
         dispatch({type:'FOLLOW_SUCCESS',data:{authUserId,id}})
     } catch (error) {
-        dispatch({type: "FOLLOW_FAIL"})
-        toast.error('Follow Failed', {
+        var errMsg
+        if (error.response.data.message) 
+            errMsg=error.response.data.message
+        else
+            errMsg=error.response.data
+        toast.error(errMsg, {
             position: "bottom-center",
             autoClose: 3000,
             hideProgressBar: false,
@@ -61,7 +77,6 @@ export const followUser=(id,authUserId)=>async(dispatch)=>{
             draggable: true,
             progress: undefined,
             });
-       
-            console.log(error)
+        dispatch({type: "FOLLOW_FAIL"})
     }
 }

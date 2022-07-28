@@ -24,9 +24,14 @@ export const uploadPost=(data)=>async (dispatch)=>{
             });
        
     } catch (error) {
-        toast.error('Desc Field is required', {
+        var errMsg
+        if (error.response.data.message) 
+            errMsg=error.response.data.message
+        else
+            errMsg=error.response.data
+        toast.error(errMsg, {
             position: "bottom-center",
-            autoClose: 2000,
+            autoClose: 3000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
