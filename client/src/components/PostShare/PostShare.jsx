@@ -46,8 +46,7 @@ const PostShare = () => {
         e.preventDefault()
         const newPost={
             userId:user._id,
-            desc:desc.current.value,
-            user:{profilePicture:user.profilePicture,firstname:user.firstname,lastname:user.lastname,_id:user._id,username:user.username,followers:user.followers}
+            desc:desc.current.value
         }
         if(image){
             const data =new FormData()
@@ -92,7 +91,7 @@ const PostShare = () => {
                     <UilSchedule />
                     Shedule
                 </div>
-                <Button  loading={loading} className='button ps-button' onClick={handleSubmit}> {loading ? "uploading":"Share"}</Button>
+                <Button  loading={loading} className='button fc-button' onClick={handleSubmit}> {loading ? "uploading":"Share"}</Button>
                
                 <div style={{ display: "none" }}>
                     <input

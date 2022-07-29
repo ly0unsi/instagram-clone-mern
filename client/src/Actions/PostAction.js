@@ -4,8 +4,10 @@ export const getTimelinePosts = (id) => async (dispatch) => {
   dispatch({ type: "RETREIVING_START" });
   try {
     const { data } = await PostsApi.getTimelinePosts(id);
+   
     dispatch({ type: "RETREIVING_SUCCESS", data: data });
   } catch (error) {
+    console.log(error)
     var errMsg
     if (error.response.data.message) 
         errMsg=error.response.data.message
@@ -83,5 +85,24 @@ export const updatePost=(postId,updatedPost)=>async (dispatch)=>{
             draggable: true,
             progress: undefined,
             });
+  }
+}
+
+export const getPostComments=(postId)=>async(dispatch)=>{
+  dispatch({type:"GET_COMMENTS_START"})
+  try {
+    const {data}= await PostsApi.getPostComments(postId)
+    dispatch({type:"GET_COMMENTS_SUCCESS",data:data})
+  } catch (error) {
+    toast.error(error.response?.data, {
+      position: "bottom-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      });
+      dispatch({type:"GET_COMMENTS_FAIL"})
   }
 }

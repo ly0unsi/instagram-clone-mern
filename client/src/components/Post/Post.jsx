@@ -10,21 +10,22 @@ import { useDispatch, useSelector } from 'react-redux'
 import { EllipsisOutlined ,HeartFilled,HeartOutlined} from '@ant-design/icons';
 import { Dropdown, Menu, Space } from 'antd';
 import { useState } from 'react'
-import { likePost } from '../../Actions/PostAction'
+import { getPostComments, likePost } from '../../Actions/PostAction'
 import { useEffect } from 'react'
 import FollowButton from '../FollowButon/FollowButton'
 import { useLocation } from 'react-router-dom'
 import { getUser } from '../../Api/UserApi'
 import DeleteModal from '../DeleteModal/DeleteModal'
 import EditModal from '../EditModal/EditModal'
+import Comments from '../Comments/Comments'
 const Post = ({post}) => {
   const {user} =useSelector((state)=>state.authReducer.authData)
-  const {posts} =useSelector((state)=>state.postReducer)
+  const comments =useSelector((state)=>state.postReducer.comments)
   const [liked, setliked] = useState(post.likes?.includes(user._id))
   const [likes, setlikes] = useState(post.likes?.length)
-  const [postOwner, setpostOwner] = useState(null)
   const [deleteModalOpened, setdeleteModalOpened] = useState(false)
   const [editModalOpend, seteditModalOpend] = useState(false)
+  const [commentsOpened, setcommentsOpened] = useState(false)
   const location =useLocation()
   const dispatch =useDispatch()
   
@@ -48,39 +49,30 @@ const Post = ({post}) => {
     liked ? setlikes((prev)=>prev-1):setlikes((prev)=>prev+1)
     dispatch (likePost(id,user._id))
   }
-  const setLikekedEffect=()=>{
-    setliked(post.likes?.includes(user._id))
-    setlikes(post.likes?.length)
-  }
-  const getPostOwnerEffect=async()=>{
-    const {data}=await getUser(post.userId)
-    setpostOwner(data)
-  }
-
   useEffect(() => {
-    getPostOwnerEffect()
-  
-  }, [user,posts])
+    dispatch (getPostComments(post._id))
+    
+  }, [])
   
 
   return (
     <div className='Post'>
 
-      {  postOwner && location.pathname=="/home" && 
-        <div className={postOwner?._id !== user._id ? "w-100  flex items-center gap-[70%]":"w-100  flex items-center gap-[82%]"}> 
+      {  post.user && location.pathname=="/home" && 
+        <div className={post.user?._id !== user._id ? "w-100  flex items-center gap-[70%]":"w-100  flex items-center gap-[82%]"}> 
         <div className='flex items-center'>
-            <img className='w-9 h-9 mr-2 object-cover rounded-full' src={postOwner?.profilePicture ? process.env.REACT_APP_STORAGE_URL + postOwner?.profilePicture: Profile} alt="" />
+            <img className='w-9 h-9 mr-2 object-cover rounded-full' src={post.user?.profilePicture ? process.env.REACT_APP_STORAGE_URL + post.user?.profilePicture: Profile} alt="" />
             <span className='font-medium text-sm'>
-            {postOwner?.username}
+            {post.user?.username}
             </span> 
 
         </div>
        
         {
         
-          postOwner?._id !== user._id ?
+          post.user?._id !== user._id ?
           <div className='float-right ml-4'>
-            <FollowButton profile={postOwner} />
+            <FollowButton profile={post.user} />
           </div>
           :
           <div className="float-right w-3 ">
@@ -99,20 +91,26 @@ const Post = ({post}) => {
         
       </div>
       }
+      
         <img src={post.image && process.env.REACT_APP_STORAGE_URL+ post.image} alt="" className='object-cover'  />
             <div className="postReact items-center">
                 
                 {liked ?<HeartFilled onClick={()=>like(post._id)} style={{fontSize:"30px",color:"#8e5aff"}}/> :<HeartOutlined onClick={()=>like(post._id)} style={{fontSize:"30px",color:"#404040"}} />}
-                <img src={Comment} alt="" />
+                <img src={Comment} onClick={()=>setcommentsOpened((prev)=>!prev)} alt="" />
                 <img src={Share} alt="" />
                 <span className='float-right text-xs'>{moment(post.createdAt).startOf('hour').fromNow()}</span>
             </div>
             <span style={{color: "var(--gray)", fontSize: '12px'}}>{likes} likes</span>
             
-            <div className="detail">
+            <div className="detail border-b-2">
                 <span><b>{post.name}</b></span>
                 <span> {post.desc}</span>
             </div>
+            {
+              commentsOpened &&
+              <Comments comments={comments} postId={post._id}/>
+            }
+           
             <DeleteModal modalOpened={deleteModalOpened} setModalOpened={setdeleteModalOpened} postOwnerId={post.userId} postId={post._id}/>
             <EditModal modalOpened={editModalOpend} setModalOpened={seteditModalOpend} post={post} />
     </div>

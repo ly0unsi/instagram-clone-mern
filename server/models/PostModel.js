@@ -4,7 +4,6 @@ import UserModel from "./UserModel.js";
 const postSchema = mongoose.Schema(
   {
     userId: { type: String, required: true },
-    user:{type:Object,required:true},
     desc: {type:String,required:true},
     likes: [],
     image: String,

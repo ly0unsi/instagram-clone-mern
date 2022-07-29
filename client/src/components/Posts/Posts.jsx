@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { useDispatch ,useSelector} from 'react-redux'
-import { getTimelinePosts } from '../../Actions/PostAction'
+import { getPostComments, getTimelinePosts } from '../../Actions/PostAction'
 import { LoadingOutlined } from '@ant-design/icons';
 import Post from '../Post/Post'
 import './Posts.css'

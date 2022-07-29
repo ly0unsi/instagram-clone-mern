@@ -98,12 +98,28 @@ export const getTimelinePosts=async (req,res)=>{
             }
                 
         ])
-        res.status(200).json(userPosts.concat(...followingPosts[0].followingPosts)
-            .sort((a,b)=>{
-                return b.createdAt - a.createdAt
-            })
-        )
+       
+        let userd={};
+        let posts=userPosts.concat(...followingPosts[0].followingPosts).sort((a,b)=>{
+            return b.createdAt - a.createdAt
+        })
+        let results=[];
+        for(const doc of posts){
+            try {
+                userd =await UserModel.findById(doc.userId)
+                if (doc.userId===userId)   results.push({...doc._doc,user:userd})  ; else   results.push({...doc,user:userd});
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+       console.log(results)
+        res.status(200).json(results)
+       
     } catch (error) {
         res.status(400).json(error.message)
     }
+
+
+    
 }

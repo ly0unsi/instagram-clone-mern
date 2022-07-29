@@ -28,23 +28,21 @@ export const deleteComment=async (req,res)=>{
 
 export const getPostComment=async (req,res)=>{
     const id =req.params.id
+    let results=[];
+    let userd;
     try {
-
-        const comments =await UserModel.aggregate([
-        
-            {
-                $lookup: {
-                    from: "posts",
-                    localField: "_id",
-                    foreignField: "userId",
-                    as: 'comments'
-                    }
+        const comments =await CommentModel.find({postId:id})
+        for(const doc of comments){
+            try {
+                userd =await UserModel.findById(doc.userId)
+                results.push({...doc._doc,user:userd}) ;
+            } catch (error) {
+                console.log(error);
             }
-        ])
-        
-        res.status(200).json(comments)
+        }
+            
+        res.status(200).json(results)
     } catch (error) {
-        
+        res.status(400).json(error.message)
     }
-
 }
