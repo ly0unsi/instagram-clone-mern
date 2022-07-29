@@ -20,7 +20,7 @@ import EditModal from '../EditModal/EditModal'
 import Comments from '../Comments/Comments'
 const Post = ({post}) => {
   const {user} =useSelector((state)=>state.authReducer.authData)
-  const comments =useSelector((state)=>state.postReducer.comments)
+  const comments =useSelector((state)=>state.CommentReducer.comments)
   const [liked, setliked] = useState(post.likes?.includes(user._id))
   const [likes, setlikes] = useState(post.likes?.length)
   const [deleteModalOpened, setdeleteModalOpened] = useState(false)

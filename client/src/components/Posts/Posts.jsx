@@ -18,7 +18,7 @@ const Posts = () => {
   }, [dispatch,user.following.length,posts.length])
   return (
 
-    <div className='Posts'>
+    <div className='Posts overflow-y-scroll'>
       {
         loading  ? <LoadingOutlined style={{ fontSize: '38px',marginTop:"25%",color:"#8e5aff"}} />: location.pathname!=="/home" ?
         posts.filter((post)=>post.userId===user._id).map((post,id)=>{

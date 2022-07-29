@@ -19,10 +19,10 @@ const Comment = ({comment}) => {
         
         </div>
         <div className='flex relative'>
-            <textarea disabled={textDis} style={ {border:!textDis &&  "1px solid black"}}  cols={50}>{comment.body}</textarea>
+            <textarea disabled={textDis} style={ {border:!textDis &&  "1px solid black"}}  value={comment.body}  cols={50}/>
             {
               comment.userId===user._id &&
-              <EditOutlined className='absolute right-3 top-2 cursor-pointer text-lg' onClick={()=>settextDis(false)}/>
+              <EditOutlined className='absolute right-3 top-3 cursor-pointer text-sm' onClick={()=>settextDis(false)}/>
             }
           </div>
         </div>

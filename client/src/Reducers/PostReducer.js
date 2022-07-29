@@ -44,13 +44,7 @@ const postReducer=(state={posts:[],comments:[],loading:false,error:null,uploadin
             })
             return {...state,posts:updatedPosts}
         break
-        case "GET_COMMENTS_SUCCESS":
-           let comments=[]
-            
-          
-            return {...state,comments:[...state.comments,action.data]}
-            break
-       
+        
         default:
             return {...state,error:false};
         break;

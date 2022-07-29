@@ -109,7 +109,7 @@ export const getTimelinePosts=async (req,res)=>{
                 userd =await UserModel.findById(doc.userId)
                 if (doc.userId===userId)   results.push({...doc._doc,user:userd})  ; else   results.push({...doc,user:userd});
             } catch (error) {
-                console.log(error);
+                res.status(400).json(error.message)
             }
         }
 
