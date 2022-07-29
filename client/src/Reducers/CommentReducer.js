@@ -1,4 +1,4 @@
-const CommentReducer=(state={comments:[],loading,error},action)=>{
+export const CommentReducer=(state={comments:[],loading:false,error:false},action)=>{
     switch(action.type){
         case "GET_COMMENTS_SUCCESS":
              return {...state,comments:[...state.comments,action.data]}
@@ -14,4 +14,3 @@ const CommentReducer=(state={comments:[],loading,error},action)=>{
    
        
 }
-export  default CommentReducer

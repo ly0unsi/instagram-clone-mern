@@ -3,8 +3,6 @@ import Profile from '../../img/defaultProfile.png'
 import './Post.css'
 import Comment from '../../img/comment.png'
 import Share from '../../img/share.png'
-import Heart from '../../img/like.png'
-import NotLike from '../../img/notlike.png'
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux'
 import { EllipsisOutlined ,HeartFilled,HeartOutlined} from '@ant-design/icons';
@@ -14,7 +12,6 @@ import { getPostComments, likePost } from '../../Actions/PostAction'
 import { useEffect } from 'react'
 import FollowButton from '../FollowButon/FollowButton'
 import { useLocation } from 'react-router-dom'
-import { getUser } from '../../Api/UserApi'
 import DeleteModal from '../DeleteModal/DeleteModal'
 import EditModal from '../EditModal/EditModal'
 import Comments from '../Comments/Comments'
@@ -28,7 +25,7 @@ const Post = ({post}) => {
   const [commentsOpened, setcommentsOpened] = useState(false)
   const location =useLocation()
   const dispatch =useDispatch()
-  
+  console.log(comments)
   const menu = (
     <Menu
       items={[
@@ -51,7 +48,6 @@ const Post = ({post}) => {
   }
   useEffect(() => {
     dispatch (getPostComments(post._id))
-    
   }, [])
   
 

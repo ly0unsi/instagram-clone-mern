@@ -2,12 +2,12 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {SendOutlined}from '@ant-design/icons';
 import Comment from './Comment/Comment'
+import { useState } from 'react';
+import { addComment } from '../../Actions/CommentAction';
 
 const Comments = ({comments,postId}) => {
   const {user} =useSelector((state)=>state.authReducer.authData)
   const dispatch=useDispatch()
-
- 
   const [formData, setformData] = useState({
     body:"",
     postId:postId,
