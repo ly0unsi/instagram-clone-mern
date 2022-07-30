@@ -88,21 +88,3 @@ export const updatePost=(postId,updatedPost)=>async (dispatch)=>{
   }
 }
 
-export const getPostComments=(postId)=>async(dispatch)=>{
-  dispatch({type:"GET_COMMENTS_START"})
-  try {
-    const {data}= await PostsApi.getPostComments(postId)
-    dispatch({type:"GET_COMMENTS_SUCCESS",data:data})
-  } catch (error) {
-    toast.error(error.response?.data, {
-      position: "bottom-center",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      });
-      dispatch({type:"GET_COMMENTS_FAIL"})
-  }
-}

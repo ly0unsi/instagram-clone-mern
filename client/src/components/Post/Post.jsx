@@ -8,7 +8,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { EllipsisOutlined ,HeartFilled,HeartOutlined} from '@ant-design/icons';
 import { Dropdown, Menu, Space } from 'antd';
 import { useState } from 'react'
-import { getPostComments, likePost } from '../../Actions/PostAction'
+import { getPostComments,  } from '../../Actions/CommentAction'
+import {likePost} from '../../Actions/PostAction'
 import { useEffect } from 'react'
 import FollowButton from '../FollowButon/FollowButton'
 import { useLocation } from 'react-router-dom'
@@ -25,7 +26,6 @@ const Post = ({post}) => {
   const [commentsOpened, setcommentsOpened] = useState(false)
   const location =useLocation()
   const dispatch =useDispatch()
-  console.log(comments)
   const menu = (
     <Menu
       items={[
@@ -48,9 +48,8 @@ const Post = ({post}) => {
   }
   useEffect(() => {
     dispatch (getPostComments(post._id))
-  }, [])
+  }, [dispatch])
   
-
   return (
     <div className='Post'>
 

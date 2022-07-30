@@ -11,13 +11,16 @@ const Comments = ({comments,postId}) => {
   const [formData, setformData] = useState({
     body:"",
     postId:postId,
-    userId:user.id
+    userId:user._id
   })
   const HandleComment=()=>{
+    resetForm()
     dispatch(addComment(formData))
   }
+  const resetForm =()=>{
+    setformData({...formData,body:null})
+  }
   const handleChange =(e)=>{
-    e.preventDefault()
     setformData({...formData,body:e.target.value})
   }
 
@@ -44,8 +47,7 @@ const Comments = ({comments,postId}) => {
         
      
           <div className='flex relative'>
-          <SendOutlined onClick={HandleComment} className='absolute right-3 top-2 cursor-pointer text-lg'/>
-        
+          <SendOutlined onClick={HandleComment} className='absolute right-3 top-2 cursor-pointer text-lg z-10'/>
           <textarea onChange={handleChange} className='leaveComment' placeholder="Leave a comment" cols="30" rows="10"></textarea>
         </div>
       

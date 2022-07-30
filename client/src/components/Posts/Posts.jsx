@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { useDispatch ,useSelector} from 'react-redux'
-import { getPostComments, getTimelinePosts } from '../../Actions/PostAction'
+import {  getTimelinePosts } from '../../Actions/PostAction'
 import { LoadingOutlined } from '@ant-design/icons';
 import Post from '../Post/Post'
 import './Posts.css'
@@ -9,12 +9,12 @@ import { useLocation } from 'react-router-dom'
 const Posts = () => {
   const dispatch =useDispatch()
   const {user} =useSelector((state)=>state.authReducer.authData)
-
+  const comments =useSelector((state)=>state.CommentReducer.comments)
   const {posts,loading} =useSelector((state)=>state.postReducer)
   const location =useLocation()
+  console.log(comments)
   useEffect(() => {
       dispatch(getTimelinePosts(user._id))
-      console.log(posts.length);
   }, [dispatch,user.following.length,posts.length])
   return (
 

@@ -1,4 +1,4 @@
-const postReducer=(state={posts:[],comments:[],loading:false,error:null,uploading:false},action)=>{
+const postReducer=(state={posts:[],loading:false,error:null,uploading:false},action)=>{
     switch (action.type) {
         case "UPLAOD_START":
                 return {...state,uploading:true,error:null}
@@ -15,6 +15,7 @@ const postReducer=(state={posts:[],comments:[],loading:false,error:null,uploadin
             return { ...state, loading: true, error: false };
         break
         case "RETREIVING_SUCCESS":
+            console.log(state)
             return { ...state, posts:action.data,loading:false,error:false};
             break
         break
