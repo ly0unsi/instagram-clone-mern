@@ -38,7 +38,7 @@ const Comments = ({comments,postId}) => {
                   return(
                     <CSSTransition key={key} timeout={700} classNames="alert">
                         <div key={key}> 
-                          <Comment comment={comment}/>
+                          <Comment comment={comment} postId={postId}/>
                         </div>
                     </CSSTransition>
                   )

@@ -91,7 +91,7 @@ const Post = ({post}) => {
             <div className="postReact items-center">
                 
                 {liked ?<HeartFilled onClick={()=>like(post._id)} style={{fontSize:"30px",color:"#8e5aff"}}/> :<HeartOutlined onClick={()=>like(post._id)} style={{fontSize:"30px",color:"#404040"}} />}
-                <img src={Comment} onClick={()=>setcommentsOpened((prev)=>!prev)} alt="" />
+                <img src={Comment} className='cursor-pointer' onClick={()=>setcommentsOpened((prev)=>!prev)} alt="" />
                 <img src={Share} alt="" />
                 <span className='float-right text-xs'>{moment(post.createdAt).startOf('hour').fromNow()}</span>
             </div>

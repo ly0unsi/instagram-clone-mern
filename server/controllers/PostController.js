@@ -29,7 +29,7 @@ export const updatePost =async (req,res)=>{
     try {
         const post =await PostModel.findById(postId)
         if (userId===post.userId) {
-            await post.updateOne({$set:req.body})
+            await post.updateOne({$set:req.body,new:true})
             res.status(200).json(post)
         }else{
             res.status(403).json("Action forbidden Son!!")

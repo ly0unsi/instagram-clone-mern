@@ -2,15 +2,36 @@ import React from 'react'
 import { useState } from 'react'
 import profileImage from '../../../img/defaultProfile.png'
 import "./Coment.css"
-import {EditOutlined , DeleteOutlined}from '@ant-design/icons';
+import {EditOutlined , DeleteOutlined,SendOutlined}from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteComment } from '../../../Actions/CommentAction';
-const Comment = ({comment}) => {
+import { useRef } from 'react';
+import { useEffect } from 'react';
+import { useOnClickOutside } from '../../../hooks';
+const Comment = ({comment,postId}) => {
   const dispatch =useDispatch()
+  const ref =useRef()
+  const textAreaRef=useRef()
   const [textDis, settextDis] = useState(true)
   const {user} =useSelector((state)=>state.authReducer.authData)
+  const [formdata, setformdata] = useState({
+    body:comment.body,
+    currentUserId:user._id,
+    userId:user._id
+  })
+  const handleChange=(e)=>{
+    setformdata({...formdata,body:e.target.value})
+  }
   const handleDeleteComment=()=>{
     dispatch(deleteComment(user._id,comment._id))
+  }
+
+  useOnClickOutside(ref, () =>{
+     settextDis(true)
+     setformdata({...formdata,body:comment.body})
+  });
+  const handleEditComment=()=>{
+    dispatch(editComment(formdata))
   }
   return (
     <div className='flex items-center gap-2 mt-2'>
@@ -23,13 +44,22 @@ const Comment = ({comment}) => {
          
         
         </div>
-        <div className='flex relative'>
-            <textarea disabled={textDis} style={ {border:!textDis &&  "1px solid black"}}  value={comment.body}  cols={50}/>
+        <div className='flex relative' ref={ref}>
+            <textarea disabled={textDis}  ref={textAreaRef}  style={ {border:!textDis &&  "1px solid black"}}  value={formdata.body} onChange={handleChange}  cols={50}/>
             {
               comment.userId===user._id &&
               <>
-                <EditOutlined className='absolute right-3 top-3 cursor-pointer text-sm' onClick={()=>settextDis(false)}/>
-                <DeleteOutlined onClick={handleDeleteComment} className='absolute right-8 text-red-500 top-3 cursor-pointer text-sm' />
+              {
+                textDis ?
+                        <>
+                          <EditOutlined className='absolute right-3 top-3 cursor-pointer text-sm' onClick={()=>{settextDis(false);textAreaRef.current.focus()}}/>
+                          <DeleteOutlined onClick={handleDeleteComment} className='absolute right-8 text-red-500 top-3 cursor-pointer text-sm' />
+                        </>:
+                        <SendOutlined onClick={handleEditComment} className='absolute right-3 top-3 cursor-pointer text-sm z-10'/>
+
+              }
+                
+                
               </>
             }
           </div>

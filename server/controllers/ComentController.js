@@ -47,3 +47,21 @@ export const getPostComment=async (req,res)=>{
         res.status(400).json(error.message)
     }
 }
+export const editComment=async (req,res)=>{
+    const id = req.params.id
+    const {currentUserId,body}=req.body
+    let comment = await CommentModel.findById(id)
+    try {
+        if (currentUserId ===comment.userId) {
+            await comment.updateOne({$set:{body:body},new:true})
+            const userd =await UserModel.findById(comment.userId)
+            const updatedComment={...comment._doc,user:userd}
+            res.status(200).json(updatedComment)
+        }else{
+            res.status(403).json("Not Allowed")
+        }
+       
+    } catch (error) {
+        res.status(400).json(error.message)   
+    }
+}
