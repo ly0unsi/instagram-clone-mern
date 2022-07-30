@@ -73,7 +73,7 @@ body{
 .alert-enter-active {
   opacity: 1;
   transform: translateX(0);
-  transition: all 400ms cubic-bezier(.47,2,.41,1.5);
+  transition: all 200ms cubic-bezier(.47,0.5,.41,0.5);
 }
 .alert-exit {
   opacity: 1;

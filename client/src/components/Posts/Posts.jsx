@@ -12,12 +12,11 @@ const Posts = () => {
   const comments =useSelector((state)=>state.CommentReducer.comments)
   const {posts,loading} =useSelector((state)=>state.postReducer)
   const location =useLocation()
-  console.log(comments)
   useEffect(() => {
       dispatch(getTimelinePosts(user._id))
   }, [dispatch,user.following.length,posts.length])
+  
   return (
-
     <div className='Posts overflow-y-scroll'>
       {
         loading  ? <LoadingOutlined style={{ fontSize: '38px',marginTop:"25%",color:"#8e5aff"}} />: location.pathname!=="/home" ?

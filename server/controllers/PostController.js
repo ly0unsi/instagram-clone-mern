@@ -1,6 +1,7 @@
 import mongoose from "mongoose"
 import PostModel from "../models/PostModel.js"
 import UserModel from "../models/UserModel.js"
+import CommentModel from "../models/CommentModel.js"
 
 export const addPost=async (req,res)=>{
     const {userId,desc,image,user} =req.body
@@ -44,6 +45,7 @@ export const deletePost=async (req,res)=>{
     console.log(userId)
     try {
         const post =await PostModel.findById(postId)
+        await CommentModel.deleteMany({"postId":post._id})
         
         if (userId===post.userId) {
             await PostModel.deleteOne(post)

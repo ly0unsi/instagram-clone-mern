@@ -42,7 +42,7 @@ export const getFollowers=(id)=>async(dispatch)=>{
     } catch (error) {
         var errMsg
         if (error.response.data.message) 
-            errMsg=error.response.data.message
+            errMsg=error.response.data?.message
         else
             errMsg=error.response.data
         toast.error(errMsg, {

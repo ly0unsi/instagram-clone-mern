@@ -4,12 +4,13 @@ import profileImage from '../../../img/defaultProfile.png'
 import "./Coment.css"
 import {EditOutlined , DeleteOutlined}from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
+import { deleteComment } from '../../../Actions/CommentAction';
 const Comment = ({comment}) => {
   const dispatch =useDispatch()
   const [textDis, settextDis] = useState(true)
   const {user} =useSelector((state)=>state.authReducer.authData)
-  const deleteComment=()=>{
-    dispatch(deleteComment(comment._id,user._id))
+  const handleDeleteComment=()=>{
+    dispatch(deleteComment(user._id,comment._id))
   }
   return (
     <div className='flex items-center gap-2 mt-2'>
@@ -28,7 +29,7 @@ const Comment = ({comment}) => {
               comment.userId===user._id &&
               <>
                 <EditOutlined className='absolute right-3 top-3 cursor-pointer text-sm' onClick={()=>settextDis(false)}/>
-                <DeleteOutlined onClick={deleteComment} className='absolute right-8 text-red-500 top-3 cursor-pointer text-sm' />
+                <DeleteOutlined onClick={handleDeleteComment} className='absolute right-8 text-red-500 top-3 cursor-pointer text-sm' />
               </>
             }
           </div>

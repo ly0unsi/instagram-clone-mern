@@ -9,7 +9,7 @@ export const getTimelinePosts = (id) => async (dispatch) => {
   } catch (error) {
     console.log(error)
     var errMsg
-    if (error.response.data.message) 
+    if (error.response.data?.message) 
         errMsg=error.response.data.message
     else
         errMsg=error.response.data
