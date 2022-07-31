@@ -29,3 +29,6 @@ app.use('/user',UserRoute)
 app.use('/post',postRoute)
 app.use('/upload',uploadRoute)
 app.use('/comment',CommentRoute)
+app.use('/',(res,res)=>{
+    res.setEncoding('welcome!!')
+})
