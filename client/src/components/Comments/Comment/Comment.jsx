@@ -4,7 +4,7 @@ import profileImage from '../../../img/defaultProfile.png'
 import "./Coment.css"
 import {EditOutlined , DeleteOutlined,SendOutlined}from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteComment } from '../../../Actions/CommentAction';
+import { deleteComment, editComment } from '../../../Actions/CommentAction';
 import { useRef } from 'react';
 import { useEffect } from 'react';
 import { useOnClickOutside } from '../../../hooks';
@@ -16,8 +16,7 @@ const Comment = ({comment,postId}) => {
   const {user} =useSelector((state)=>state.authReducer.authData)
   const [formdata, setformdata] = useState({
     body:comment.body,
-    currentUserId:user._id,
-    userId:user._id
+    currentUserId:user._id
   })
   const handleChange=(e)=>{
     setformdata({...formdata,body:e.target.value})
@@ -30,8 +29,9 @@ const Comment = ({comment,postId}) => {
      settextDis(true)
      setformdata({...formdata,body:comment.body})
   });
-  const handleEditComment=()=>{
-    dispatch(editComment(formdata))
+  const handleEditComment=async ()=>{
+    dispatch(editComment(formdata,comment._id))
+    settextDis(true)
   }
   return (
     <div className='flex items-center gap-2 mt-2'>

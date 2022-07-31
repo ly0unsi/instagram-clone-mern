@@ -46,3 +46,22 @@ export const  deleteComment=(userId,commentId)=>async (dispatch)=>{
   }
 
 }
+
+export const  editComment=(formdata,commentId)=>async (dispatch)=>{
+  try {
+    
+        const {data}=  await CommentApi.editComment(formdata,commentId)
+        dispatch({type:"EDIT_COMMENT_SUCCESS",data:{body:formdata.body,commentId:commentId}})
+        
+  } catch (error) {
+    toast.error(error.response?.data, {
+      position: "bottom-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      });
+  }
+}

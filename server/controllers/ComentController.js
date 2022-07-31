@@ -56,7 +56,7 @@ export const editComment=async (req,res)=>{
             await comment.updateOne({$set:{body:body},new:true})
             const userd =await UserModel.findById(comment.userId)
             const updatedComment={...comment._doc,user:userd}
-            res.status(200).json(updatedComment)
+            res.status(200).json("Edited")
         }else{
             res.status(403).json("Not Allowed")
         }

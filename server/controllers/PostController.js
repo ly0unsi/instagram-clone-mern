@@ -42,7 +42,6 @@ export const updatePost =async (req,res)=>{
 export const deletePost=async (req,res)=>{
     const postId=req.params.id
     const {userId} =req.body
-    console.log(userId)
     try {
         const post =await PostModel.findById(postId)
         await CommentModel.deleteMany({"postId":post._id})
@@ -115,7 +114,7 @@ export const getTimelinePosts=async (req,res)=>{
             }
         }
 
-       console.log(results)
+     
         res.status(200).json(results)
        
     } catch (error) {

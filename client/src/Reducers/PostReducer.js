@@ -15,7 +15,6 @@ const postReducer=(state={posts:[],loading:false,error:null,uploading:false},act
             return { ...state, loading: true, error: false };
         break
         case "RETREIVING_SUCCESS":
-            console.log(state)
             return { ...state, posts:action.data,loading:false,error:false};
             break
         break
