@@ -91,7 +91,7 @@ const PostShare = () => {
                     <UilSchedule />
                     Shedule
                 </div>
-                <Button  loading={loading} className='button fc-button' onClick={handleSubmit}> {loading ? "uploading":"Share"}</Button>
+                <Button  loading={loading} className='button ps-button' onClick={handleSubmit}> {loading ? "uploading":"Share"}</Button>
                
                 <div style={{ display: "none" }}>
                     <input
