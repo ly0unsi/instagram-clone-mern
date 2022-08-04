@@ -6,7 +6,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 import Post from '../Post/Post'
 import './Posts.css'
 import { useLocation } from 'react-router-dom'
-const Posts = () => {
+const Posts = ({profileUser}) => {
   const dispatch =useDispatch()
   const {user} =useSelector((state)=>state.authReducer.authData)
   const comments =useSelector((state)=>state.CommentReducer.comments)
@@ -20,7 +20,7 @@ const Posts = () => {
     <div className='Posts overflow-y-scroll'>
       {
         loading  ? <LoadingOutlined style={{ fontSize: '38px',marginTop:"25%",color:"#8e5aff"}} />: location.pathname!=="/home" ?
-        posts.filter((post)=>post.userId===user._id).map((post,id)=>{
+        posts.filter((post)=>post.userId===profileUser._id).map((post,id)=>{
           return(
             <div key={id}>
                <Post post={post} />

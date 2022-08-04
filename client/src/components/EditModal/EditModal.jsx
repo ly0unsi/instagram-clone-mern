@@ -5,7 +5,7 @@ import React,{useState,useRef} from 'react'
 import { CSSTransition } from 'react-transition-group';
 import { UilScenery } from "@iconscout/react-unicons";
 import { UilTimes } from "@iconscout/react-unicons";
-import { Button } from 'antd/lib/radio';
+import { Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { updatePost } from "../../Actions/PostAction";
 import { uploadImage } from "../../Api/UplaodApi";
@@ -26,6 +26,12 @@ const EditModal = ({post,modalOpened,setModalOpened}) => {
         _id:post._id
 
     })
+    const toBase64 = file => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
 
     const onChange=(event)=>{
          
@@ -40,83 +46,79 @@ const EditModal = ({post,modalOpened,setModalOpened}) => {
      }
     const handleSubmit =async (e)=>{
         e.preventDefault()
-        let postImage=post.image;
         if(formdata.image.name){
             console.log("voila")
-            const data =new FormData()
-            const filename=Date.now() +formdata.image.name
-            data.append("name",filename)
-            data.append("file",formdata.image)
-            postImage=filename
-            try {
-                dispatch(uploadImage(data))
-            } catch (error) {
-                console.log(error)
-            }
+           const image=await toBase64(formdata.image)  
+            await dispatch(updatePost(post?._id,{...formdata,image:image}))
+        }else{
+            await dispatch(updatePost(post?._id,formdata))
         }
-        await dispatch(updatePost(post?._id,{...formdata,image:postImage}))
+       
         setModalOpened(false)
         
     }
   
   return (
-    <Modal
-    overlayColor={
-      theme.colorScheme === "dark"
-        ? theme.colors.dark[9]
-        : theme.colors.gray[2]
-    }
-    overlayOpacity={0.55}
-    overlayBlur={3}
-    size="50%"
-    opened={modalOpened}
-    onClose={() => setModalOpened(false)}
-  >
-    <div className="PostShare">
-        <div className="w-[100%]">
-            <input onChange={onChange} name='desc' value={formdata.desc} type="text" placeholder="What's Popin ?" />
-            <div className="postOptions">
-                <div className="option" style={{ color: "var(--photo)" }} 
-                    onClick={()=>imageRef.current.click()}
-                >
-                    <UilScenery />
-                    
-                </div>
-                <Button  loading={loading} className='button ps-button' onClick={handleSubmit}> {loading ? "Editing":"Edit"}</Button>
-               
-                <div style={{ display: "none" }}>
-                    <input
-                    type="file"
-                    name="myImage"
-                    ref={imageRef}
-                    onChange={onChange}
-                   
-                    />
-                </div>
-            </div>
-          
-            <CSSTransition
-                in={showImage}
-                timeout={400}
-                classNames="alert"
-                unmountOnExit
-                
-            >
-                    <div className="previewImage">    
-                        <UilTimes onClick={()=>{
-                            setshowImage(false)
-                            setImage(null)
-                            imageRef.current.value=null
-                           
-                        }
-                        } />
-                            <img src={formdata.image?.name ? URL.createObjectURL(formdata.image):process.env.REACT_APP_STORAGE_URL+ formdata.image} alt="" className='object-cover' name='image'  />
+        <Modal
+        overlayColor={
+          theme.colorScheme === "dark"
+            ? theme.colors.dark[9]
+            : theme.colors.gray[2]
+        }
+        overlayOpacity={0.55}
+        overlayBlur={3}
+        size="50%"
+        opened={modalOpened}
+        onClose={() => setModalOpened(false)}
+      >
+        <div className="PostShare">
+            <div className="w-[100%]">
+                <input onChange={onChange} name='desc' value={formdata.desc} type="text" placeholder="What's Popin ?" />
+                <div className="postOptions">
+                    <div className="option" style={{ color: "var(--photo)" }} 
+                        onClick={()=>imageRef.current.click()}
+                    >
+                        <UilScenery />
+                        
                     </div>
-            </CSSTransition> 
-
+                    <Button  loading={loading} type="primary" className='button ps-button' onClick={handleSubmit}> {loading ? "Updating":"Update"}</Button>
+                   
+                    <div style={{ display: "none" }}>
+                        <input
+                        type="file"
+                        name="myImage"
+                        ref={imageRef}
+                        onChange={onChange}
+                       
+                        />
+                    </div>
+                </div>
+              
+                <CSSTransition
+                    in={showImage}
+                    timeout={400}
+                    classNames="alert"
+                    unmountOnExit
+                    
+                >
+                        <div className="previewImage">    
+                            <UilTimes onClick={()=>{
+                                setshowImage(false)
+                                setImage(null)
+                                imageRef.current.value=null
+                               
+                            }
+                            } />
+                                <img src={formdata.image?.name ? URL.createObjectURL(formdata.image):formdata.image} alt="" className='object-cover' name='image'  />
+                        </div>
+                </CSSTransition> 
+    
+            </div>
         </div>
-    </div>
-    </Modal>
+        </Modal>
+        
+    
+    
   )
 }
 

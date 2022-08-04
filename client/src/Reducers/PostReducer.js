@@ -33,20 +33,27 @@ const postReducer=(state={posts:[],loading:false,error:null,uploading:false},act
             
             return {...state,posts:state.posts}
         break
+        case "UPDATE_POST_START":
+            return {...state,uploading:true,error:null}
+            break
         case "UPDATE_POST_SUCCESS":
             const {updatePostId}=action.data
             const {updatedPost}=action.data
+            console.log(updatedPost);
             const updatedPosts=state.posts.map((post)=>{
                 if (post._id===updatePostId) {
-                    post=updatedPost
+                    const {user,...others}=post
+                    post={...updatedPost,user:user}
                 }
                 return post
             })
-            return {...state,posts:updatedPosts}
+            return {...state,posts:updatedPosts,uploading:false}
         break
-        
+        case "UPDATE_POST_FAIL":
+            return {...state,uploading:false,error:true}
+            break
         default:
-            return {...state,error:false};
+            return {...state,error:false,loading:false,uploading:false};
         break;
     }
 }

@@ -56,7 +56,7 @@ const Post = ({post}) => {
       {  post.user && location.pathname=="/home" && 
         <div className={post.user?._id !== user._id ? "w-100  flex items-center gap-[70%]":"w-100  flex items-center gap-[82%]"}> 
         <div className='flex items-center'>
-            <img className='w-9 h-9 mr-2 object-cover rounded-full' src={post.user?.profilePicture ? process.env.REACT_APP_STORAGE_URL + post.user?.profilePicture: Profile} alt="" />
+            <img className='w-9 h-9 mr-2 object-cover rounded-full' src={post.user?.profilePicture ? post.user?.profilePicture: Profile} alt="" />
             <span className='font-medium text-sm'>
             {post.user?.username}
             </span> 
@@ -87,7 +87,7 @@ const Post = ({post}) => {
       </div>
       }
       
-        <img src={post.image && process.env.REACT_APP_STORAGE_URL+ post.image} alt="" className='object-cover'  />
+        <img src={post.image && post.image} alt="" className='object-cover'  />
             <div className="postReact items-center">
                 
                 {liked ?<HeartFilled onClick={()=>like(post._id)} style={{fontSize:"30px",color:"#8e5aff"}}/> :<HeartOutlined onClick={()=>like(post._id)} style={{fontSize:"30px",color:"#404040"}} />}
@@ -107,7 +107,11 @@ const Post = ({post}) => {
             }
            
             <DeleteModal modalOpened={deleteModalOpened} setModalOpened={setdeleteModalOpened} postOwnerId={post.userId} postId={post._id}/>
-            <EditModal modalOpened={editModalOpend} setModalOpened={seteditModalOpend} post={post} />
+            {
+              post &&
+                     <EditModal modalOpened={editModalOpend} setModalOpened={seteditModalOpend} post={post} />
+            }
+            
     </div>
   )
 }

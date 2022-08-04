@@ -17,19 +17,19 @@ const InfoCard = ({profileUser}) => {
     dispatch(logout())
     navigate("/auth");
   }
- 
   return (
     <div className="InfoCard">
       <div className="infoHead">
         <h4>Your Info</h4>
         {
-          params.id===user._id &&
+          params.id===user.username &&
           <div>
             <UilPen
               width="2rem"
               height="1.2rem"
               onClick={() => setModalOpened(true)}
             />
+         
             <ProfileModal
               modalOpened={modalOpened}
               setModalOpened={setModalOpened}
