@@ -36,7 +36,7 @@ const Comment = ({comment,postId}) => {
   return (
     <div className='flex items-center gap-2 mt-2'>
         <div  className="userImage col-md-3">
-            <img className='w-10 h-10 rounded-full object-cover' src={ process.env.REACT_APP_STORAGE_URL + comment.user?.profilePicture} alt="" />
+            <img className='w-10 h-10 rounded-full object-cover' src={ comment.user.profilePicture} alt="" />
         </div>
         <div  className="col-md-9">
         <div className='flex items-center gap-2'>

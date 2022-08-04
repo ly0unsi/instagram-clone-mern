@@ -7,9 +7,9 @@ const User = ({follower}) => {
   return (
     <div className="follower">
         <div>
-        <img src={follower.profilePicture ? storageLink + follower.profilePicture: Profile}  alt="" className='followerImage object-cover' />
+        <img src={follower.profilePicture ?  follower.profilePicture: Profile}  alt="" className='followerImage object-cover' />
             <div className="name">
-              <Link to={`/profile/${follower._id}`} style={{ textDecoration: "none", color: "inherit" }}>
+              <Link to={`/profile/${follower.username}`} style={{ textDecoration: "none", color: "inherit" }}>
                   <span>{follower.username}</span>
               </Link>
             </div>

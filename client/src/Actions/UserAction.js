@@ -5,7 +5,7 @@ export const updateUser=(id, formData)=> async(dispatch)=> {
     try{
         const {data} = await UserApi.updateUser(id, formData);
         dispatch({type: "UPDATING_SUCCESS", data: data})
-        toast.success('Post updated succesfully ', {
+        toast.success('Profile updated succesfully ', {
             position: "bottom-center",
             autoClose: 3000,
             hideProgressBar: false,

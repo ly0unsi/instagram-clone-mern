@@ -22,7 +22,12 @@ function ProfileModal({ modalOpened, setModalOpened}) {
       worksAt:  user.worksAt,
       relationship:  user.relationship
     })
-  
+    const toBase64 = file => new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+   });
   const handleChange=(e)=>{
         if (e.target.files && e.target.files[0]){
             let img=e.target.files[0]
@@ -37,36 +42,18 @@ function ProfileModal({ modalOpened, setModalOpened}) {
   
   const handleSubmit=async (e)=>{
     e.preventDefault()
-    let profileName=user.profilePicture
-    let coverName=user.coverPicture
-    console.log(profileName,coverName)
+    let profilePicture=user.profilePicture
+    let coverPicture=user.coverPicture
     if (formData.profilePicture.name) {
       console.log("fuck")
-      const data =new FormData()
-      profileName=Date.now() +formData.profilePicture.name
-      data.append("name",profileName)
-      data.append("file",formData.profilePicture)
-      
-      try {
-          dispatch(uploadImage(data))
-      } catch (error) {
-          console.log(error)
-      }
+      profilePicture=await toBase64(formData.profilePicture)
+
     }
       if (formData.coverPicture.name){
-        console.log("fuck",formData,user.coverPicture)
-        const data =new FormData()
-        coverName=Date.now() +formData.coverPicture.name
-        data.append("name",coverName)
-        data.append("file",formData.coverPicture)
-        try {
-            dispatch(uploadImage(data))
-        } catch (error) {
-            console.log(error)
-        }
+        coverPicture=await toBase64(formData.coverPicture)
+       
       }
-      console.log(profileName,coverName)
-      await  dispatch(updateUser(user._id,{...formData,coverPicture:coverName,profilePicture:profileName}))
+      await  dispatch(updateUser(user._id,{...formData,coverPicture:coverPicture,profilePicture:profilePicture}))
       if(error){
         setcatcherror(true)
       }
@@ -154,8 +141,8 @@ function ProfileModal({ modalOpened, setModalOpened}) {
             <input type="file" name="coverPicture"   onChange={handleChange}/>
         </div>
 
-        <Button  loading={loading} className='button fc-button' onClick={handleSubmit}>
-         Update
+        <Button  loading={loading} type="primary"  className='button fc-button' onClick={handleSubmit}>
+         {loading ? "Updating" :"Update"}
         </Button>
       </form>
     </Modal>

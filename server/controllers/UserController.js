@@ -1,35 +1,57 @@
 import UserModel from "../models/UserModel.js";
+import cloudinary from "../Utils/Cloudinary.js";
 
 //get a user
 export const getUser=async (req,res)=>{
-    const id=req.params.id
+    const username=req.params.username
     try {
-        const user =await UserModel.findById(id)
+        const user =await UserModel.find({username:username})
+      
         if (user) {
-            const {password,...others}=user._doc
-            res.status(200).json(others)
+            const {password,...others}=user
+            res.status(200).json(others[0])
         }else{
             res.status(404).json("No user Found")
         }
     } catch (error) {
-        res.status(500).json(error)
+        res.status(500).json(error.message)
     }
-   
 }
 export const updateUser=async(req,res)=>{
     const id=req.params.id
-    const {currentUserId,currentUserAdminStatus,password} =req.body
+    const {currentUserId,currentUserAdminStatus,password,profilePicture,coverPicture} =req.body
     if(id===currentUserId || currentUserAdminStatus){
         try {
+            let user=null
             if (password) {
                 const salt=await bcrypt.genSalt(10)
                 req.body.password =await bcrypt(password,salt)
             }
-            const user =await UserModel.findByIdAndUpdate(id,req.body,{new:true})
-            console.log(req.body)
+           
+                let result1,result2=null
+                if(profilePicture.name){
+                    result1 =await cloudinary.uploader.upload(profilePicture,
+                        {
+                        folder:"posts",
+                        }
+                    )
+                    req.body={...req.body,profilePicture:result1.secure_url}
+                }
+                if(coverPicture.name){
+                    result2 =await cloudinary.uploader.upload(coverPicture,
+                        {
+                        folder:"posts",
+                        }
+                    ) 
+                    req.body={...req.body,coverPicture:result2.secure_url}
+                }
+                user =await UserModel.findByIdAndUpdate(id,req.body,{new:true})
+           
+           
+            
             res.status(200).json(user)
         } catch (error) {
-            res.status(500).json(error)
+            res.status(500).json(error.message)
         }
     }else{
         res.status(403).json("Access denied Son!!")

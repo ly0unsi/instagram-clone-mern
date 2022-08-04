@@ -67,9 +67,10 @@ export const deletePost=(postId,userId)=>async (dispatch)=>{
   }
 }
 export const updatePost=(postId,updatedPost)=>async (dispatch)=>{
+  dispatch({type:"UPDATE_POST_START"})
   try {
-    await PostsApi.updatePost(postId,updatedPost)
-    dispatch({type:"UPDATE_POST_SUCCESS",data:{updatedPost:updatedPost,updatePostId:postId}})
+   const  {data}=await PostsApi.updatePost(postId,updatedPost)
+    dispatch({type:"UPDATE_POST_SUCCESS",data:{updatedPost:data,updatePostId:postId}})
   } catch (error) {
     var errMsg
         if (error.response.data.message) 
@@ -85,6 +86,8 @@ export const updatePost=(postId,updatedPost)=>async (dispatch)=>{
             draggable: true,
             progress: undefined,
             });
+
+            dispatch({type:"UPDATE_POST_FAIL"})
   }
 }
 

@@ -2,13 +2,24 @@ import mongoose from "mongoose"
 import PostModel from "../models/PostModel.js"
 import UserModel from "../models/UserModel.js"
 import CommentModel from "../models/CommentModel.js"
-
+import cloudinary from "../Utils/Cloudinary.js"
 export const addPost=async (req,res)=>{
     const {userId,desc,image,user} =req.body
-    const newPost =new PostModel({userId,desc,image,user})
-    try {
-        await newPost.save()
-        res.status(200).json({msg:"post created",post:newPost})
+    const newPost =new PostModel({userId,desc,user})
+        try {
+            if (image) {
+               
+                const result =await cloudinary.uploader.upload(image,
+                    {
+                    folder:"posts",
+                    }
+                )
+                newPost.image=result.secure_url
+               
+            }
+               
+            await newPost.save()
+            res.status(200).json({msg:"post created",post:newPost})
     } catch (error) {
         res.status(400).json(error.message)
     }
@@ -25,11 +36,26 @@ export const getPost=async (req,res)=>{
 }
 export const updatePost =async (req,res)=>{
     const postId=req.params.id
-    const {userId}=req.body
+    const {userId,image,desc}=req.body
     try {
         const post =await PostModel.findById(postId)
+      
         if (userId===post.userId) {
-            await post.updateOne({$set:req.body,new:true})
+            if (image) {
+               
+                const result =await cloudinary.uploader.upload(image,
+                    {
+                    folder:"posts",
+                    }
+                )
+                post.image=result.secure_url
+                await post.updateOne({$set:{image:result.secure_url,desc:desc},new:true})
+               
+            }else{
+               
+                await post.updateOne({$set:{desc:desc},new:true})
+            }
+            post.desc=desc
             res.status(200).json(post)
         }else{
             res.status(403).json("Action forbidden Son!!")
@@ -56,7 +82,9 @@ export const deletePost=async (req,res)=>{
         res.status(400).json(error.message)
     }
 }
+
 export const likePost = async (req, res) => {
+   
     const id = req.params.id;
     const { userId } = req.body;
     try {

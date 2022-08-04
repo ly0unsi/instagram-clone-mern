@@ -7,16 +7,16 @@ import FollowButton from '../FollowButon/FollowButton'
 import './ProfileCard.css'
 const ProfileCard = ({location,profileUser}) => {
   const {posts} =useSelector((state)=>state.postReducer)
-  const storageLink =process.env.REACT_APP_STORAGE_URL
+
   const {user}=useSelector((state)=>state.authReducer.authData)
   return (
     <div className='ProfileCard mt-4'>
         <div className="ProfileImages">
           <img src={ profileUser?.coverPicture
-              ? storageLink + profileUser?.coverPicture
+              ?  profileUser?.coverPicture
               : Cover
           } alt="" className='object-cover' />
-          <img src={profileUser?.profilePicture ? storageLink + profileUser?.profilePicture: Profile} alt="" className='object-cover'  />
+          <img src={profileUser?.profilePicture ? profileUser?.profilePicture: Profile} alt="" className='object-cover'  />
         </div>
         <div className="ProfileName">
           <span>
@@ -61,7 +61,7 @@ const ProfileCard = ({location,profileUser}) => {
         ""
       ) : (
         <span>
-          <Link to={`/profile/${profileUser?._id}`} style={{ textDecoration: "none", color: "inherit" }}>
+          <Link to={`/profile/${profileUser?.username}`} style={{ textDecoration: "none", color: "inherit" }}>
             My Profile
           </Link>
         </span>

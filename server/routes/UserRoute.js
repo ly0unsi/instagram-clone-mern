@@ -2,7 +2,7 @@ import express from "express";
 import { deleteUser, followUser, getAllUsers, getFollowers, getFollowings, getUser, updateUser } from "../controllers/UserController.js";
 
 const UserRoute =express.Router()
-UserRoute.get('/:id',getUser)
+UserRoute.get('/:username',getUser)
 UserRoute.put('/update/:id',updateUser)
 UserRoute.delete('/delete/:id',deleteUser)
 UserRoute.put('/follow/:id',followUser)

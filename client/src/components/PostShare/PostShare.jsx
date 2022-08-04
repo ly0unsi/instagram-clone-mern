@@ -8,9 +8,9 @@ import { UilLocationPoint } from "@iconscout/react-unicons";
 import { UilSchedule } from "@iconscout/react-unicons";
 import { UilTimes } from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from 'react-redux';
-import { uploadImage } from '../../Api/UplaodApi';
 import { uploadPost } from '../../Actions/uploadAction';
-import { Button } from 'antd/lib/radio';
+import { Button } from 'antd';
+
 const storageLink =process.env.REACT_APP_STORAGE_URL
 const PostShare = () => {
     const [image,setImage]=useState(null)
@@ -21,14 +21,19 @@ const PostShare = () => {
     const imageRef=useRef()
     const desc =useRef()
     const dispatch =useDispatch()
-
+    const toBase64 = file => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
 
     const onImageChange=(event)=>{
        console.log("changed") 
         if (event.target.files && event.target.files[0]){
             let img=event.target.files[0]
-        
             setImage(img)
+           
             setshowImage(true)
         }
     }
@@ -49,16 +54,8 @@ const PostShare = () => {
             desc:desc.current.value
         }
         if(image){
-            const data =new FormData()
-            const filename=Date.now() +image.name
-            data.append("name",filename)
-            data.append("file",image)
-            newPost.image=filename
-            try {
-                dispatch(uploadImage(data))
-            } catch (error) {
-                console.log(error)
-            }
+            const file=await toBase64(image)  
+            newPost.image=file
         }
         await dispatch(uploadPost(newPost))
         if(!error){
@@ -69,7 +66,7 @@ const PostShare = () => {
 
   return (
     <div className="PostShare">
-        <img src={user.profilePicture ? storageLink + user.profilePicture: profileImage} alt="" className='object-cover' />
+        <img src={user.profilePicture ? user.profilePicture: profileImage} alt="" className='object-cover' />
         <div>
             <input  ref={desc} type="text" placeholder="What's Popin ?" />
             <div className="postOptions">
