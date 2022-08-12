@@ -6,7 +6,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 import Post from '../Post/Post'
 import './Posts.css'
 import { useLocation } from 'react-router-dom'
-const Posts = ({profileUser}) => {
+const Posts = ({profileUser,socket}) => {
   const dispatch =useDispatch()
   const {user} =useSelector((state)=>state.authReducer.authData)
   const comments =useSelector((state)=>state.CommentReducer.comments)
@@ -32,7 +32,7 @@ const Posts = ({profileUser}) => {
       posts.map((post,id)=>{
         return(
           <div key={id}>
-             <Post post={post}/>
+             <Post socket={socket} post={post}/>
           </div>
            
         )

@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { addComment } from '../../Actions/CommentAction';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
-const Comments = ({comments,postId}) => {
+const Comments = ({comments,postId,setcommentsNumber}) => {
   const {user} =useSelector((state)=>state.authReducer.authData)
   const dispatch=useDispatch()
   const [formData, setformData] = useState({
@@ -16,6 +16,7 @@ const Comments = ({comments,postId}) => {
   })
   const HandleComment=()=>{
     resetForm()
+    setcommentsNumber((prev)=>prev+=1)
     dispatch(addComment(formData))
   }
   const resetForm =()=>{

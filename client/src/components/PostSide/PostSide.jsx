@@ -2,11 +2,11 @@ import React from 'react'
 import Posts from '../Posts/Posts'
 import PostShare from '../PostShare/PostShare'
 import './PostSide.css'
-const PostSide = ({profileUser}) => {
+const PostSide = ({profileUser,socket}) => {
   return (
     <div>
         <PostShare/>
-        <Posts profileUser={profileUser}/>
+        <Posts socket={socket} profileUser={profileUser}/>
     </div>
   )
 }
