@@ -9,23 +9,23 @@ import { useParams } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import { useState,useEffect } from 'react'
 import { getUser } from '../../Api/UserApi'
-const Profile = () => {
+const Profile = ({socket}) => {
   const params=useParams()
-  const profileUserId=params.id
+  const username=params.username
   const [profileUser, setprofileUser] = useState(null)
   const {user}=useSelector((state)=>state.authReducer.authData)
   const {followers}=useSelector((state)=>state.userReducer)
   useEffect(() => {
     const fetchProfile=async ()=>{
-      if (profileUserId===user._id){
+      if (username===user.username){
         setprofileUser(user)
       }else{
-        const {data}=await getUser(profileUserId)
+        const {data}=await getUser(username)
         setprofileUser(data)
       }
     }
     fetchProfile()
-  }, [profileUserId,user,user.following.length])
+  }, [username,user,user.following.length])
   
   return (
   
@@ -37,10 +37,10 @@ const Profile = () => {
 
         <div className="Profile-center">
             <ProfileCard location="profilePage" profileUser={profileUser}/>
-            <PostSide profileUser={profileUser}/>
+            <PostSide socket={socket} profileUser={profileUser}/>
         </div>
 
-        <RightSide/>
+        <RightSide socket={socket}/>
         <ToastContainer />
    </>
        

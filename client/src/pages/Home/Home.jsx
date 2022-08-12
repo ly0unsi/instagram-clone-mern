@@ -6,12 +6,12 @@ import { ToastContainer } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
 import './Home.css'
 
-const Home = () => {
+const Home = ({socket}) => {
   return (
     <div className='Home'>
       <ProfileSide/>
-      <PostSide />
-      <RightSide/>
+      <PostSide socket={socket}/>
+      <RightSide socket={socket}/>
       <ToastContainer />
     </div>
   )

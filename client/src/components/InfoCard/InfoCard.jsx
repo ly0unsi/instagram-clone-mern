@@ -11,8 +11,6 @@ const InfoCard = ({profileUser}) => {
   const dispatch =useDispatch()
   const params=useParams()
   const navigate =useNavigate()
-  const {user}=useSelector((state)=>state.authReducer.authData)
-
   const userLogout=()=>{
     dispatch(logout())
     navigate("/auth");
@@ -22,7 +20,7 @@ const InfoCard = ({profileUser}) => {
       <div className="infoHead">
         <h4>Your Info</h4>
         {
-          params.id===user.username &&
+          params.username===profileUser.username &&
           <div>
             <UilPen
               width="2rem"
@@ -61,7 +59,11 @@ const InfoCard = ({profileUser}) => {
         <span>{profileUser?.worksAt ? profileUser.worksAt:":Unkown"}</span>
       </div>
 
-      {params.id===user._id &&<button className="button logout-button" onClick={userLogout}>Logout</button>}
+<<<<<<< HEAD
+      {params.id===profileUser.username &&<button className="button logout-button" onClick={userLogout}>Logout</button>}
+=======
+      {params.username===profileUser._id &&<button className="button logout-button" onClick={userLogout}>Logout</button>}
+>>>>>>> dev
     </div>
   );
 };
