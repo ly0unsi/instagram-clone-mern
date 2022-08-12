@@ -21,7 +21,7 @@ const Post = ({post,socket}) => {
   const comments =useSelector((state)=>state.CommentReducer.comments)
   const [liked, setliked] = useState(post.likes?.includes(user._id))
   const [likes, setlikes] = useState(post.likes?.length)
-  const [commentsNumber, setcommentsNumber] = useState(comments.length)
+  const [commentsNumber, setcommentsNumber] = useState(comments.filter((comment)=>comment.postId===post._id).length)
   const [deleteModalOpened, setdeleteModalOpened] = useState(false)
   const [editModalOpend, seteditModalOpend] = useState(false)
   const [commentsOpened, setcommentsOpened] = useState(false)
