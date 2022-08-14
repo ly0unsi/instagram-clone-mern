@@ -6,17 +6,19 @@ import Comment from "../../img/comment.png";
 import { UilSetting } from "@iconscout/react-unicons";
 import TrendsCard from '../TrendsCard/TrendsCard';
 import {Link} from 'react-router-dom'
+import Dropdown from 'react-bootstrap/Dropdown';
 import ShareModal from '../ShareModal/ShareModal';
-import { Dropdown, Space } from 'antd';
 const RightSide = ({socket}) => {
   const [modalOpened, setModalOpened] = useState(false)
   const [notifs, setnotifs] = useState([])
   useEffect(() => {
     socket?.on("getNotification",data=>{
-      setnotifs(prev =>[...prev,data])
+      console.log(data);
+      setnotifs((prev) => [...prev, data]);
+      console.log(notifs);
     })
   }, [socket])
-  const displayNotification = ({ senderName, type },key) => {
+  const displayNotification = ({ senderName, type }) => {
     let action;
 
     if (type === 1) {
@@ -27,38 +29,40 @@ const RightSide = ({socket}) => {
       action = "shared";
     }
     return (
-        <span className="notification">{`${senderName} ${action} your post.`}</span>
+      <Dropdown.Item> {`${senderName} ${action} your post.`} </Dropdown.Item>
     );
   };
 
-  const menu =()=>{};
-
   return (
-    <div className="RightSide columns-3">
-    <div className="navIcons">
-    <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-      <img src={Home} className="w-6" alt="" />
+    <div className="RightSide hidden lg:block col-lg-3">
+    <div className="navIcons gap-[20%] justify-center">
+      <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+        <img src={Home} className="w-6" alt="" />
       </Link>
       <UilSetting />
       <div>
-      <Dropdown overlay={menu} trigger={['click']} placement="bottom" arrow={{ pointAtCenter: true }}>
-          <a onClick={e => e.preventDefault()} >
-            <Space>
-            <img src={Noti} alt="" />
-                  {
-                    notifs.length >0 &&
-                    <div className="counter">{notifs.length}</div>
-                  }
-            </Space>
-          </a>
-        </Dropdown>
+      <Dropdown>
+          <Dropdown.Toggle className='border-none text-[0px] p-0' variant='none'>
+                <img className='w-[1.5rem] h-[1.5rem] ' src={Noti} alt="" />
+                {
+                        notifs.length >0 &&
+                        <div className="counter">{notifs.length}</div>
+                }
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            {notifs.map((n)=>{
+              displayNotification(n)
+            })}
+        </Dropdown.Menu>
+      </Dropdown>
          
       </div>
      
       <img src={Comment} alt="" />
+      
     </div>
     <TrendsCard/>
-    <button className="button r-button" onClick={()=>setModalOpened(true)} >
+    <button className="button r-button m-auto mt-2" onClick={()=>setModalOpened(true)} >
       Share
     </button>
     <ShareModal modalOpened={modalOpened} setModalOpened={setModalOpened}/>

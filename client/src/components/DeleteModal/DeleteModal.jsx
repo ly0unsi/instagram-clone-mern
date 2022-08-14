@@ -20,7 +20,7 @@ const DeleteModal = ({ modalOpened, setModalOpened,postId,postOwnerId}) => {
     }
     overlayOpacity={0.55}
     overlayBlur={3}
-    size="30%"
+    className="w-[95%] lg:w-1/4 m-auto"
     opened={modalOpened}
     onClose={() => setModalOpened(false)}
   >

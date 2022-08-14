@@ -6,7 +6,7 @@
     background-color: var(--cardColor);
     padding: 1rem;
     border-radius: 1rem;
-    width: 90%;
+  
 }
 
 .infoHead{
@@ -22,6 +22,6 @@
 .logout-button{
     width: 7rem;
     height: 2rem;
-    margin-top: 6rem;
+    margin-top: 1rem;
     align-self: flex-end;
 }

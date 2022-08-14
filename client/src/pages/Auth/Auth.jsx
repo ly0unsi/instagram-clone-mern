@@ -44,22 +44,22 @@ const Auth = () => {
     
   },[data.confirmpass,data.password,isSignUp])
   return (
-    <div className="Auth">
+    <div className="Auth row lg:px-44">
     {/* left side */}
     <ToastContainer />
 
-    <div className="a-left">
+    <div className="a-left col-lg-6">
       <img src={Logo} alt="" />
 
       <div className="Webname">
-        <h1>ZKC Media</h1>
+        <h1>ShutApp</h1>
         <h6>Explore the ideas throughout the world</h6>
       </div>
     </div>
 
     {/* right form side */}
 
-    <div className="a-right">
+    <div className="a-right col-lg-6">
       <form className="infoForm authForm" >
         <h3>{isSignUp ? "Register" : "Login"}</h3>
         {isSignUp && (

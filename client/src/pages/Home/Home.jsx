@@ -8,7 +8,7 @@ import './Home.css'
 
 const Home = ({socket}) => {
   return (
-    <div className='Home'>
+    <div className='row'>
       <ProfileSide/>
       <PostSide socket={socket}/>
       <RightSide socket={socket}/>

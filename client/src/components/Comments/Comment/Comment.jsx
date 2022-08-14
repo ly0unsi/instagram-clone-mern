@@ -8,7 +8,7 @@ import { deleteComment, editComment } from '../../../Actions/CommentAction';
 import { useRef } from 'react';
 import { useEffect } from 'react';
 import { useOnClickOutside } from '../../../hooks';
-const Comment = ({comment,postId}) => {
+const Comment = ({comment,postId,setcommentsNumber}) => {
   const dispatch =useDispatch()
   const ref =useRef()
   const textAreaRef=useRef()
@@ -23,6 +23,7 @@ const Comment = ({comment,postId}) => {
   }
   const handleDeleteComment=()=>{
     dispatch(deleteComment(user._id,comment._id))
+    setcommentsNumber((prev)=>prev-1)
   }
 
   useOnClickOutside(ref, () =>{
@@ -35,10 +36,10 @@ const Comment = ({comment,postId}) => {
   }
   return (
     <div className='flex items-center gap-2 mt-2'>
-        <div  className="userImage col-md-3">
+        <div  className="userImage">
             <img className='w-10 h-10 rounded-full object-cover' src={ comment.user.profilePicture} alt="" />
         </div>
-        <div  className="col-md-9">
+        <div >
         <div className='flex items-center gap-2'>
           <span className='text-md font-semibold'>{comment.user.username}</span>
          

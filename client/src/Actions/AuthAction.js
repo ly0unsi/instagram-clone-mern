@@ -52,6 +52,7 @@ export const signup = (formData)=>async (dispatch)=>{
 export const logout = ()=>async (dispatch)=>{
    
     try {
+            localStorage.clear();
             dispatch({type:"LOGOUT"})
             
     } catch (error) {

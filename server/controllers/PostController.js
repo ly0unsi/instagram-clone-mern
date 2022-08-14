@@ -3,6 +3,7 @@ import PostModel from "../models/PostModel.js"
 import UserModel from "../models/UserModel.js"
 import CommentModel from "../models/CommentModel.js"
 import cloudinary from "../Utils/Cloudinary.js"
+import NotModel from "../models/NotificationModel.js"
 export const addPost=async (req,res)=>{
     const {userId,desc,image,user} =req.body
     const newPost =new PostModel({userId,desc,user})
@@ -55,6 +56,7 @@ export const updatePost =async (req,res)=>{
                
                 await post.updateOne({$set:{desc:desc},new:true})
             }
+
             post.desc=desc
             res.status(200).json(post)
         }else{
@@ -87,6 +89,7 @@ export const likePost = async (req, res) => {
    
     const id = req.params.id;
     const { userId } = req.body;
+    
     try {
       const post = await PostModel.findById(id);
       if (post.likes.includes(userId)) {

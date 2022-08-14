@@ -17,7 +17,7 @@ const Posts = ({profileUser,socket}) => {
   }, [dispatch,user.following.length,posts.length])
   
   return (
-    <div className='Posts overflow-y-scroll'>
+    <div className='Posts overflow-y-scroll mt-2 lg:mt-0'>
       {
         loading  ? <LoadingOutlined style={{ fontSize: '38px',marginTop:"25%",color:"#8e5aff"}} />: location.pathname!=="/home" ?
         posts.filter((post)=>post.userId===profileUser._id).map((post,id)=>{

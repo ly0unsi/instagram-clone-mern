@@ -12,7 +12,7 @@ import { getPostComments,  } from '../../Actions/CommentAction'
 import {likePost} from '../../Actions/PostAction'
 import { useEffect } from 'react'
 import FollowButton from '../FollowButon/FollowButton'
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import DeleteModal from '../DeleteModal/DeleteModal'
 import EditModal from '../EditModal/EditModal'
 import Comments from '../Comments/Comments'
@@ -44,15 +44,18 @@ const Post = ({post,socket}) => {
 
   const like=(id)=>{
     setliked((prev)=>!prev)
-    !liked &&
-    socket.emit('sendNotification',{
-      senderName:user.username,
-      receiverName:post.user.username,
-      type:1
-    })
+    // if(!liked){
+    //   socket.emit('sendNotification',{
+    //     senderName:user.username,
+    //     receiverName:post.user.username,
+    //     type:1
+    //   })
+    // }
+    
     liked ? setlikes((prev)=>prev-1):setlikes((prev)=>prev+1)
     dispatch (likePost(id,user._id))
   }
+ 
   useEffect(() => {
     dispatch (getPostComments(post._id))
   }, [dispatch])
@@ -61,14 +64,20 @@ const Post = ({post,socket}) => {
     <div className='Post'>
 
       {  post.user && location.pathname=="/home" && 
-        <div className={post.user?._id !== user._id ? "w-100  flex items-center gap-[70%]":"w-100  flex items-center gap-[82%]"}> 
-        <div className='flex items-center'>
-            <img className='w-9 h-9 mr-2 object-cover rounded-full' src={post.user?.profilePicture ? post.user?.profilePicture: Profile} alt="" />
-            <span className='font-medium text-sm'>
-            {post.user?.username}
-            </span> 
-
-        </div>
+        <div className={post.user?._id !== user._id ? "w-100  flex items-center ":"w-100  flex items-center "}> 
+            <div className='items-center'>
+                <Link to={`/profile/${post.user.username}`}  style={{ textDecoration: "none", color: "inherit" }}>
+                  <img className='w-9 h-9 mr-2 object-cover rounded-full' src={post.user?.profilePicture ? post.user?.profilePicture: Profile} alt="" />
+                </Link>
+            </div>
+            <div className="w-[100%] ml-1">
+                    <span className='font-medium text-sm w-[100%]'>
+                    {post.user?.username}
+                    </span> 
+                    <span className='float-right text-xs w-[100%]'>{moment(post.createdAt).startOf('hour').fromNow()}</span>
+            </div>
+           
+       
        
         {
         
@@ -86,11 +95,7 @@ const Post = ({post,socket}) => {
                 </a>
               </Dropdown>
           </div>
-         
-             
         }
-       
-        
       </div>
       }
       
@@ -101,7 +106,7 @@ const Post = ({post,socket}) => {
                 <img src={Comment} className='cursor-pointer' onClick={()=>setcommentsOpened((prev)=>!prev)} alt="" />
                 <span style={{color: "var(--gray)", fontSize: '12px'}}>{commentsNumber} comments</span>
                 <img src={Share} alt="" />
-                <span className='float-right text-xs'>{moment(post.createdAt).startOf('hour').fromNow()}</span>
+              
             </div>
           
             

@@ -4,7 +4,7 @@ import InfoCard from '../InfoCard/InfoCard'
 import LogoSearch from '../logoSearch/LogoSearch'
 const ProfileLeft = ({profileUser}) => {
   return (
-   <div className="ProfileSide">
+   <div className="ProfileSide hidden lg:block col-lg-3">
        <LogoSearch/>
        <InfoCard profileUser={profileUser}/>
        <FollowersCard/>
