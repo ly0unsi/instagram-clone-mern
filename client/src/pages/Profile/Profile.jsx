@@ -9,6 +9,7 @@ import { useParams } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import { useState,useEffect } from 'react'
 import { getUser } from '../../Api/UserApi'
+import InfoCard from '../../components/InfoCard/InfoCard'
 const Profile = ({socket}) => {
   const params=useParams()
   const username=params.username
@@ -31,19 +32,26 @@ const Profile = ({socket}) => {
   
    <div className="Profile">
    {profileUser && 
-   <>
-   
-          <ProfileLeft profileUser={profileUser}/>
+   <div className='col-12'>
+      < div className='row'>
+      
+            <ProfileLeft profileUser={profileUser}/>
 
-        <div className="Profile-center">
-            <ProfileCard location="profilePage" profileUser={profileUser}/>
-            <PostSide socket={socket} profileUser={profileUser}/>
-        </div>
-
-        <RightSide socket={socket}/>
-        <ToastContainer />
-   </>
-       
+            <div className="Profile-center col-sm-12 col-lg-6 lg:px-3">
+                <ProfileCard location="profilePage" profileUser={profileUser}/>
+                <div className='lg:hidden'>
+                    <InfoCard profileUser={profileUser}/>
+                </div>
+            </div>
+            
+            <RightSide socket={socket}/>
+            
+            <ToastContainer />
+      </div>
+      <div className="row m-auto justify-center mt-2 ">
+          <PostSide socket={socket} profileUser={profileUser}/>
+      </div>
+   </div>
    }
 </div>
   

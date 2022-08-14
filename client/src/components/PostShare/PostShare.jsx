@@ -10,6 +10,7 @@ import { UilTimes } from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from 'react-redux';
 import { uploadPost } from '../../Actions/uploadAction';
 import { Button } from 'antd';
+import { Link } from 'react-router-dom';
 
 const storageLink =process.env.REACT_APP_STORAGE_URL
 const PostShare = () => {
@@ -66,7 +67,9 @@ const PostShare = () => {
 
   return (
     <div className="PostShare">
-        <img src={user.profilePicture ? user.profilePicture: profileImage} alt="" className='object-cover' />
+        <Link to={`/profile/${user.username}`}  style={{ textDecoration: "none", color: "inherit" }}>
+            <img src={user.profilePicture ? user.profilePicture: profileImage} alt="" className='object-cover rounded-full w-12 h-12' />
+        </Link>
         <div>
             <input  ref={desc} type="text" placeholder="What's Popin ?" />
             <div className="postOptions">
@@ -76,7 +79,7 @@ const PostShare = () => {
                     <UilScenery />
                     Photo
                 </div>
-                <div className="option" style={{ color: "var(--video)" }}>
+                <div className="option hidden lg:block" style={{ color: "var(--video)" }}>
                     <UilPlayCircle />
                     Video
                 </div>
@@ -84,7 +87,7 @@ const PostShare = () => {
                     <UilLocationPoint />
                     Location
                 </div>
-                <div className="option" style={{ color: "var(--shedule)" }}>
+                <div className="option hidden lg:block" style={{ color: "var(--shedule)" }}>
                     <UilSchedule />
                     Shedule
                 </div>

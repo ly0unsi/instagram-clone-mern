@@ -72,79 +72,90 @@ function ProfileModal({ modalOpened, setModalOpened}) {
       }
       overlayOpacity={0.55}
       overlayBlur={3}
-      size="55%"
+      
+      className="w-[95%] lg:w-2/3 m-auto"
       opened={modalOpened}
       onClose={() => setModalOpened(false)}
     >
-      <form className="infoForm">
+      <form className="p-2 infoForm">
         <h3>Your info</h3>
 
-        <div>
+        
+         <div className="row mt-2">
+            <input
+              type="text"
+              className="infoInput pl-2"
+              name="firstname"
+              placeholder="First Name"
+            
+              onChange={handleChange}
+              value={formData.firstname}
+            />
+        
+       
           <input
             type="text"
-            className="infoInput"
-            name="firstname"
-            placeholder="First Name"
-          
-            onChange={handleChange}
-            value={formData.firstname}
-          />
-
-          <input
-            type="text"
-            className="infoInput"
+            className="infoInput pl-2"
             name="lastname"
             placeholder="Last Name"
             value={formData.lastname}
             onChange={handleChange}
           />
+        
         </div>
 
-        <div>
-          <input
-            type="text"
-            className="infoInput"
-            name="worksAt"
-            placeholder="Works at"
-            value={formData.worksAt}
-            onChange={handleChange}
-          />
+          
+    
+
+     <div className="row mt-2">
+      <input
+              type="text"
+              className="infoInput pl-2"
+              name="worksAt"
+              placeholder="Works at"
+              value={formData.worksAt}
+              onChange={handleChange}
+            />
+        
+
+        
+            <input
+              type="text"
+              className="infoInput pl-2"
+              name="livesin"
+              placeholder="LIves in"
+              value={formData.livesin}
+              onChange={handleChange}
+            />
+     </div>
+         
+       
+
+    
+        <input
+          type="text"
+          className="infoInput pl-2 mt-2"
+          placeholder="RelationShip Status"
+          name='relationship'
+          value={formData.relationship}
+          onChange={handleChange}
+        />
+        <div className="row m-auto">
+          <label htmlFor="">
+          Profile Image 
+          </label>
         </div>
-
-        <div>
-          <input
-            type="text"
-            className="infoInput"
-            name="livesin"
-            placeholder="LIves in"
-            value={formData.livesin}
-            onChange={handleChange}
-          />
+        <input type="file" name='profilePicture'  onChange={handleChange}/>
+        <div className="row">
+            <label htmlFor="">
+              Cover Image
+            </label>
         </div>
-
-        <div>
-          <input
-            type="text"
-            className="infoInput"
-            placeholder="RelationShip Status"
-            name='relationship'
-            value={formData.relationship}
-            onChange={handleChange}
-          />
-        </div>
-
-
-        <div>
-            Profile Image 
-            <input type="file" name='profilePicture'  onChange={handleChange}/>
-            Cover Image
-            <input type="file" name="coverPicture"   onChange={handleChange}/>
-        </div>
-
-        <Button  loading={loading} type="primary"  className='button fc-button' onClick={handleSubmit}>
-         {loading ? "Updating" :"Update"}
+        <input type="file" name="coverPicture"   onChange={handleChange}/>
+        <Button  loading={loading} type="primary"  className='button fc-button ' onClick={handleSubmit}>
+            {loading ? "Updating" :"Update"}
         </Button>
-      </form>
+    </form>
     </Modal>
   );
 }

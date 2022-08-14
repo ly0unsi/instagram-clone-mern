@@ -67,11 +67,11 @@ const EditModal = ({post,modalOpened,setModalOpened}) => {
         }
         overlayOpacity={0.55}
         overlayBlur={3}
-        size="50%"
+        className="w-[95%] lg:w-1/3 m-auto"
         opened={modalOpened}
         onClose={() => setModalOpened(false)}
       >
-        <div className="PostShare">
+        <div className="PostShare col-sm-12">
             <div className="w-[100%]">
                 <input onChange={onChange} name='desc' value={formdata.desc} type="text" placeholder="What's Popin ?" />
                 <div className="postOptions">

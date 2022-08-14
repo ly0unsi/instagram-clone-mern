@@ -13,7 +13,7 @@ const FollowersCard = () => {
       dispatch(getFollowers(user._id))
     },[dispatch,user.following.length])  
   return (
-    <div className='FollowersCard'>
+    <div className='FollowersCard pl-3'>
         <h3>Who is following you</h3>
         {
           fetching  ?<LoadingOutlined style={{ fontSize: '25px',color:"#8e5aff"}} twoToneColor="#8e5aff"/>: followers.map((follower,id)=>{

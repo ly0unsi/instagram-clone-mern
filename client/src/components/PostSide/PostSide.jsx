@@ -4,7 +4,7 @@ import PostShare from '../PostShare/PostShare'
 import './PostSide.css'
 const PostSide = ({profileUser,socket}) => {
   return (
-    <div>
+    <div className='col-sm-12 col-lg-6 lg:px-4'>
         <PostShare/>
         <Posts socket={socket} profileUser={profileUser}/>
     </div>

@@ -9,18 +9,19 @@ import { useNavigate } from "react-router-dom";
 const InfoCard = ({profileUser}) => {
   const [modalOpened, setModalOpened] = useState(false);
   const dispatch =useDispatch()
+  const {user}=useSelector((state)=>state.authReducer.authData)
   const params=useParams()
   const navigate =useNavigate()
   const userLogout=()=>{
     dispatch(logout())
-    navigate("/auth");
+    
   }
   return (
-    <div className="InfoCard">
+    <div className="InfoCard mt-2">
       <div className="infoHead">
         <h4>Your Info</h4>
         {
-          params.username===profileUser.username &&
+          params.username===user.username &&
           <div>
             <UilPen
               width="2rem"
@@ -59,11 +60,12 @@ const InfoCard = ({profileUser}) => {
         <span>{profileUser?.worksAt ? profileUser.worksAt:":Unkown"}</span>
       </div>
 
-<<<<<<< HEAD
       {params.id===profileUser.username &&<button className="button logout-button" onClick={userLogout}>Logout</button>}
-=======
       {params.username===profileUser._id &&<button className="button logout-button" onClick={userLogout}>Logout</button>}
->>>>>>> dev
+
+
+      {params.username===user.username &&<button className="button logout-button" onClick={userLogout}>Logout</button>}
+
     </div>
   );
 };
