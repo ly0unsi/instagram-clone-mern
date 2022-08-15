@@ -1,5 +1,4 @@
 import React from 'react'
-import { useEffect } from 'react'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { followUser } from '../../Actions/UserAction'
@@ -14,7 +13,7 @@ const FollowButton = ({profile}) => {
     }
     
   return (
-    <button className={isFollowed ? "unfollow-butt":"button fc-button"} onClick={()=>follow(profile?._id)}>
+    <button className={isFollowed ? "unfollow-butt dark:bg-zinc-900 dark:text-white border-[#8e5aff]":"button fc-button"} onClick={()=>follow(profile?._id)}>
     {isFollowed ?"Unfollow" : "Follow" }
 </button>
   )

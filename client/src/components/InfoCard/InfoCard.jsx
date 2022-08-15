@@ -17,9 +17,9 @@ const InfoCard = ({profileUser}) => {
     
   }
   return (
-    <div className="InfoCard mt-2">
+    <div className="InfoCard mt-2 dark:bg-zinc-800 dark:text-gray-50 transition duration-300">
       <div className="infoHead">
-        <h4>Your Info</h4>
+        <h4 className="dark:text-gray-300">Your Info</h4>
         {
           params.username===user.username &&
           <div>
@@ -60,12 +60,7 @@ const InfoCard = ({profileUser}) => {
         <span>{profileUser?.worksAt ? profileUser.worksAt:":Unkown"}</span>
       </div>
 
-      {params.id===profileUser.username &&<button className="button logout-button" onClick={userLogout}>Logout</button>}
-      {params.username===profileUser._id &&<button className="button logout-button" onClick={userLogout}>Logout</button>}
-
-
       {params.username===user.username &&<button className="button logout-button" onClick={userLogout}>Logout</button>}
-
     </div>
   );
 };

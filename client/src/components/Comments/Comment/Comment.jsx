@@ -36,9 +36,9 @@ const Comment = ({comment,postId,setcommentsNumber}) => {
   }
   return (
     <div className='flex items-center gap-2 mt-2'>
-        <div  className="userImage">
+       
             <img className='w-10 h-10 rounded-full object-cover' src={ comment.user.profilePicture} alt="" />
-        </div>
+       
         <div >
         <div className='flex items-center gap-2'>
           <span className='text-md font-semibold'>{comment.user.username}</span>
@@ -46,7 +46,7 @@ const Comment = ({comment,postId,setcommentsNumber}) => {
         
         </div>
         <div className='flex relative' ref={ref}>
-            <textarea disabled={textDis}  ref={textAreaRef}  style={ {border:!textDis &&  "1px solid black"}}  value={formdata.body} onChange={handleChange}  cols={50}/>
+            <textarea disabled={textDis}  ref={textAreaRef}  style={ {border:!textDis &&  "1px solid black"}} className='dark:bg-zinc-900 outline-none'  value={formdata.body} onChange={handleChange}  cols={50}/>
             {
               comment.userId===user._id &&
               <>

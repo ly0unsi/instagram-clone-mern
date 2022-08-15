@@ -9,8 +9,10 @@ import { Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { updatePost } from "../../Actions/PostAction";
 import { uploadImage } from "../../Api/UplaodApi";
+import useDarkMode from "../../Utils/UseDark";
 const EditModal = ({post,modalOpened,setModalOpened}) => {
     const theme = useMantineTheme();
+    const [colorTheme,settheme]=useDarkMode()
     const [image,setImage]=useState(post.image)
     const [showImage, setshowImage] = useState(true)
     const dispatch =useDispatch()
@@ -61,17 +63,17 @@ const EditModal = ({post,modalOpened,setModalOpened}) => {
   return (
         <Modal
         overlayColor={
-          theme.colorScheme === "dark"
+            colorTheme === "dark"
             ? theme.colors.dark[9]
             : theme.colors.gray[2]
         }
         overlayOpacity={0.55}
         overlayBlur={3}
-        className="w-[95%] lg:w-1/3 m-auto"
+        className="w-[95%] lg:w-1/3 m-auto dark:bg-zinc-800 dark:text-gray-50 transition duration-300"
         opened={modalOpened}
         onClose={() => setModalOpened(false)}
       >
-        <div className="PostShare col-sm-12">
+        <div className="PostShare col-sm-12 dark:bg-zinc-800 dark:text-gray-50 transition duration-300">
             <div className="w-[100%]">
                 <input onChange={onChange} name='desc' value={formdata.desc} type="text" placeholder="What's Popin ?" />
                 <div className="postOptions">

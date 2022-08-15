@@ -33,7 +33,7 @@ export const authReducer=(state={authData:null,loading:false,error:false},action
             return {...state,authData:state.authData}
             break
         default:
-            return {...state,error:false,loading:false}
+            return {...state,error:false}
             break;
     }
 }

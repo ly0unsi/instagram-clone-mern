@@ -42,7 +42,7 @@ function App() {
   }, [socket,user])
   
   return (
-    <div className="App flex flex-col">
+    <div className="App flex flex-col dark:text-gray-50 dark:bg-zinc-900 transition duration-300">
        <div className="blur" style={{top:'-18%',right:'0'}}></div>
        <div className="blur" style={{top:'36%',left:'-8%'}}>
        </div>
@@ -52,7 +52,8 @@ function App() {
             ShutApp
           </span>
         </Link>
-        <img src ={menu} className="float-right lg:hidden cursor-pointer w-8" onClick={()=>setnavOpened(prev=>!prev)}/>
+        <svg onClick={()=>setnavOpened(prev=>!prev)} className="float-right lg:hidden cursor-pointer w-8 text-zinc-900 dark:text-gray-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h7" /></svg>
+
        </div>
         
         <CSSTransition

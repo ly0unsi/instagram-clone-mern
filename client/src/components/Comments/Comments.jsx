@@ -53,7 +53,7 @@ const Comments = ({comments,postId,setcommentsNumber}) => {
      
           <div className='flex relative'>
           <SendOutlined onClick={HandleComment} className='absolute right-3 top-2 cursor-pointer text-lg z-10'/>
-          <textarea onChange={handleChange} value={formData.body} className='leaveComment' placeholder="Leave a comment" cols="30" rows="10"></textarea>
+          <textarea onChange={handleChange} value={formData.body} className='leaveComment outline-none' placeholder="Leave a comment" cols="30" rows="10"></textarea>
         </div>
       
     </div>

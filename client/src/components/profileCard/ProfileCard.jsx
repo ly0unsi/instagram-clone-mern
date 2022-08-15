@@ -10,7 +10,7 @@ const ProfileCard = ({location,profileUser}) => {
 
   const {user}=useSelector((state)=>state.authReducer.authData)
   return (
-    <div className='ProfileCard mt-4'>
+    <div className='ProfileCard mt-4 dark:bg-zinc-800 dark:text-gray-50 transition duration-300'>
         <div className="ProfileImages">
           <img src={ profileUser?.coverPicture
               ?  profileUser?.coverPicture
@@ -23,24 +23,24 @@ const ProfileCard = ({location,profileUser}) => {
             {profileUser?.firstname} {profileUser?.lastname}
           </span>
          
-          <span>{profileUser?.worksAt}</span>
+          <span className='dark:text-gray-300'>{profileUser?.worksAt}</span>
           {profileUser &&
             profileUser._id!==user._id &&
             <FollowButton profile={profileUser}/>
           }
          
         </div>
-        <div className="followStatus">
+        <div className="followStatus ">
           <hr />
           <div>
             <div className="follow">
               <span>{profileUser?.following? profileUser?.following.length :0}</span>
-              <span>Followings</span>
+              <span className='dark:text-gray-300'>Followings</span>
             </div>
             <div className="vl"></div>
             <div className="follow">
               <span>{profileUser?.followers? profileUser?.followers.length:0}</span>
-              <span>Followers</span>
+              <span className='dark:text-gray-300'>Followers</span>
             </div>
             {location === "profilePage" && (
             <>
@@ -49,7 +49,7 @@ const ProfileCard = ({location,profileUser}) => {
                 <span>{
                 posts.filter((post)=>post.userId === profileUser?._id).length
                 }</span>
-                <span>Posts</span>
+                <span className='dark:text-gray-300'>Posts</span>
               </div>{" "}
             </>
           )}
