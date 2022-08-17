@@ -6,18 +6,25 @@ import { useState } from 'react';
 import { addComment } from '../../Actions/CommentAction';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
-const Comments = ({comments,postId,setcommentsNumber}) => {
+const Comments = ({comments,postId,setcommentsNumber,socket,post}) => {
   const {user} =useSelector((state)=>state.authReducer.authData)
   const dispatch=useDispatch()
   const [formData, setformData] = useState({
     body:"",
     postId:postId,
-    userId:user._id
+    userId:user._id,
+    senderId:user._id,
+    receverId:post.user._id
   })
-  const HandleComment=()=>{
+  const HandleComment=async ()=>{
+    await dispatch(addComment(formData))
     resetForm()
     setcommentsNumber((prev)=>prev+=1)
-    dispatch(addComment(formData))
+    socket.emit('sendNotification',{
+      receiverName:post.user.username,
+      type:2,
+      sender:user,
+    })
   }
   const resetForm =()=>{
     setformData({...formData,body:""})

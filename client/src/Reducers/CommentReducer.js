@@ -1,7 +1,10 @@
-export const CommentReducer=(state={comments:[],loading:false,error:false},action)=>{
+export const CommentReducer=(state={comments:[],cloading:false,error:false},action)=>{
     switch(action.type){
+        case "GET_COMMENTS_START":
+            return {...state,cloading:true}
+            break
         case "GET_COMMENTS_SUCCESS":
-            return {state,comments:action.data}
+            return {state,comments:action.data,cloading:false}
             break
         case "ADD_COMMENT_SUCCESS":
             return {...state,comments:[...state.comments,action.data]}
@@ -23,7 +26,7 @@ export const CommentReducer=(state={comments:[],loading:false,error:false},actio
             return state
             break
         default:
-            return {...state,error:false,loading:false}
+            return {...state,error:false,cloading:false}
     }
    
        

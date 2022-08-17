@@ -24,9 +24,9 @@ io.on("connection", (socket) => {
     addNewUser(username, socket.id);
   });
   
-  socket.on("sendNotification",({senderName,receiverName,type})=>{
+  socket.on("sendNotification",({receiverName,type,sender})=>{
     const receiver =getUser(receiverName) 
-    io.to(receiver.socketId).emit("getNotification",{senderName,type})
+    io.to(receiver?.socketId).emit("getNotification",{type,sender})
   })
   io.emit("firstEvent","helloooo")
   socket.on('disconnect',()=>{
@@ -34,4 +34,4 @@ io.on("connection", (socket) => {
   })
 });
 
-io.listen(3001);
+io.listen(process.env.PORT||3001);

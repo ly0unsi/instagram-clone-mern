@@ -10,14 +10,12 @@ function ProfileModal({ modalOpened, setModalOpened}) {
   const {loading,error} =useSelector((state)=>state.authReducer)
   const {user}=useSelector((state)=>state.authReducer.authData)
   const [catcherror, setcatcherror] = useState(null)
-  const [formData, setformData] = useState(
+  let [formData, setformData] = useState(
     {
       currentUserId:user._id,
       username: user.username,
       firstname: user.firstname,
       lastname : user.lastname,
-      profilePicture:  user.profilePicture,
-      coverPicture:  user.coverPicture,
       livesin:  user.livesin,
       worksAt:  user.worksAt,
       relationship:  user.relationship
@@ -42,18 +40,20 @@ function ProfileModal({ modalOpened, setModalOpened}) {
   
   const handleSubmit=async (e)=>{
     e.preventDefault()
-    let profilePicture=user.profilePicture
-    let coverPicture=user.coverPicture
-    if (formData.profilePicture.name) {
-      console.log("fuck")
+    let profilePicture
+    let coverPicture
+    if (formData.profilePicture?.name) {
+      
       profilePicture=await toBase64(formData.profilePicture)
-
+      formData={...formData,profilePicture:profilePicture}
+      console.log(profilePicture);
     }
-      if (formData.coverPicture.name){
+      if (formData.coverPicture?.name){
         coverPicture=await toBase64(formData.coverPicture)
+        formData={...formData,coverPicture:coverPicture}
        
       }
-      await  dispatch(updateUser(user._id,{...formData,coverPicture:coverPicture,profilePicture:profilePicture}))
+      await  dispatch(updateUser(user._id,formData))
       if(error){
         setcatcherror(true)
       }

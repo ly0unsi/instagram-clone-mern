@@ -67,7 +67,7 @@ const PostShare = () => {
 
   return (
     <div className="PostShare dark:bg-zinc-800 dark:text-gray-50 transition duration-300">
-        <Link to={`/profile/${user.username}`} className="w-12 h-12"  style={{ textDecoration: "none", color: "inherit" }}>
+        <Link to={`/profile/${user.username}`} className="w-12"  style={{ textDecoration: "none", color: "inherit" }}>
             <img src={user.profilePicture ? user.profilePicture: profileImage} alt="" className='object-cover rounded-full w-12 h-12' />
         </Link>
         <div>

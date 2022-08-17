@@ -1,11 +1,11 @@
 import React from 'react'
 import { useState } from 'react'
-import profileImage from '../../../img/defaultProfile.png'
 import "./Coment.css"
 import {EditOutlined , DeleteOutlined,SendOutlined}from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteComment, editComment } from '../../../Actions/CommentAction';
 import { useRef } from 'react';
+import profileImage from '../../../img/defaultProfile.png'
 import { useEffect } from 'react';
 import { useOnClickOutside } from '../../../hooks';
 const Comment = ({comment,postId,setcommentsNumber}) => {
@@ -36,9 +36,7 @@ const Comment = ({comment,postId,setcommentsNumber}) => {
   }
   return (
     <div className='flex items-center gap-2 mt-2'>
-       
-            <img className='w-10 h-10 rounded-full object-cover' src={ comment.user.profilePicture} alt="" />
-       
+        <img className='w-10 h-10 rounded-full object-cover' src={ comment.user.profilePicture ? comment.user.profilePicture: profileImage}  alt="" />
         <div >
         <div className='flex items-center gap-2'>
           <span className='text-md font-semibold'>{comment.user.username}</span>

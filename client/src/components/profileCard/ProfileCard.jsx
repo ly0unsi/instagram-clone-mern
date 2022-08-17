@@ -10,12 +10,12 @@ const ProfileCard = ({location,profileUser}) => {
 
   const {user}=useSelector((state)=>state.authReducer.authData)
   return (
-    <div className='ProfileCard mt-4 dark:bg-zinc-800 dark:text-gray-50 transition duration-300'>
+    <div className='ProfileCard mt-4 dark:bg-zinc-800 dark:text-gray-50 transition duration-300 pb-10'>
         <div className="ProfileImages">
           <img src={ profileUser?.coverPicture
               ?  profileUser?.coverPicture
               : Cover
-          } alt="" className='object-cover' />
+          } alt="" className='object-cover h-[260px]' />
           <img src={profileUser?.profilePicture ? profileUser?.profilePicture: Profile} alt="" className='object-cover'  />
         </div>
         <div className="ProfileName">

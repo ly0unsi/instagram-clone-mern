@@ -48,80 +48,87 @@ const Auth = () => {
     {/* left side */}
     <ToastContainer />
 
-    <div className="a-left col-lg-6">
-      <img src={Logo} alt="" />
-
+    <div className="a-left col-lg-6 justify-center">
       <div className="Webname">
         <h1>ShutApp</h1>
-        <h6>Explore the ideas throughout the world</h6>
+        <h6 className="dark:text-gray-50">Explore the ideas throughout the world</h6>
       </div>
     </div>
 
     {/* right form side */}
 
-    <div className="a-right col-lg-6">
-      <form className="infoForm authForm" >
-        <h3>{isSignUp ? "Register" : "Login"}</h3>
+    <div className="a-right col-lg-6 justify-center col-sm-12">
+      <form className="infoForm authForm dark:bg-zinc-800 dark:text-gray-50 transition duration-300" >
+        <h3 className="text-[20px] dark:text-gray-200">{isSignUp ? "Register" : "Login"}</h3>
+        <div className="justify-center"> 
         {isSignUp && (
-          <div>
-            <input
-              required
-              type="text"
-              placeholder="First Name"
-              className="infoInput"
-              name="firstname"
-              onChange={handleChange}
-              value={data.firstname}
-            />
-            <input
-              required
-              type="text"
-              placeholder="Last Name"
-              className="infoInput"
-              name="lastname"
-              onChange={handleChange}
-              value={data.lastname}
-            />
+          <div className="row">
+            <div className="col-sm-12 col-lg-6 justify-center">
+                <input
+                  required
+                  type="text"
+                  placeholder="First Name"
+                  className="infoInput mt-2 dark:bg-zinc-900 "
+                  name="firstname"
+                  onChange={handleChange}
+                  value={data.firstname}
+                />
+            </div>
+            <div className="col-sm-12 col-lg-6 justify-center">
+                <input
+                  required
+                  type="text"
+                  placeholder="Last Name"
+                  className="infoInput mt-2 dark:bg-zinc-900"
+                  name="lastname"
+                  onChange={handleChange}
+                  value={data.lastname}
+                />
+            </div>
           </div>
         )}
 
-        <div>
+        <div className="col-md-6 m-auto">
           <input
             required
             type="text"
             placeholder="Username"
-            className="infoInput"
+            className="infoInput mt-2 dark:bg-zinc-900 pl-4 w-[100%]"
             name="username"
           
             value={data.username}         
             onChange={handleChange}  
           />
         </div>
-        <div>
+        <div className="row">
+        <div className="col-sm-12 col-lg-6 justify-center">
           <input
             required
             type="password"
-            className="infoInput"
+            className="infoInput mt-2 dark:bg-zinc-900 w-[100%]"
             placeholder="Password"
             name="password"
           
             value={data.password}
             onChange={handleChange}
           />
+          </div>
           {isSignUp && (
+             <div className="col-md-12 col-lg-6 justify-center">
             <input
               required
               type="password"
-              className="infoInput"
+              className="infoInput mt-2 dark:bg-zinc-900"
               name="confirmpass"
               placeholder="Confirm Password"
            
               value={data.confirmpass}
               onChange={handleChange}
             />
+            </div>
           )}
         </div>
-
+        </div>
         <span
           style={{
             color: "red",

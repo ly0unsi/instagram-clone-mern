@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 import menu from './img/menu.png'
 import "./App.css"
 import React, { useEffect, useState } from "react";
-import Navbar from "./components/NavBar/Navbar";
+import SideBar from "./components/SideBar/SideBar";
 function App() {
   const user =useSelector((state)=>state.authReducer.authData)
   const [socket, setsocket] = useState(null)
@@ -46,16 +46,17 @@ function App() {
        <div className="blur" style={{top:'-18%',right:'0'}}></div>
        <div className="blur" style={{top:'36%',left:'-8%'}}>
        </div>
-       <div className="flex items-center gap-[68%] text-[22px]">
-        <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-          <span className='font-bold text-[20px] lg:hidden'>
-            ShutApp
-          </span>
-        </Link>
-        <svg onClick={()=>setnavOpened(prev=>!prev)} className="float-right lg:hidden cursor-pointer w-8 text-zinc-900 dark:text-gray-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h7" /></svg>
-
-       </div>
-        
+       {
+          location.pathname!=='/auth'&&
+          <div className="flex items-center gap-[68%] text-[22px] pb-2">
+            <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+              <span className='font-bold text-[20px] lg:hidden'>
+                ShutApp
+              </span>
+            </Link>
+            <svg onClick={()=>setnavOpened(prev=>!prev)} className="float-right lg:hidden cursor-pointer w-8 text-zinc-900 dark:text-gray-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h7" /></svg>
+          </div>
+        }
         <CSSTransition
           in={navOpened}
           timeout={300}
@@ -69,7 +70,7 @@ function App() {
           }}
             unmountOnExit
         >
-                <Navbar setnavOpened={setnavOpened}/>
+                <SideBar setnavOpened={setnavOpened} socket={socket}/>
                       
         </CSSTransition >
         

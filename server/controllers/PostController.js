@@ -4,6 +4,7 @@ import UserModel from "../models/UserModel.js"
 import CommentModel from "../models/CommentModel.js"
 import cloudinary from "../Utils/Cloudinary.js"
 import NotModel from "../models/NotificationModel.js"
+import NotsRoute from "../routes/NotsRoute.js"
 export const addPost=async (req,res)=>{
     const {userId,desc,image,user} =req.body
     const newPost =new PostModel({userId,desc,user})
@@ -97,10 +98,15 @@ export const likePost = async (req, res) => {
         res.status(200).json("Post disliked");
       } else {
         await post.updateOne({ $push: { likes: userId } });
+        const receverId =post.userId
+        if(userId!==receverId){
+            await new NotModel({receverId,senderId:userId,type:1,read:false,postId:post._id}).save() 
+        }
+       
         res.status(200).json("Post liked");
       }
     } catch (error) {
-      res.status(500).json(error);
+      res.status(500).json(error.message);
     }
   };
 
@@ -138,7 +144,8 @@ export const getTimelinePosts=async (req,res)=>{
         let results=[];
         for(const doc of posts){
             try {
-                userd =await UserModel.findById(doc.userId)
+                const {username,profilePicture,followers,following,_id} =await UserModel.findById(doc.userId)
+                userd={username,profilePicture,followers,following,_id}
                 if (doc.userId===userId)   results.push({...doc._doc,user:userd})  ; else   results.push({...doc,user:userd});
             } catch (error) {
                 res.status(400).json(error.message)
@@ -151,7 +158,6 @@ export const getTimelinePosts=async (req,res)=>{
     } catch (error) {
         res.status(400).json(error.message)
     }
-
 
     
 }

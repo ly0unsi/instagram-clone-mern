@@ -1,9 +1,9 @@
 import { toast } from 'react-toastify'
 import  * as CommentApi from '../Api/CommentApi'
-export const getPostComments=(postId)=>async(dispatch)=>{
+export const getPostComments=()=>async(dispatch)=>{
     dispatch({type:"GET_COMMENTS_START"})
     try {
-      const {data}= await CommentApi.getPostComments(postId)
+      const {data}= await CommentApi.getPostComments()
       dispatch({type:"GET_COMMENTS_SUCCESS",data:data})
     } catch (error) {
       toast.error(error.response?.data, {

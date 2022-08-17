@@ -5,7 +5,7 @@ import {ArrowRightOutlined} from '@ant-design/icons'
 import {UilSearch} from '@iconscout/react-unicons'
 const LogoSearch = ({isNav,setnavOpened}) => {
   return (
-    <div className='LogoSearch items-center gap-[2rem] lg:gap-[10px]'>
+    <div className='LogoSearch items-center gap-[2%] lg:gap-[10px]'>
       {
         isNav ? <ArrowRightOutlined  className=' dark:text-gray-100 pl-3' onClick={()=>setnavOpened(false)}/>:<span className='font-bold text-[24px] ml-3'>
         ShutApp
