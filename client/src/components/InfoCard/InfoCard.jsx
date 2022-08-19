@@ -60,7 +60,12 @@ const InfoCard = ({profileUser}) => {
         <span>{profileUser?.worksAt ? profileUser.worksAt:":Unkown"}</span>
       </div>
 
+      {params.id===profileUser.username &&<button className="button logout-button" onClick={userLogout}>Logout</button>}
+      {params.username===profileUser._id &&<button className="button logout-button" onClick={userLogout}>Logout</button>}
+
+
       {params.username===user.username &&<button className="button logout-button" onClick={userLogout}>Logout</button>}
+
     </div>
   );
 };

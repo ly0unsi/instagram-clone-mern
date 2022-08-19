@@ -29,18 +29,18 @@ export const updateUser=async(req,res)=>{
             }
            
                 let result1,result2=null
-                if(profilePicture){
+                if(profilePicture.name){
                     result1 =await cloudinary.uploader.upload(profilePicture,
                         {
-                        folder:"users",
+                        folder:"posts",
                         }
                     )
                     req.body={...req.body,profilePicture:result1.secure_url}
                 }
-                if(coverPicture){
+                if(coverPicture.name){
                     result2 =await cloudinary.uploader.upload(coverPicture,
                         {
-                        folder:"users",
+                        folder:"posts",
                         }
                     ) 
                     req.body={...req.body,coverPicture:result2.secure_url}

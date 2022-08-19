@@ -14,6 +14,7 @@ import menu from './img/menu.png'
 import "./App.css"
 import React, { useEffect, useState } from "react";
 import SideBar from "./components/SideBar/SideBar";
+import PostDetails from "./components/PostDetails/PostDetails";
 function App() {
   const user =useSelector((state)=>state.authReducer.authData)
   const [socket, setsocket] = useState(null)
@@ -32,7 +33,7 @@ function App() {
       }
   }
   useEffect(() => {
-    setsocket(io("http://localhost:3001"))
+    setsocket(io("https://rs-mern-socket.herokuapp.com"))
   }, [])
   useEffect(() => {
     // console.log(user);
@@ -43,6 +44,7 @@ function App() {
   
   return (
     <div className="App flex flex-col dark:text-gray-50 dark:bg-zinc-900 transition duration-300">
+    
        <div className="blur" style={{top:'-18%',right:'0'}}></div>
        <div className="blur" style={{top:'36%',left:'-8%'}}>
        </div>
@@ -86,6 +88,7 @@ function App() {
                 <Route path='/home' element={user ? <Home socket={socket}/>:<Navigate to ='../auth'/>} />
                 <Route path='/auth' element ={user? <Navigate to ='../home' />: <Auth/>}/>
                 <Route path='/profile/:username' element={user ?<Profile socket={socket}/>:<Navigate to ='../auth'/>}/>
+                <Route path='/post/:id' element={<PostDetails socket={socket}/>}/>
               </Routes>
           </CSSTransition>
        </TransitionGroup>

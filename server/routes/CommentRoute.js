@@ -3,6 +3,6 @@ import express from 'express'
 const CommentRoute=express.Router()
 CommentRoute.post('/add',addComment)
 CommentRoute.delete('/delete/:id',deleteComment)
-CommentRoute.get('/postComments',getPostComment)
+CommentRoute.get('/postComments/:id',getPostComment)
 CommentRoute.put('/edit/:id',editComment)
 export default CommentRoute

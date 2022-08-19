@@ -9,7 +9,6 @@ import postRoute from "./routes/PostRoute.js";
 import cors from "cors";
 import uploadRoute from "./routes/UploadRoute.js";
 import CommentRoute from "./routes/CommentRoute.js";
-import NotsRoute from "./routes/NotsRoute.js";
 
 const app=express();
 app.use(express.static('public'))
@@ -27,14 +26,9 @@ mongoose.connect(process.env.MONGO_DB,{useNewUrlParser:true,useUnifiedTopology:t
 .then(()=>app.listen(process.env.PORT,()=>console.log("listening at port 5000")))
 .catch((e)=>console.log(e))
 
-
 //routes
 app.use('/auth',AuthRoute)
 app.use('/user',UserRoute)
 app.use('/post',postRoute)
 app.use('/upload',uploadRoute)
 app.use('/comment',CommentRoute)
-app.use('/notifs',NotsRoute)
-app.use('/',(req,res)=>{
-    res.send('welcome!!')
-})

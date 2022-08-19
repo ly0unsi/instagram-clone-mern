@@ -3,8 +3,6 @@ import PostModel from "../models/PostModel.js"
 import UserModel from "../models/UserModel.js"
 import CommentModel from "../models/CommentModel.js"
 import cloudinary from "../Utils/Cloudinary.js"
-import NotModel from "../models/NotificationModel.js"
-import NotsRoute from "../routes/NotsRoute.js"
 export const addPost=async (req,res)=>{
     const {userId,desc,image,user} =req.body
     const newPost =new PostModel({userId,desc,user})
@@ -57,7 +55,6 @@ export const updatePost =async (req,res)=>{
                
                 await post.updateOne({$set:{desc:desc},new:true})
             }
-
             post.desc=desc
             res.status(200).json(post)
         }else{
@@ -90,7 +87,6 @@ export const likePost = async (req, res) => {
    
     const id = req.params.id;
     const { userId } = req.body;
-    
     try {
       const post = await PostModel.findById(id);
       if (post.likes.includes(userId)) {
@@ -98,15 +94,10 @@ export const likePost = async (req, res) => {
         res.status(200).json("Post disliked");
       } else {
         await post.updateOne({ $push: { likes: userId } });
-        const receverId =post.userId
-        if(userId!==receverId){
-            await new NotModel({receverId,senderId:userId,type:1,read:false,postId:post._id}).save() 
-        }
-       
         res.status(200).json("Post liked");
       }
     } catch (error) {
-      res.status(500).json(error.message);
+      res.status(500).json(error);
     }
   };
 
@@ -144,8 +135,7 @@ export const getTimelinePosts=async (req,res)=>{
         let results=[];
         for(const doc of posts){
             try {
-                const {username,profilePicture,followers,following,_id} =await UserModel.findById(doc.userId)
-                userd={username,profilePicture,followers,following,_id}
+                userd =await UserModel.findById(doc.userId)
                 if (doc.userId===userId)   results.push({...doc._doc,user:userd})  ; else   results.push({...doc,user:userd});
             } catch (error) {
                 res.status(400).json(error.message)
@@ -158,6 +148,7 @@ export const getTimelinePosts=async (req,res)=>{
     } catch (error) {
         res.status(400).json(error.message)
     }
+
 
     
 }

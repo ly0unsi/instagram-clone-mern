@@ -31,7 +31,6 @@ const Posts = ({profileUser,socket}) => {
             <div key={id}>
                <Post post={post} comments={comments} />
             </div>
-             
           )
       } )
       :
@@ -40,7 +39,6 @@ const Posts = ({profileUser,socket}) => {
           <div key={id}>
              <Post socket={socket} post={post} comments={comments}/>
           </div>
-           
         )
       } )
       }

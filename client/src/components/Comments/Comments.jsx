@@ -14,14 +14,14 @@ const Comments = ({comments,postId,setcommentsNumber,socket,post}) => {
     postId:postId,
     userId:user._id,
     senderId:user._id,
-    receverId:post.user._id
+    receverId:post.user?._id
   })
   const HandleComment=async ()=>{
     await dispatch(addComment(formData))
     resetForm()
     setcommentsNumber((prev)=>prev+=1)
     socket.emit('sendNotification',{
-      receiverName:post.user.username,
+      receiverName:post.user?.username,
       type:2,
       sender:user,
     })
