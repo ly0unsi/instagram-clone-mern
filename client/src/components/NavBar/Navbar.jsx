@@ -5,20 +5,21 @@ import '../RightSide/RightSide.css'
 import profileImage from '../../img/defaultProfile.png'
 import { EllipsisOutlined ,HeartFilled,HeartOutlined} from '@ant-design/icons';
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link  } from 'react-router-dom'
 import { Switch } from 'antd'
 import { getNots, readNot,unreadedNots } from '../../Api/PostApi'
 import useDarkMode from '../../Utils/UseDark';
 const NavBar = ({socket}) => {
     const [colorTheme,settheme]=useDarkMode()
     const [notifs, setnotifs] = useState([])
+   
     const [unreaded, setunreaded] = useState([])
     const {user}=useSelector((state)=>state.authReducer.authData)
     const handleRead=async ()=>{
       setunreaded([])
       await readNot(user._id)
     }
-    const displayNotification = ({ sender, type },key) => {
+    const displayNotification = ({ sender, type,postId },key) => {
         let action;
         let icon
         if (type === 1) {
@@ -39,20 +40,18 @@ const NavBar = ({socket}) => {
               {
                 icon
               }
-             
-              
               </div>
-          
                 <span className='text-[12px]'>
-                {`${sender.username} ${action} your post.`}
+                  <Link to={`/post/${postId}`}  style={{ textDecoration: "none", color: "inherit" }} >
+                      {`${sender.username} ${action} your post.`}
+                    </Link>
                 </span>
-               
              </div>
           </Dropdown.Item>
            
         );
       };
-
+      
     useEffect(() => {
         socket?.on("getNotification", async(datan) => {
           const {data:nots}=await getNots(user._id)

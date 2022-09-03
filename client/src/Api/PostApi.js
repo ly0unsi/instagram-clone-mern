@@ -7,4 +7,4 @@ export const updatePost=(postId,updatedPost)=>API.put(`post/update/${postId}`,up
 export const getNots =(userId)=>API.get(`notifs/get/${userId}`)
 export const readNot=(id)=>API.put(`notifs/readNot/${id}`)
 export const unreadedNots =(userId)=>API.get(`notifs/unreaded/${userId}`)
-
+export const getPost =(id)=>API.get(`post/${id}`)

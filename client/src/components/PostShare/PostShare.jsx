@@ -50,9 +50,11 @@ const PostShare = () => {
 
     const handleSubmit =async (e)=>{
         e.preventDefault()
+        const hashtags=desc.current.value.match(/#\w+/g)
         const newPost={
             userId:user._id,
-            desc:desc.current.value
+            desc:desc.current.value,
+            hashtags:hashtags
         }
         if(image){
             const file=await toBase64(image)  
