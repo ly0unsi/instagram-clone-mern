@@ -25,7 +25,7 @@ const Posts = ({ profileUser, socket }) => {
   }, [dispatch])
 
   return (
-    <div className='Posts overflow-y-scroll mt-2 '>
+    <div className='Posts mt-2'>
       {
         loading || cloading ? <LoadingOutlined style={{ fontSize: '38px', marginTop: "25%", color: "#8e5aff" }} /> : location.pathname !== "/home" ?
           posts.filter((post) => post.userId === profileUser._id).map((post, id) => {

@@ -8,6 +8,8 @@ import postRoute from "./routes/PostRoute.js";
 
 import cors from "cors";
 import uploadRoute from "./routes/UploadRoute.js";
+import ChatRoute from './routes/ChatRoute.js'
+import MessageRoute from './routes/MessageRoute.js'
 import CommentRoute from "./routes/CommentRoute.js";
 import NotsRoute from "./routes/NotsRoute.js";
 import trendRoute from "./routes/TrendRoute.js";
@@ -37,6 +39,8 @@ app.use('/upload', uploadRoute)
 app.use('/comment', CommentRoute)
 app.use('/notifs', NotsRoute)
 app.use('/trends', trendRoute)
+app.use('/chat', ChatRoute)
+app.use('/message', MessageRoute)
 app.use('/', (req, res) => {
     res.send('welcome!!')
 })

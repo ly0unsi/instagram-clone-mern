@@ -10,7 +10,7 @@
   --profileShadow: 0px 4px 17px 2px rgba(0, 0, 0, 0.25);
   --hrColor: #cfcdcd;
   --cardColor: rgba(255, 255, 255, 0.64);
-  --buttonBg:linear-gradient(160deg, rgba(142,90,255,1) 0%, rgba(32,159,246,1) 100%);
+  --buttonBg: linear-gradient(160deg, rgba(142, 90, 255, 1) 0%, rgba(32, 159, 246, 1) 100%);
   --inputColor: rgba(40, 52, 62, 0.07);
   --photo: #4CB256;
   --video: #4A4EB7;
@@ -18,50 +18,63 @@
   --toastify-color-success: #8e5aff;
   --toastify-icon-color-success: var(--toastify-color-success);
 
---shedule: #E1AE4A;
+  --shedule: #E1AE4A;
 }
-body{
+
+video {
+  max-width: none;
+}
+
+
+body {
   font-family: 'Roboto', sans-serif;
-  margin:0,
+  margin: 0,
 }
-.App{
+
+.App {
   overflow: hidden;
   color: var(--black);
   background: #f3f3f3;
   padding: 1rem 1rem;
 }
+
 .right-to-left-enter {
   transform: translateX(100%);
 }
+
 .right-to-left-enter-active {
   transform: translateX(0);
-  transition:all 1s ease;
-}      
+  transition: all 1s ease;
+}
 
 .right-to-left-exit {
   transform: translateX(0);
 }
+
 .right-to-left-exit-active {
   transform: translateX(-100%);
-  transition:all 1s ease;
-}      
+  transition: all 1s ease;
+}
 
 .left-to-right-enter {
   transform: translateX(-100%);
 }
+
 .left-to-right-enter-active {
   transform: translateX(0);
-  transition:all 1s ease;
-}      
+  transition: all 1s ease;
+}
 
 .left-to-right-exit {
   transform: translateX(0);
 }
+
 .left-to-right-exit-active {
   transform: translateX(100%);
-  transition:all 1s ease;
-}      
-.blur{
+  transition: all 1s ease;
+}
+
+.blur {
   position: absolute;
   width: 22rem;
   z-index: -1;
@@ -71,33 +84,36 @@ body{
   filter: blur(72px)
 }
 
-.button{
+.button {
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  border:none;
+  border: none;
   border-radius: 0.5rem;
   background: var(--buttonBg);
-  transition:all 100ms ease-out;
+  transition: all 100ms ease-out;
 }
 
-.button:hover{
+.button:hover {
   cursor: pointer;
   color: var(--orange);
   background: transparent;
   border: 1px solid var(--orange);
 }
-.button:disabled{
+
+.button:disabled {
   background-color: silver;
-  pointer-events:none;
+  pointer-events: none;
   color: whitesmoke;
   border: solid 1px whitesmoke
 }
-::-webkit-scrollbar{
+
+::-webkit-scrollbar {
   display: none;
 }
-.row{
+
+.row {
   --bs-gutter-x: 0rem !important;
 }
 
@@ -106,16 +122,19 @@ body{
   opacity: 0;
   transform: scale(0.9);
 }
+
 .alert-enter-active {
   opacity: 1;
   transform: translateX(0);
-  transition: all 200ms cubic-bezier(.47,0.5,.41,0.5);
+  transition: all 200ms cubic-bezier(.47, 0.5, .41, 0.5);
 }
+
 .alert-exit {
   opacity: 1;
 }
+
 .alert-exit-active {
   opacity: 0;
   transform: scale(0.9);
-  transition: all 400ms cubic-bezier(.47,2,.41,1.5);
+  transition: all 400ms cubic-bezier(.47, 2, .41, 1.5);
 }
