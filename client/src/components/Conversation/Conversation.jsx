@@ -4,13 +4,12 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getUserById } from "../../Api/UserApi";
 const Conversation = ({ data, currentUser, online, receivedMessage }) => {
-    const [message, setmessage] = useState(data.message.text)
+    const [message, setmessage] = useState(data.message?.text)
 
     const [userData, setUserData] = useState(null)
     const dispatch = useDispatch()
 
     useEffect(() => {
-
         const userId = data.members.find((id) => id !== currentUser)
 
         // console.log(userId);
@@ -48,9 +47,8 @@ const Conversation = ({ data, currentUser, online, receivedMessage }) => {
                     <div className="name" style={{ fontSize: '0.8rem' }}>
                         <span>{userData?.username} </span>
                         <span>
-                            {data.message && (data.message?.senderid === userData._id ? userData?.username : "You") + ": " + data.message?.text}
+                            {data.message && (data.message?.senderid === userData?._id ? userData?.username : "You") + ": " + message}
                         </span>
-
                     </div>
                 </div>
             </div>
