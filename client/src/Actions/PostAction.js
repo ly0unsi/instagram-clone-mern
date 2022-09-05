@@ -92,6 +92,7 @@ export const updatePost = (postId, updatedPost) => async (dispatch) => {
 }
 
 export const getPost = (postId) => async (dispatch) => {
+  dispatch({ type: "GET_POST_START" })
   try {
     const { data } = await PostsApi.getPost(postId)
     dispatch({ type: "GET_POST_SUCCESS", data: data })

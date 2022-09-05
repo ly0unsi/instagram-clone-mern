@@ -4,36 +4,43 @@ import { Link, useParams } from 'react-router-dom'
 import { getPostComments } from '../../Actions/CommentAction'
 import { getPost } from '../../Actions/PostAction'
 import Comments from '../Comments/Comments'
+import NavBar from '../NavBar/Navbar'
 
 const PostDetails = ({ socket }) => {
   const { comments, cloading } = useSelector((state) => state.CommentReducer)
-  const post = useSelector((state) => state.postReducer.post)
+  const { post, pLoading } = useSelector((state) => state.postReducer)
   const [commentsNumber, setcommentsNumber] = useState(null)
   const dispatch = useDispatch()
   const params = useParams()
   const postId = params.id
-  useEffect(() => {
-    dispatch(getPostComments())
-  }, [dispatch])
+
   useEffect(() => {
     dispatch(getPost(postId))
+    dispatch(getPostComments())
   }, [dispatch])
+
   useEffect(() => {
     setcommentsNumber(comments.filter((comment) => comment.postId === post?._id).length)
   }, [comments])
   //console.log(post);
   return (
     <div className='row h-[100vh] dark:bg-zinc-800 p-3 rounded-md'>
-      <div className='hidden lg:block'>
-        <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-          <span className='font-bold text-[35px]'>
-            ShutApp
-          </span>
-        </Link>
+      <div className='hidden lg:block '>
+        <div className='flex items-center w-[100%]'>
+          <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+            <span className='font-bold text-[35px]'>
+              ShutApp
+            </span>
+          </Link>
+
+          <div className='w-[30rem] ml-auto order-2'>
+            <NavBar />
+          </div>
+        </div>
       </div>
 
       <div className="col-lg-4">
-        <img src={post?.image} className="rounded-2xl lg:h-[70vh] lg:w-[100%] object-cover" alt="" />
+        <img src={post?.image} className="rounded-2xl h-[50vh] lg:h-[70vh] lg:w-[100%] object-cover" alt="" />
       </div>
       <div className="col-lg-8 lg:pl-4">
         <div className='text-[20px]'>
@@ -44,9 +51,12 @@ const PostDetails = ({ socket }) => {
           <span style={{ color: "var(--gray)", fontSize: '12px' }} className='dark:text-gray-300'>{commentsNumber} comments</span>
 
         </div>
+        {
+          !pLoading ?
 
-        <Comments comments={comments} post={post} socket={socket} setcommentsNumber={setcommentsNumber} postId={post?._id} />
-
+            <Comments comments={comments} post={post} socket={socket} setcommentsNumber={setcommentsNumber} postId={post?._id} />
+            : "waiting comments"
+        }
       </div>
     </div>
   )

@@ -17,6 +17,7 @@ import { CSSTransition } from "react-transition-group";
 const Chat = () => {
     const dispatch = useDispatch();
     const socket = useRef();
+
     const { user } = useSelector((state) => state.authReducer.authData);
     const { callAccepted, callEnded, call } = useContext(SocketContext);
 
@@ -113,6 +114,7 @@ const Chat = () => {
                                 >
                                     <Conversation
                                         data={chat}
+                                        receivedMessage={receivedMessage}
                                         currentUser={user._id}
                                         online={checkOnlineStatus(chat)}
                                     />

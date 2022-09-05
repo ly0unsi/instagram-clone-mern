@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { toast } from "react-toastify";
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { createChat, userChats } from '../../Api/ChatApi'
 import Cover from '../../img/cover.jpg'
 import Profile from '../../img/defaultProfile.png'
@@ -11,6 +11,7 @@ const ProfileCard = ({ location, profileUser }) => {
   const { posts } = useSelector((state) => state.postReducer)
   const [chats, setChats] = useState([])
   const { user } = useSelector((state) => state.authReducer.authData)
+  const navigate = useNavigate();
   useEffect(() => {
     const getChats = async () => {
       try {
@@ -23,9 +24,7 @@ const ProfileCard = ({ location, profileUser }) => {
     getChats();
   }, [user._id]);
   const isIncluded = () => {
-
     for (const chat of chats) {
-
       if (chat.members.includes(profileUser._id)) {
         return true;
       }
@@ -33,14 +32,14 @@ const ProfileCard = ({ location, profileUser }) => {
     }
   }
   const handleMessage = async () => {
-
-    if (!isIncluded || chats.length === 0) {
+    if (!isIncluded()) {
       const data = {
         senderId: user._id,
         receiverId: profileUser._id
       }
       try {
         await createChat(data)
+        navigate('/chat', { replace: true })
       } catch (error) {
         toast.error(error.response.data, {
           position: "bottom-center",
@@ -51,6 +50,7 @@ const ProfileCard = ({ location, profileUser }) => {
           draggable: true,
           progress: undefined,
         });
+
       }
 
     } else {

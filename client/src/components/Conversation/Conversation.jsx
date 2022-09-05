@@ -1,8 +1,10 @@
+import { message } from "antd";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getUserById } from "../../Api/UserApi";
-const Conversation = ({ data, currentUser, online }) => {
+const Conversation = ({ data, currentUser, online, receivedMessage }) => {
+    const [message, setmessage] = useState(data.message.text)
 
     const [userData, setUserData] = useState(null)
     const dispatch = useDispatch()
@@ -10,6 +12,7 @@ const Conversation = ({ data, currentUser, online }) => {
     useEffect(() => {
 
         const userId = data.members.find((id) => id !== currentUser)
+
         // console.log(userId);
         const getUserData = async () => {
             try {
@@ -25,8 +28,12 @@ const Conversation = ({ data, currentUser, online }) => {
         }
 
         getUserData();
-        console.log(userData);
+        console.log(data);
     }, [])
+    useEffect(() => {
+        receivedMessage !== null && receivedMessage?.chatId === data?._id && setmessage(receivedMessage)
+    }, [receivedMessage])
+
     return (
         <>
             <div className="follower conversation">
@@ -40,7 +47,10 @@ const Conversation = ({ data, currentUser, online }) => {
                     />
                     <div className="name" style={{ fontSize: '0.8rem' }}>
                         <span>{userData?.username} </span>
-                        <span style={{ color: online ? "#51e200" : "" }}>{online ? "Online" : "Offline"}</span>
+                        <span>
+                            {data.message && (data.message?.senderid === userData._id ? userData?.username : "You") + ": " + data.message?.text}
+                        </span>
+
                     </div>
                 </div>
             </div>

@@ -58,16 +58,16 @@ const Post = ({ post, socket, comments }) => {
 
 
   return (
-    <div className='Post dark:bg-zinc-800 dark:text-gray-50 transition duration-300'>
+    <div className='Post dark:bg-zinc-800 dark:text-gray-50 transition duration-300 flex'>
 
       {post.user && location.pathname == "/home" &&
-        <div className={post.user?._id !== user._id ? "w-100  flex items-center " : "w-100  flex items-center "}>
+        <div className= "w-100  flex items-center ">
           <div className='items-center'>
             <Link to={`/profile/${post.user.username}`} style={{ textDecoration: "none", color: "inherit" }}>
               <img className='w-9 h-9 mr-2 object-cover rounded-full' src={post.user?.profilePicture ? post.user?.profilePicture : Profile} alt="" />
             </Link>
           </div>
-          <div className="w-[100%] ml-1">
+          <div className="w-auto ml-1">
             <span className='font-medium text-sm w-[100%]'>
               {post.user?.username}
             </span>
@@ -76,11 +76,11 @@ const Post = ({ post, socket, comments }) => {
           {
 
             post.user?._id !== user._id ?
-              <div className='float-right ml-4'>
+              <div className='ml-auto order-2'>
                 <FollowButton profile={post.user} />
               </div>
               :
-              <div className="float-right w-3 ">
+              <div className="ml-auto order-2 w-3">
                 <Dropdown overlay={menu} trigger={['click']} placement="bottom" arrow={{ pointAtCenter: true }}>
                   <a onClick={e => e.preventDefault()} >
                     <Space>

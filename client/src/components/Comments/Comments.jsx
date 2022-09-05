@@ -5,23 +5,25 @@ import Comment from './Comment/Comment'
 import { useState } from 'react';
 import { addComment } from '../../Actions/CommentAction';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { useMatch } from 'react-router-dom';
 
 const Comments = ({ comments, postId, setcommentsNumber, socket, post }) => {
   const { user } = useSelector((state) => state.authReducer.authData)
   const dispatch = useDispatch()
+  const isPostRoute = useMatch("/post/*");
   const [formData, setformData] = useState({
     body: "",
     postId: postId,
     userId: user._id,
     senderId: user._id,
-    receverId: post.user._id
+    receverId: user._id
   })
   const HandleComment = async () => {
     dispatch(addComment(formData))
     resetForm()
     setcommentsNumber((prev) => prev += 1)
     socket.emit('sendNotification', {
-      receiverName: post.user.username,
+      receiverName: user._id,
       type: 2,
       sender: user,
     })
@@ -39,7 +41,7 @@ const Comments = ({ comments, postId, setcommentsNumber, socket, post }) => {
         comments.filter((comment) => comment.postId === postId) &&
         <span className='text-md font-semibold '>Comments</span>
       }
-      <div className='h-[193px] overflow-y-scroll'>
+      <div className={!isPostRoute ? "max-h-[193px] overflow-y-auto" : "lg:h-[56vh]  max-h-[193px] overflow-y-auto"}>
         <TransitionGroup component="ul">
           {
             comments.filter((comment) => comment.postId === postId).map((comment, key) => {

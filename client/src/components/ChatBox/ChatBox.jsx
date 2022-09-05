@@ -105,7 +105,7 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
                     (
                         <>
                             {/* chat-header */}
-                            <div className="flex align-center gap-[40%] lg:gap-[80%] p-3" style={{ alignItems: "center" }}>
+                            <div className="flex align-center  items-center p-3" >
 
 
                                 <div className="flex align-center gap-3">
@@ -128,7 +128,7 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
                                     </div>
                                 </div>
 
-                                <div >
+                                <div className="ml-auto order-2">
 
                                     <VideoSidebar userId={userData?._id} />
 
