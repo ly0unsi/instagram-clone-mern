@@ -17,6 +17,7 @@ import SideBar from "./components/SideBar/SideBar";
 import PostDetails from "./components/PostDetails/PostDetails";
 import Chat from "./pages/Chat/Chat";
 import { ContextProvider } from "./Context/Context";
+import { ToastContainer } from "react-toastify";
 function App() {
   const user = useSelector((state) => state.authReducer.authData)
   const [socket, setsocket] = useState(null)
@@ -38,7 +39,7 @@ function App() {
     setsocket(io("http://localhost:3001"))
   }, [])
   useEffect(() => {
-    // console.log(user);
+
     socket?.emit("newUser", user?.user?.username)
 
 
@@ -52,13 +53,13 @@ function App() {
       </div>
       {
         location.pathname !== '/auth' &&
-        <div className="flex items-center gap-[68%] text-[22px] pb-2">
+        <div className="flex items-center text-[22px] pb-2">
           <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
             <span className='font-bold text-[20px] lg:hidden'>
               ShutApp
             </span>
           </Link>
-          <svg onClick={() => setnavOpened(prev => !prev)} className="float-right lg:hidden cursor-pointer w-8 text-zinc-900 dark:text-gray-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h7" /></svg>
+          <svg onClick={() => setnavOpened(prev => !prev)} className="ml-auto order-2 lg:hidden cursor-pointer w-8 text-zinc-900 dark:text-gray-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h7" /></svg>
         </div>
       }
       <CSSTransition

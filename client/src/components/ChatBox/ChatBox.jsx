@@ -1,17 +1,19 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useRef } from "react";
 import { addMessage, getMessages } from "../../Api/MessageApi";
+import Profile from '../../img/defaultProfile.png'
+import { SendOutlined } from '@ant-design/icons';
 import { getUserById } from "../../Api/UserApi";
 import "./ChatBox.css";
 import { format } from "timeago.js";
 import InputEmoji from 'react-input-emoji'
-import { VideoPlayer } from "../VideoPlayer/VideoPlayer";
+
 import { VideoSidebar } from "../VideoSideBar/VideoSideBar";
-import Notifications from "../Notification/Notification";
-import { ContextProvider, SocketContext } from "../../Context/Context";
+
+import { SocketContext } from "../../Context/Context";
 import { useSelector } from "react-redux";
 
-const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
+const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage, online }) => {
     const [userData, setUserData] = useState(null);
     const { user } = useSelector((state) => state.authReducer.authData)
     const [messages, setMessages] = useState([]);
@@ -59,6 +61,7 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
 
     useEffect(() => {
         setName(user.userName)
+
     }, [])
 
 
@@ -69,6 +72,7 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
             senderId: currentUser,
             text: newMessage,
             chatId: chat._id,
+            seen: false
         }
         const receiverId = chat.members.find((id) => id !== currentUser);
         // send message to socket server
@@ -88,11 +92,12 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
     // Receive Message from parent component
     useEffect(() => {
         console.log("Message Arrived: ", receivedMessage)
-        if (receivedMessage !== null && receivedMessage.chatId === chat._id) {
+        if (receivedMessage !== null && receivedMessage.chatId === chat?._id) {
             setMessages([...messages, receivedMessage]);
         }
 
     }, [receivedMessage])
+
 
 
 
@@ -114,11 +119,10 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
                                             userData?.profilePicture
                                                 ?
                                                 userData.profilePicture
-                                                : process.env.REACT_APP_STORAGE_URL +
-                                                "defaultProfile.png"
+                                                : Profile
                                         }
                                         alt="Profile"
-                                        className="followerImage"
+                                        className="followerImage object-cover"
                                         style={{ width: "50px", height: "50px" }}
                                     />
                                     <div className="name" style={{ fontSize: "0.9rem" }}>
@@ -129,8 +133,12 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
                                 </div>
 
                                 <div className="ml-auto order-2">
+                                    {online &&
+                                        <VideoSidebar userId={userData?._id} />
+                                    }
 
-                                    <VideoSidebar userId={userData?._id} />
+
+
 
                                 </div>
 
@@ -161,14 +169,14 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
                                 </div>
                             }
                             {/* chat-sender */}
-                            <div className="chat-sender dark:bg-zinc-900 dark:text-white">
+                            <div className="chat-sender relative bg-transparent dark:text-white">
                                 <div className="hidden" onClick={() => imageRef.current.click()}>+</div>
                                 <InputEmoji
                                     value={newMessage}
                                     onChange={handleChange}
                                     theme="dark"
                                 />
-                                <div className="send-button button dark:bg-zinc-900 dark:text-white" onClick={handleSend}>Send</div>
+                                <div className="p-4  dark:text-zinc-500 z-10 absolute right-6 text-xl bottom-6" onClick={handleSend}><SendOutlined /></div>
 
                             </div>{" "}
 

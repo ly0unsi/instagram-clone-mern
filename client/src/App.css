@@ -10,25 +10,33 @@
   --profileShadow: 0px 4px 17px 2px rgba(0, 0, 0, 0.25);
   --hrColor: #cfcdcd;
   --cardColor: rgba(255, 255, 255, 0.64);
-  --buttonBg: linear-gradient(160deg, rgba(142, 90, 255, 1) 0%, rgba(32, 159, 246, 1) 100%);
+  --buttonBg: linear-gradient(
+    160deg,
+    rgba(142, 90, 255, 1) 0%,
+    rgba(32, 159, 246, 1) 100%
+  );
   --inputColor: rgba(40, 52, 62, 0.07);
-  --photo: #4CB256;
-  --video: #4A4EB7;
-  --location: #EF5757;
+  --photo: #4cb256;
+  --video: #4a4eb7;
+  --location: #ef5757;
   --toastify-color-success: #8e5aff;
   --toastify-icon-color-success: var(--toastify-color-success);
 
-  --shedule: #E1AE4A;
+  --shedule: #e1ae4a;
 }
 
 video {
   max-width: none;
 }
-
+.react-input-emoji--button {
+  position: absolute !important;
+  right: 48px;
+  z-index: 2;
+}
 
 body {
-  font-family: 'Roboto', sans-serif;
-  margin: 0,
+  font-family: "Roboto", sans-serif;
+  margin: 0;
 }
 
 .App {
@@ -81,7 +89,7 @@ body {
   height: 14rem;
   border-radius: 50%;
   background: #dddddd;
-  filter: blur(72px)
+  filter: blur(72px);
 }
 
 .button {
@@ -106,7 +114,7 @@ body {
   background-color: silver;
   pointer-events: none;
   color: whitesmoke;
-  border: solid 1px whitesmoke
+  border: solid 1px whitesmoke;
 }
 
 ::-webkit-scrollbar {
@@ -117,7 +125,6 @@ body {
   --bs-gutter-x: 0rem !important;
 }
 
-
 .alert-enter {
   opacity: 0;
   transform: scale(0.9);
@@ -126,7 +133,7 @@ body {
 .alert-enter-active {
   opacity: 1;
   transform: translateX(0);
-  transition: all 200ms cubic-bezier(.47, 0.5, .41, 0.5);
+  transition: all 200ms cubic-bezier(0.47, 0.5, 0.41, 0.5);
 }
 
 .alert-exit {
@@ -136,5 +143,5 @@ body {
 .alert-exit-active {
   opacity: 0;
   transform: scale(0.9);
-  transition: all 400ms cubic-bezier(.47, 2, .41, 1.5);
+  transition: all 400ms cubic-bezier(0.47, 2, 0.41, 1.5);
 }

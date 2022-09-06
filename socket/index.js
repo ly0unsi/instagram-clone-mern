@@ -74,6 +74,10 @@ io.on("connection", (socket) => {
   socket.on("leaveCall", () => {
     io.emit("leaveCall")
   });
+  socket.on("callDeclined", (userId) => {
+    const user = activeUsers.find((user) => user.userId === userId);
+    io.emit("callDeclined", userId)
+  });
 });
 
 io.listen(process.env.PORT || 3001);

@@ -81,7 +81,7 @@ const NavBar = ({ socket }) => {
               <div className="counter">{unreaded.filter(n => n.receverId === user._id).length}</div>
             }
           </Dropdown.Toggle>
-          <Dropdown.Menu className='w-[220px] dark:bg-zinc-900 '>
+          <Dropdown.Menu className='w-[250px] dark:bg-zinc-900 right-10'>
 
             {notifs.filter(n => n.receverId === user._id).map((n, key) => displayNotification(n, key))}
           </Dropdown.Menu>

@@ -39,7 +39,6 @@ const ProfileCard = ({ location, profileUser }) => {
       }
       try {
         await createChat(data)
-        navigate('/chat', { replace: true })
       } catch (error) {
         toast.error(error.response.data, {
           position: "bottom-center",
@@ -54,7 +53,7 @@ const ProfileCard = ({ location, profileUser }) => {
       }
 
     } else {
-      console.log("hhhhhhh");
+      navigate('/chat', { replace: true })
     }
   }
   return (

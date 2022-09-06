@@ -22,7 +22,8 @@ export const userChats = async (req, res) => {
         const chatsWLatestMessage = []
         for (const chat of chats) {
             const chatMessage = await MessageModel.find({ chatId: chat._id }).sort({ _id: -1 }).limit(1)
-            const chatWMessages = { ...chat._doc, message: chatMessage[0] }
+            const messagesCount = await MessageModel.find({ seen: false, chatId: chat._id, senderId: { $ne: req.params.userId } }).find().count()
+            const chatWMessages = { ...chat._doc, message: chatMessage[0], msgCount: messagesCount }
             chatsWLatestMessage.push(chatWMessages)
         }
         res.status(200).json(chatsWLatestMessage);

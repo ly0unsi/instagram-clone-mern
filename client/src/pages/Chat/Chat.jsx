@@ -7,18 +7,19 @@ import { userChats } from "../../Api/ChatApi";
 import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
 import Conversation from "../../components/Conversation/Conversation";
-import LogoSearch from "../../components/logoSearch/LogoSearch";
 import NavBar from "../../components/NavBar/Navbar";
-import { ContextProvider, SocketContext } from "../../Context/Context";
+import { SocketContext } from "../../Context/Context";
 import Notifications from "../../components/Notification/Notification";
 import { VideoPlayer } from "../../components/VideoPlayer/VideoPlayer";
-import { CSSTransition } from "react-transition-group";
+import { ToastContainer } from "react-toastify";
+import { readMessages } from "../../Api/MessageApi";
+
 
 const Chat = () => {
-    const dispatch = useDispatch();
     const socket = useRef();
     const { user } = useSelector((state) => state.authReducer.authData);
-    const { callAccepted, callEnded, call } = useContext(SocketContext);
+    const { callAccepted, callEnded, call, isMe, } = useContext(SocketContext);
+    const [readed, setreaded] = useState(false)
 
     const [chats, setChats] = useState([]);
     const [onlineUsers, setOnlineUsers] = useState([]);
@@ -63,33 +64,21 @@ const Chat = () => {
         }
 
         );
+
     }, []);
 
-
     const checkOnlineStatus = (chat) => {
-        const chatMember = chat.members.find((member) => member !== user._id);
+        const chatMember = chat?.members.find((member) => member !== user._id);
         const online = onlineUsers.find((user) => user.userId === chatMember);
         return online ? true : false;
     };
 
     return (
         <div className="row h-[100vh] overflow-y-scroll">
-            {call.isReceivingCall && !callAccepted && (
-                <CSSTransition
-                    in={call.isReceivingCall}
-                    timeout={300}
-                    classNames={{
-                        enter: 'animate__animated animate__slideInRight',
-                        enterActive: 'animate__animated animate__slideInRight',
-                        enterDone: 'animate__animated animate__slideInRight',
-                        exit: 'animate__animated animate__slideOutRight',
-                        exitActive: 'animate__animated animate__slideOutRightt',
-                        exitDone: 'animate__animated animate__slideOutRight',
-                    }}
-                    unmountOnExit
-                >
-                    <Notifications />
-                </CSSTransition>
+            {call.isReceivingCall && isMe === false && !callAccepted && (
+
+                <Notifications />
+
             )}
             {callAccepted === true &&
                 <VideoPlayer />
@@ -109,6 +98,7 @@ const Chat = () => {
                                 <div key={key}
                                     onClick={() => {
                                         setCurrentChat(chat);
+                                        readMessages(chat._id)
                                     }}
                                 >
                                     <Conversation
@@ -131,11 +121,13 @@ const Chat = () => {
                     <ChatBox
                         chat={currentChat}
                         currentUser={user._id}
+                        online={checkOnlineStatus(currentChat)}
                         setSendMessage={setSendMessage}
                         receivedMessage={receivedMessage}
                     />
                 }
             </div>
+            <ToastContainer />
         </div>
     );
 };
