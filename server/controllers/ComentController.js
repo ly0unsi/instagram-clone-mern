@@ -9,7 +9,9 @@ export const addComment = async (req, res) => {
         newComment.save()
         const userd = await UserModel.findById(newComment.userId)
         newComment = { ...newComment._doc, user: userd }
+        console.log(userId, receverId, senderId);
         if (userId !== receverId) {
+
             await new NotModel({ receverId, senderId, type: 2, read: false, postId }).save()
         }
         res.status(200).json(newComment)

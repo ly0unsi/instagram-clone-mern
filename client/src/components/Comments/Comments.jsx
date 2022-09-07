@@ -16,7 +16,7 @@ const Comments = ({ comments, postId, setcommentsNumber, socket, post }) => {
     postId: postId,
     userId: user._id,
     senderId: user._id,
-    receverId: user._id
+    receverId: post?.user?._id
   })
   const HandleComment = async () => {
     dispatch(addComment(formData))

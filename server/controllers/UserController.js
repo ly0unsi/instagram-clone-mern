@@ -146,7 +146,7 @@ export const getAllUsers = async (req, res) => {
     try {
         let users = await UserModel.find()
         users = users.map((user) => {
-            const { password, ...others } = user._doc
+            const { password, coverPicture, followers, following, isAdmin, worksAt, relationship, livesin, ...others } = user._doc
             return others;
         })
 

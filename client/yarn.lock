@@ -1115,10 +1115,10 @@
   "resolved" "https://registry.npmjs.org/@csstools/normalize.css/-/normalize.css-12.0.0.tgz"
   "version" "12.0.0"
 
-"@csstools/postcss-cascade-layers@^1.0.5":
-  "integrity" "sha512-Id/9wBT7FkgFzdEpiEWrsVd4ltDxN0rI0QS0SChbeQiSuux3z21SJCRLu6h2cvCEUmaRi+VD0mHFj+GJD4GFnw=="
-  "resolved" "https://registry.npmjs.org/@csstools/postcss-cascade-layers/-/postcss-cascade-layers-1.0.5.tgz"
-  "version" "1.0.5"
+"@csstools/postcss-cascade-layers@^1.0.6":
+  "integrity" "sha512-ei4Vh4AJwTCXTNj7uzwduoZDO7nLPksQ0TI7OzUlyFq4P4Uhu6hU7R4AlLimDP/s6D3PQdHmRL4f7UOy370UHA=="
+  "resolved" "https://registry.npmjs.org/@csstools/postcss-cascade-layers/-/postcss-cascade-layers-1.0.6.tgz"
+  "version" "1.0.6"
   dependencies:
     "@csstools/selector-specificity" "^2.0.2"
     "postcss-selector-parser" "^6.0.10"
@@ -1928,9 +1928,9 @@
   "version" "1.1.4"
 
 "@sinclair/typebox@^0.24.1":
-  "integrity" "sha512-iN6ehuDndiTiDz2F+Orv/+oHJR+PrGv+38oghCddpsW4YEZl5qyLsWxSwYUWrKEOfjpGtXDFW6scJtjpzSLeSw=="
-  "resolved" "https://registry.npmjs.org/@sinclair/typebox/-/typebox-0.24.35.tgz"
-  "version" "0.24.35"
+  "integrity" "sha512-IbYB6vdhLFmzGEyXXEdFAJKyq7S4/RsivkgxNzs/LzwYuUJHmeNQ0cHkjG/Yqm6VgUzzZDLMZAf0XgeeaZAocA=="
+  "resolved" "https://registry.npmjs.org/@sinclair/typebox/-/typebox-0.24.38.tgz"
+  "version" "0.24.38"
 
 "@sinonjs/commons@^1.7.0":
   "integrity" "sha512-xkNcLAn/wZaX14RPlwizcKicDk9G3F8m2nU3L7Ukm5zBgTwiT0wsoFAHx9Jq56fJA1z/7uKGtCRu16sOUCLIHQ=="
@@ -3948,7 +3948,7 @@
     "source-map" "^0.6.1"
     "source-map-resolve" "^0.6.0"
 
-"cssdb@^7.0.0":
+"cssdb@^7.0.1":
   "integrity" "sha512-pT3nzyGM78poCKLAEy2zWIVX2hikq6dIrjuZzLV98MumBg+xMTNYfHx7paUlfiRTgg91O/vR889CIf+qiv79Rw=="
   "resolved" "https://registry.npmjs.org/cssdb/-/cssdb-7.0.1.tgz"
   "version" "7.0.1"
@@ -7736,11 +7736,11 @@
     "postcss-value-parser" "^4.2.0"
 
 "postcss-preset-env@^7.0.1":
-  "integrity" "sha512-leqiqLOellpLKfbHkD06E04P6d9ZQ24mat6hu4NSqun7WG0UhspHR5Myiv/510qouCjoo4+YJtNOqg5xHaFnCA=="
-  "resolved" "https://registry.npmjs.org/postcss-preset-env/-/postcss-preset-env-7.8.0.tgz"
-  "version" "7.8.0"
+  "integrity" "sha512-8884CHxQaoN1i4iEK+JvzOe8emODb5R4p/0dw4yEdo7QM4RdUk2sBx0fnzFyJt8BLfZSCGeVkKZ4HC564waBpQ=="
+  "resolved" "https://registry.npmjs.org/postcss-preset-env/-/postcss-preset-env-7.8.1.tgz"
+  "version" "7.8.1"
   dependencies:
-    "@csstools/postcss-cascade-layers" "^1.0.5"
+    "@csstools/postcss-cascade-layers" "^1.0.6"
     "@csstools/postcss-color-function" "^1.1.1"
     "@csstools/postcss-font-format-keywords" "^1.0.1"
     "@csstools/postcss-hwb-function" "^1.0.2"
@@ -7759,7 +7759,7 @@
     "css-blank-pseudo" "^3.0.3"
     "css-has-pseudo" "^3.0.4"
     "css-prefers-color-scheme" "^6.0.3"
-    "cssdb" "^7.0.0"
+    "cssdb" "^7.0.1"
     "postcss-attribute-case-insensitive" "^5.0.2"
     "postcss-clamp" "^4.1.0"
     "postcss-color-functional-notation" "^4.2.4"
@@ -9050,9 +9050,9 @@
   "version" "2.0.0"
 
 "selfsigned@^2.0.1":
-  "integrity" "sha512-LmME957M1zOsUhG+67rAjKfiWFox3SBxE/yymatMZsAx+oMrJ0YQ8AToOnyCm7xbeg2ep37IHLxdu0o2MavQOQ=="
-  "resolved" "https://registry.npmjs.org/selfsigned/-/selfsigned-2.0.1.tgz"
-  "version" "2.0.1"
+  "integrity" "sha512-GSL3aowiF7wa/WtSFwnUrludWFoNhftq8bUkH9pkzjpN2XSPOAYEgg6e0sS9s0rZwgJzJiQRPU18A6clnoW5wQ=="
+  "resolved" "https://registry.npmjs.org/selfsigned/-/selfsigned-2.1.1.tgz"
+  "version" "2.1.1"
   dependencies:
     "node-forge" "^1"
 
@@ -10284,7 +10284,7 @@
   "resolved" "https://registry.npmjs.org/word-wrap/-/word-wrap-1.2.3.tgz"
   "version" "1.2.3"
 
-"workbox-background-sync@6.5.4":
+"workbox-background-sync@^6.5.4", "workbox-background-sync@6.5.4":
   "integrity" "sha512-0r4INQZMyPky/lj4Ou98qxcThrETucOde+7mRGJl13MPJugQNKeZQOdIJe/1AchOP23cTqHcN/YVpD6r8E6I8g=="
   "resolved" "https://registry.npmjs.org/workbox-background-sync/-/workbox-background-sync-6.5.4.tgz"
   "version" "6.5.4"
@@ -10292,7 +10292,7 @@
     "idb" "^7.0.1"
     "workbox-core" "6.5.4"
 
-"workbox-broadcast-update@6.5.4":
+"workbox-broadcast-update@^6.5.4", "workbox-broadcast-update@6.5.4":
   "integrity" "sha512-I/lBERoH1u3zyBosnpPEtcAVe5lwykx9Yg1k6f8/BGEPGaMMgZrwVrqL1uA9QZ1NGGFoyE6t9i7lBjOlDhFEEw=="
   "resolved" "https://registry.npmjs.org/workbox-broadcast-update/-/workbox-broadcast-update-6.5.4.tgz"
   "version" "6.5.4"
@@ -10342,19 +10342,19 @@
     "workbox-sw" "6.5.4"
     "workbox-window" "6.5.4"
 
-"workbox-cacheable-response@6.5.4":
+"workbox-cacheable-response@^6.5.4", "workbox-cacheable-response@6.5.4":
   "integrity" "sha512-DCR9uD0Fqj8oB2TSWQEm1hbFs/85hXXoayVwFKLVuIuxwJaihBsLsp4y7J9bvZbqtPJ1KlCkmYVGQKrBU4KAug=="
   "resolved" "https://registry.npmjs.org/workbox-cacheable-response/-/workbox-cacheable-response-6.5.4.tgz"
   "version" "6.5.4"
   dependencies:
     "workbox-core" "6.5.4"
 
-"workbox-core@6.5.4":
+"workbox-core@^6.5.4", "workbox-core@6.5.4":
   "integrity" "sha512-OXYb+m9wZm8GrORlV2vBbE5EC1FKu71GGp0H4rjmxmF4/HLbMCoTFws87M3dFwgpmg0v00K++PImpNQ6J5NQ6Q=="
   "resolved" "https://registry.npmjs.org/workbox-core/-/workbox-core-6.5.4.tgz"
   "version" "6.5.4"
 
-"workbox-expiration@6.5.4":
+"workbox-expiration@^6.5.4", "workbox-expiration@6.5.4":
   "integrity" "sha512-jUP5qPOpH1nXtjGGh1fRBa1wJL2QlIb5mGpct3NzepjGG2uFFBn4iiEBiI9GUmfAFR2ApuRhDydjcRmYXddiEQ=="
   "resolved" "https://registry.npmjs.org/workbox-expiration/-/workbox-expiration-6.5.4.tgz"
   "version" "6.5.4"
@@ -10362,7 +10362,7 @@
     "idb" "^7.0.1"
     "workbox-core" "6.5.4"
 
-"workbox-google-analytics@6.5.4":
+"workbox-google-analytics@^6.5.4", "workbox-google-analytics@6.5.4":
   "integrity" "sha512-8AU1WuaXsD49249Wq0B2zn4a/vvFfHkpcFfqAFHNHwln3jK9QUYmzdkKXGIZl9wyKNP+RRX30vcgcyWMcZ9VAg=="
   "resolved" "https://registry.npmjs.org/workbox-google-analytics/-/workbox-google-analytics-6.5.4.tgz"
   "version" "6.5.4"
@@ -10372,14 +10372,14 @@
     "workbox-routing" "6.5.4"
     "workbox-strategies" "6.5.4"
 
-"workbox-navigation-preload@6.5.4":
+"workbox-navigation-preload@^6.5.4", "workbox-navigation-preload@6.5.4":
   "integrity" "sha512-IIwf80eO3cr8h6XSQJF+Hxj26rg2RPFVUmJLUlM0+A2GzB4HFbQyKkrgD5y2d84g2IbJzP4B4j5dPBRzamHrng=="
   "resolved" "https://registry.npmjs.org/workbox-navigation-preload/-/workbox-navigation-preload-6.5.4.tgz"
   "version" "6.5.4"
   dependencies:
     "workbox-core" "6.5.4"
 
-"workbox-precaching@6.5.4":
+"workbox-precaching@^6.5.4", "workbox-precaching@6.5.4":
   "integrity" "sha512-hSMezMsW6btKnxHB4bFy2Qfwey/8SYdGWvVIKFaUm8vJ4E53JAY+U2JwLTRD8wbLWoP6OVUdFlXsTdKu9yoLTg=="
   "resolved" "https://registry.npmjs.org/workbox-precaching/-/workbox-precaching-6.5.4.tgz"
   "version" "6.5.4"
@@ -10388,7 +10388,7 @@
     "workbox-routing" "6.5.4"
     "workbox-strategies" "6.5.4"
 
-"workbox-range-requests@6.5.4":
+"workbox-range-requests@^6.5.4", "workbox-range-requests@6.5.4":
   "integrity" "sha512-Je2qR1NXCFC8xVJ/Lux6saH6IrQGhMpDrPXWZWWS8n/RD+WZfKa6dSZwU+/QksfEadJEr/NfY+aP/CXFFK5JFg=="
   "resolved" "https://registry.npmjs.org/workbox-range-requests/-/workbox-range-requests-6.5.4.tgz"
   "version" "6.5.4"
@@ -10407,21 +10407,21 @@
     "workbox-routing" "6.5.4"
     "workbox-strategies" "6.5.4"
 
-"workbox-routing@6.5.4":
+"workbox-routing@^6.5.4", "workbox-routing@6.5.4":
   "integrity" "sha512-apQswLsbrrOsBUWtr9Lf80F+P1sHnQdYodRo32SjiByYi36IDyL2r7BH1lJtFX8fwNHDa1QOVY74WKLLS6o5Pg=="
   "resolved" "https://registry.npmjs.org/workbox-routing/-/workbox-routing-6.5.4.tgz"
   "version" "6.5.4"
   dependencies:
     "workbox-core" "6.5.4"
 
-"workbox-strategies@6.5.4":
+"workbox-strategies@^6.5.4", "workbox-strategies@6.5.4":
   "integrity" "sha512-DEtsxhx0LIYWkJBTQolRxG4EI0setTJkqR4m7r4YpBdxtWJH1Mbg01Cj8ZjNOO8etqfA3IZaOPHUxCs8cBsKLw=="
   "resolved" "https://registry.npmjs.org/workbox-strategies/-/workbox-strategies-6.5.4.tgz"
   "version" "6.5.4"
   dependencies:
     "workbox-core" "6.5.4"
 
-"workbox-streams@6.5.4":
+"workbox-streams@^6.5.4", "workbox-streams@6.5.4":
   "integrity" "sha512-FXKVh87d2RFXkliAIheBojBELIPnWbQdyDvsH3t74Cwhg0fDheL1T8BqSM86hZvC0ZESLsznSYWw+Va+KVbUzg=="
   "resolved" "https://registry.npmjs.org/workbox-streams/-/workbox-streams-6.5.4.tgz"
   "version" "6.5.4"

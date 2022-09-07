@@ -15,6 +15,7 @@ const Posts = ({ profileUser, socket }) => {
   const location = useLocation()
   useEffect(() => {
     if (isTrend === false) {
+
       dispatch(getTimelinePosts(user._id))
     }
   }, [dispatch, user.following.length, posts.length, isTrend])

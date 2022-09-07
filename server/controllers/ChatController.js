@@ -1,6 +1,6 @@
 
-import ChatModel from "../models/chatModel.js";
-import MessageModel from "../models/messageModel.js";
+import ChatModel from "../models/ChatModel.js";
+import MessageModel from "../models/MessageModel.js";
 
 export const createChat = async (req, res) => {
     const newChat = new ChatModel({

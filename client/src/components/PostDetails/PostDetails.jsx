@@ -38,10 +38,12 @@ const PostDetails = ({ socket }) => {
           </div>
         </div>
       </div>
-
-      <div className="col-lg-4">
-        <img src={post?.image} className="rounded-2xl h-[50vh] lg:h-[70vh] lg:w-[100%] object-cover" alt="" />
-      </div>
+      {
+        post?.image &&
+        <div className="col-lg-4">
+          <img src={post?.image} className="rounded-2xl h-[50vh] lg:h-[70vh] lg:w-[100%] object-cover" alt="" />
+        </div>
+      }
       <div className="col-lg-8 lg:pl-4">
         <div className='text-[20px]'>
           {post?.desc}

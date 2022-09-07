@@ -24,9 +24,9 @@ const Conversation = ({ data, currentUser, online, receivedMessage }) => {
             }
         }
         getUserData();
-        console.log(data);
+        // console.log(data);
     }, [])
-    console.log(userData);
+    // console.log(userData);
     useEffect(() => {
         receivedMessage !== null && receivedMessage?.chatId === data?._id && setmessage(receivedMessage.text)
     }, [receivedMessage])

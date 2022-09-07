@@ -9,6 +9,7 @@ import FollowButton from '../FollowButon/FollowButton'
 import './ProfileCard.css'
 const ProfileCard = ({ location, profileUser }) => {
   const { posts } = useSelector((state) => state.postReducer)
+  const [disabled, setdisabled] = useState(false)
   const [chats, setChats] = useState([])
   const { user } = useSelector((state) => state.authReducer.authData)
   const navigate = useNavigate();
@@ -33,6 +34,7 @@ const ProfileCard = ({ location, profileUser }) => {
   }
   const handleMessage = async () => {
     if (!isIncluded()) {
+      setdisabled(true)
       const data = {
         senderId: user._id,
         receiverId: profileUser._id
@@ -77,7 +79,7 @@ const ProfileCard = ({ location, profileUser }) => {
         }
         {profileUser &&
           profileUser._id !== user._id &&
-          <button className='dark:bg-zinc-900 dark:text-white border-[#8e5aff] button fc-button' onClick={handleMessage}>message</button>
+          <button disabled={disabled} className='dark:bg-zinc-900 dark:text-white border-[#8e5aff] button fc-button' onClick={handleMessage}>message</button>
         }
 
       </div>
