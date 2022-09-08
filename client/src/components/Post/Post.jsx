@@ -61,7 +61,7 @@ const Post = ({ post, socket, comments }) => {
     <div className='Post dark:bg-zinc-800 dark:text-gray-50 transition duration-300 flex'>
 
       {post.user && location.pathname == "/home" &&
-        <div className= "w-100  flex items-center ">
+        <div className="w-100  flex items-center ">
           <div className='items-center'>
             <Link to={`/profile/${post.user.username}`} style={{ textDecoration: "none", color: "inherit" }}>
               <img className='w-9 h-9 mr-2 object-cover rounded-full' src={post.user?.profilePicture ? post.user?.profilePicture : Profile} alt="" />
@@ -94,6 +94,10 @@ const Post = ({ post, socket, comments }) => {
       }
 
       <img src={post.image && post.image} alt="" className='object-cover' />
+      <div className="detail">
+        <span><b>{post.name}</b></span>
+        <span> {post.desc}</span>
+      </div>
       <div className="flex gap-2 items-center dark:text-gray-50 transition duration-300">
         {liked ? <HeartFilled onClick={() => like(post._id)} className='text-[30px] text-[#8e5aff]' /> : <HeartOutlined onClick={() => like(post._id)} style={{ fontSize: "30px", color: "#404040" }} />}
         <span style={{ color: "var(--gray)", fontSize: '12px' }} className='dark:text-gray-300'>{likes} likes</span>
@@ -105,10 +109,7 @@ const Post = ({ post, socket, comments }) => {
       </div>
 
 
-      <div className="detail border-b-2 dark:border-b-zinc-900">
-        <span><b>{post.name}</b></span>
-        <span> {post.desc}</span>
-      </div>
+
       {
         commentsOpened &&
         <Comments comments={comments} post={post} socket={socket} setcommentsNumber={setcommentsNumber} postId={post._id} />

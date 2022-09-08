@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 
 const SocketContext = createContext();
 
-const socket = io('ws://localhost:3001');
+const socket = io('https://rs-mern-socket.herokuapp.com');
 
 
 const ContextProvider = ({ children }) => {
