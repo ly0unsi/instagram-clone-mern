@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./Auth.css";
 import { useDispatch, useSelector } from 'react-redux'
@@ -14,7 +14,6 @@ const Auth = () => {
   const [errorMsg, setErrorMsg] = useState(null)
 
   const loading = useSelector((state) => state.authReducer.loading)
-  const error = useSelector((state) => state.authReducer.error)
   const dispatch = useDispatch()
 
 

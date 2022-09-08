@@ -15,7 +15,6 @@ const Profile = ({ socket }) => {
   const username = params.username
   const [profileUser, setprofileUser] = useState(null)
   const { user } = useSelector((state) => state.authReducer.authData)
-  const { followers } = useSelector((state) => state.userReducer)
   useEffect(() => {
     const fetchProfile = async () => {
       if (username === user.username) {

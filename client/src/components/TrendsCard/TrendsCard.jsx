@@ -26,7 +26,7 @@ const TrendsCard = () => {
   return (
     <div className="TrendCard mt-5 pl-3 lg:pl-4 dark:bg-zinc-800 dark:text-gray-50 transition duration-300">
       <h3 className='dark:text-gray-300'>Trends for you</h3>
-      {trends.map((trend, id) => {
+      {trends.slice(0, 5).map((trend, id) => {
         return (
           <div className="trend cursor-pointer" key={id} onClick={() => handleGetTrendPosts(trend._id)}>
             <span>{trend.name}</span>

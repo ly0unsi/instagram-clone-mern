@@ -4,7 +4,7 @@ import ChatBox from "../../components/ChatBox/ChatBox";
 import "./Chat.css";
 import { useEffect } from "react";
 import { userChats } from "../../Api/ChatApi";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { io } from "socket.io-client";
 import Conversation from "../../components/Conversation/Conversation";
 import NavBar from "../../components/NavBar/Navbar";
@@ -19,7 +19,6 @@ const Chat = () => {
     const socket = useRef();
     const { user } = useSelector((state) => state.authReducer.authData);
     const { callAccepted, callEnded, call, isMe, } = useContext(SocketContext);
-    const [readed, setreaded] = useState(false)
 
     const [chats, setChats] = useState([]);
     const [onlineUsers, setOnlineUsers] = useState([]);

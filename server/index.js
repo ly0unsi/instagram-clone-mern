@@ -13,6 +13,7 @@ import MessageRoute from './routes/MessageRoute.js'
 import CommentRoute from "./routes/CommentRoute.js";
 import NotsRoute from "./routes/NotsRoute.js";
 import trendRoute from "./routes/TrendRoute.js";
+import sharedPostRoute from "./routes/SharedPostRoute.js";
 
 const app = express();
 app.use(express.static('public'))
@@ -41,6 +42,7 @@ app.use('/notifs', NotsRoute)
 app.use('/trends', trendRoute)
 app.use('/chat', ChatRoute)
 app.use('/message', MessageRoute)
+app.use('/sharedpost', sharedPostRoute)
 app.use('/', (req, res) => {
     res.send('welcome!!')
 })

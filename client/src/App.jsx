@@ -8,16 +8,14 @@ import 'animate.css/animate.css'
 import Home from "./pages/Home/Home";
 import Profile from "./pages/Profile/Profile";
 import { Navigate, Routes, Route, location, useLocation, Link } from 'react-router-dom'
-import ReactCSSTransitionGroup, { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { CSSTransition, } from 'react-transition-group';
 import { useSelector } from "react-redux";
-import menu from './img/menu.png'
 import "./App.css"
 import React, { useEffect, useState } from "react";
 import SideBar from "./components/SideBar/SideBar";
 import PostDetails from "./components/PostDetails/PostDetails";
 import Chat from "./pages/Chat/Chat";
 import { ContextProvider } from "./Context/Context";
-import { ToastContainer } from "react-toastify";
 function App() {
   const user = useSelector((state) => state.authReducer.authData)
   const [socket, setsocket] = useState(null)
@@ -36,7 +34,7 @@ function App() {
     }
   }
   useEffect(() => {
-    setsocket(io("https://rs-mern-socket.herokuapp.com"))
+    setsocket(io("http://localhost:3001"))
   }, [])
   useEffect(() => {
 

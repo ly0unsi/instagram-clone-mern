@@ -1,7 +1,6 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { Button } from '@material-ui/core';
+import React, { useContext, useEffect } from 'react';
 
-import { Assignment, Phone, PhoneDisabled } from '@material-ui/icons';
+import { Phone } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import { SocketContext } from '../../Context/Context';
 import { toast } from 'react-toastify';

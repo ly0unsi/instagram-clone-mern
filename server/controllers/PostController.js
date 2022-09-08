@@ -6,6 +6,7 @@ import cloudinary from "../Utils/Cloudinary.js"
 import NotModel from "../models/NotificationModel.js"
 import NotsRoute from "../routes/NotsRoute.js"
 import TrendModel from "../models/Trend.js"
+import SharedPostModel from "../models/SharedPostModel.js"
 export const addPost = async (req, res) => {
     const { userId, desc, image, user, hashtags } = req.body
     const trendIds = []
@@ -96,6 +97,7 @@ export const deletePost = async (req, res) => {
     try {
         const post = await PostModel.findById(postId)
         await CommentModel.deleteMany({ "postId": post._id })
+        await SharedPostModel.deleteMany({ "postId": post._id })
 
         if (userId === post.userId) {
             const trends = await TrendModel.find()
@@ -175,15 +177,27 @@ export const getTimelinePosts = async (req, res) => {
         ])
 
         let userd = {};
-        let posts = userPosts.concat(...followingPosts[0].followingPosts).sort((a, b) => {
+        let postd = {}
+        let sharedPostswPost = []
+        const SharedPosts = await SharedPostModel.find({ userId })
+        for (const post of SharedPosts) {
+            const { image, desc } = await PostModel.findOne({ _id: post.postId })
+            const { username, profilePicture, followers, following, _id } = await UserModel.findById(post.userId)
+            userd = { username, profilePicture, followers, following, _id }
+            postd = { ...post._doc, post: { image, desc }, owner: userd }
+            sharedPostswPost.push(postd)
+        }
+
+        let posts = userPosts.concat(...followingPosts[0].followingPosts, sharedPostswPost).sort((a, b) => {
             return b.createdAt - a.createdAt
         })
+        // res.status(200).json(posts)
         let results = [];
         for (const doc of posts) {
             try {
                 const { username, profilePicture, followers, following, _id } = await UserModel.findById(doc.userId)
                 userd = { username, profilePicture, followers, following, _id }
-                if (doc.userId === userId) results.push({ ...doc._doc, user: userd }); else results.push({ ...doc, user: userd });
+                doc.userId === userId ? results.push({ ...doc._doc, user: userd }) : results.push({ ...doc, user: userd })
             } catch (error) {
                 res.status(400).json(error.message)
             }

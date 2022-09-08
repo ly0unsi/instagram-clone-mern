@@ -24,7 +24,19 @@
 
   --shedule: #e1ae4a;
 }
+.mantine-1abbsss {
+  background: rgba(34, 34, 34, 0.425) !important;
 
+  border-radius: 7px;
+}
+.mantine-Modal-close {
+  background: #557efb;
+  color: white;
+  border-radius: 20px;
+}
+.mantine-Modal-close:hover {
+  color: #557efb;
+}
 video {
   max-width: none;
 }

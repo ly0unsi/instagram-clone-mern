@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import './LogoSearch.css'
-import Logo from '../../img/logo.png'
 import profileImage from '../../img/defaultProfile.png'
 import { ArrowRightOutlined } from '@ant-design/icons'
 import { UilSearch } from '@iconscout/react-unicons'
@@ -69,7 +68,7 @@ const LogoSearch = ({ isNav, setnavOpened }) => {
       setfiltredTags(tags.filter((tag) => tag.name.toLowerCase().includes(input.toLowerCase())))
     }
 
-  }, [tab])
+  }, [input])
 
   const getUsers = async () => {
     const { data } = await getAllUsers()
@@ -98,9 +97,9 @@ const LogoSearch = ({ isNav, setnavOpened }) => {
           ShutApp
         </span>
       }
-      <div className="Search dark:bg-zinc-800 relative ml-auto order-2 w-[78%]">
+      <div className="Search dark:bg-zinc-800 relative ml-auto order-2 w-[78%] flex">
         <input type="text" placeholder='#Explore' value={input} onChange={handleChange} onFocus={() => settabOpend(true)} />
-        <div className="s-icon">
+        <div className="s-icon ml-auto">
           <UilSearch />
         </div>
         {

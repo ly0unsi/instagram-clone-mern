@@ -48,7 +48,7 @@ const EditModal = ({ post, modalOpened, setModalOpened }) => {
     }
     const handleSubmit = async (e) => {
         e.preventDefault()
-        if (formdata.image.name) {
+        if (formdata.image?.name) {
             console.log("voila")
             const image = await toBase64(formdata.image)
             await dispatch(updatePost(post?._id, { ...formdata, image: image }))
@@ -74,7 +74,7 @@ const EditModal = ({ post, modalOpened, setModalOpened }) => {
             }
             overlayOpacity={0.55}
             overlayBlur={3}
-            className="w-[95%] lg:w-1/3 m-auto dark:bg-zinc-800 dark:text-gray-50 transition duration-300"
+
             opened={modalOpened}
             onClose={() => setModalOpened(false)}
         >
