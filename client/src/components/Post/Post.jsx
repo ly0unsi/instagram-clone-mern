@@ -108,19 +108,22 @@ const Post = ({ post, socket, comments }) => {
               <span className='font-medium text-sm w-[100%]'>
                 {post.owner?.username}
               </span>
-              <span className='float-right text-xs w-[100%] dark:text-gray-400'>{format(post.createdAt)}</span>
+              <span className='float-right text-xs w-[100%] dark:text-gray-400'>{format(post.post.createdAt)}</span>
             </div>
           </div>
         }
-        <img src={post.image && post.image} alt="" className='object-cover' />
-        <div className="detail">
+        {post.image &&
+          < img src={post.image} alt="" className='object-cover lg:h-[80vh] h-[286px] w-[100%] rounded-xl bg-transparent' />
+        }
+        <div className="detail mt-2">
           <span><b>{post.name}</b></span>
           {
-            <span>  {post.userDesc ? post.post.desc : post.desc}</span>
+            <span className='mt-2'>  {post.userDesc ? post.post?.desc : post?.desc}</span>
           }
         </div>
-
-
+        {post.post?.image &&
+          < img src={post.post?.image} alt="" className='object-cover lg:h-[80vh] h-[286px] w-[100%] rounded-xl bg-transparent' />
+        }
       </div>
       <div className="flex gap-2 items-center dark:text-gray-50 transition duration-300">
         {liked ? <HeartFilled onClick={() => like(post._id)} className='text-[30px] text-[#8e5aff]' /> : <HeartOutlined onClick={() => like(post._id)} style={{ fontSize: "30px", color: "#404040" }} />}

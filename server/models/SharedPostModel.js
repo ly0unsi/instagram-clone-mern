@@ -13,6 +13,10 @@ const SharedPostSchema = new mongoose.Schema(
         userDesc: {
             type: String
         },
+        postOwnerId: {
+            type: String,
+            required: true
+        },
         likes: [],
         trendIds: [],
     },

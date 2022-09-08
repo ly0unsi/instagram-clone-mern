@@ -80,7 +80,7 @@ const EditModal = ({ post, modalOpened, setModalOpened }) => {
         >
             <div className="PostShare col-sm-12 dark:bg-zinc-800 dark:text-gray-50 transition duration-300">
                 <div className="w-[100%]">
-                    <input onChange={onChange} name='desc' classname='dark:bg-zinc-900' value={formdata.desc} type="text" placeholder="What's Popin ?" />
+                    <input onChange={onChange} name='desc' className='dark:bg-zinc-900' value={formdata.desc} type="text" placeholder="What's Popin ?" />
                     <div className="postOptions">
                         <div className="option" style={{ color: "var(--photo)" }}
                             onClick={() => imageRef.current.click()}

@@ -181,13 +181,13 @@ export const getTimelinePosts = async (req, res) => {
         let sharedPostswPost = []
         const SharedPosts = await SharedPostModel.find({ userId })
         for (const post of SharedPosts) {
-            const { image, desc } = await PostModel.findOne({ _id: post.postId })
-            const { username, profilePicture, followers, following, _id } = await UserModel.findById(post.userId)
+            const { image, desc, createdAt } = await PostModel.findOne({ _id: post.postId })
+            const { username, profilePicture, followers, following, _id } = await UserModel.findById(post.postOwnerId)
             userd = { username, profilePicture, followers, following, _id }
-            postd = { ...post._doc, post: { image, desc }, owner: userd }
+            postd = { ...post._doc, post: { image, desc, createdAt }, owner: userd }
             sharedPostswPost.push(postd)
         }
-
+        // res.status(200).json(sharedPostswPost)
         let posts = userPosts.concat(...followingPosts[0].followingPosts, sharedPostswPost).sort((a, b) => {
             return b.createdAt - a.createdAt
         })
@@ -197,7 +197,7 @@ export const getTimelinePosts = async (req, res) => {
             try {
                 const { username, profilePicture, followers, following, _id } = await UserModel.findById(doc.userId)
                 userd = { username, profilePicture, followers, following, _id }
-                doc.userId === userId ? results.push({ ...doc._doc, user: userd }) : results.push({ ...doc, user: userd })
+                doc.userId === userId && !doc.userDesc ? results.push({ ...doc._doc, user: userd }) : results.push({ ...doc, user: userd })
             } catch (error) {
                 res.status(400).json(error.message)
             }

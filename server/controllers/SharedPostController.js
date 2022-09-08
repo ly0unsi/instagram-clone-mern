@@ -3,9 +3,9 @@ import SharedPostModel from "../models/SharedPostModel.js"
 import TrendModel from "../models/Trend.js"
 
 export const create = async (req, res) => {
-    const { postId, userId, userDesc, hashtags } = req.body
+    const { postId, userId, userDesc, hashtags, postOwnerId } = req.body
     try {
-        const newPost = await new SharedPostModel({ postId, userId, userDesc }).save()
+        const newPost = await new SharedPostModel({ postId, userId, userDesc, postOwnerId }).save()
         if (hashtags) {
             const trendIds = []
             for (const hashtag of hashtags) {

@@ -1,21 +1,25 @@
 
 import { Modal, useMantineTheme } from "@mantine/core";
 import '../PostShare/PostShare.css'
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
+import Profile from '../../img/defaultProfile.png'
+import { format } from "timeago.js";
 
-import { UilScenery } from "@iconscout/react-unicons";
 
 import { Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { updatePost } from "../../Actions/PostAction";
+import { sharePost } from "../../Actions/PostAction";
+
 
 const ShareModal = ({ post, modalOpened, setModalOpened }) => {
+    const loading = useSelector((state) => state.postReducer.uploading)
     const theme = useMantineTheme();
     const dispatch = useDispatch()
     const { user } = useSelector((state) => state.authReducer.authData)
-    const loading = useSelector((state) => state.postReducer.uploading)
-    const imageRef = useRef()
+
     const [formdata, setformdata] = useState({
+        postId: post?._id,
+        postOwnerId: post.user?._id,
         userId: user._id,
         desc: post.desc,
         image: post.image,
@@ -31,7 +35,8 @@ const ShareModal = ({ post, modalOpened, setModalOpened }) => {
     }
     const handleSubmit = async (e) => {
         e.preventDefault()
-        await dispatch(updatePost(post?._id, formdata))
+        const hashtags = formdata.userDesc.match(/#\w+/g)
+        await dispatch(sharePost({ ...formdata, hashtags }))
         setModalOpened(false)
     }
 
@@ -50,34 +55,28 @@ const ShareModal = ({ post, modalOpened, setModalOpened }) => {
         >
             <div className="PostShare col-sm-12 dark:bg-zinc-800 dark:text-gray-50 transition duration-300">
                 <div className="w-[100%]">
-                    <input onChange={onChange} name='desc' className='dark:bg-zinc-900' value={formdata.userDesc} type="text" placeholder="What's Popin ?" />
-                    <input disabled className='dark:bg-zinc-900' value={formdata.desc} type="text" placeholder="What's Popin ?" />
-                    <div className="postOptions">
-                        <div className="option" style={{ color: "var(--photo)" }}
-                            onClick={() => imageRef.current.click()}
-                        >
-                            <UilScenery />
-
+                    <input onChange={onChange} name='desc' className='dark:bg-zinc-900' value={formdata.userDesc} type="text" placeholder="status" />
+                    <div className="w-100  flex items-center ">
+                        <div className='items-center'>
+                            <img className='w-9 h-9 mr-2 object-cover rounded-full' src={post.user?.profilePicture ? post.user?.profilePicture : Profile} alt="" />
                         </div>
-                        <Button loading={loading} type="primary" className='button ps-button' onClick={handleSubmit}> {loading ? "Updating" : "Update"}</Button>
-
-                        <div style={{ display: "none" }}>
-                            <input
-                                type="file"
-                                name="myImage"
-                                ref={imageRef}
-                                onChange={onChange}
-
-                            />
+                        <div className="w-auto ml-1">
+                            <span className='font-medium text-sm w-[100%]'>
+                                {post.user?.username}
+                            </span>
+                            <span className='float-right text-xs w-[100%] dark:text-gray-400'>{format(post.createdAt)}</span>
                         </div>
                     </div>
-
+                    <input disabled className='dark:bg-zinc-800' value={formdata.desc} type="text" placeholder="What's Popin ?" />
 
                     <div className="previewImage">
-
                         <img src={formdata.image} alt="" className='object-cover' name='image' />
                     </div>
+                    <div className="postOptions">
 
+                        <Button loading={loading} type="primary" className='button ps-button' onClick={handleSubmit}> Share</Button>
+
+                    </div>
 
                 </div>
             </div>
