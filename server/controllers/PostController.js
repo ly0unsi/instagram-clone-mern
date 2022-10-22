@@ -3,6 +3,7 @@ import PostModel from "../models/PostModel.js"
 import UserModel from "../models/UserModel.js"
 import CommentModel from "../models/CommentModel.js"
 import cloudinary from "../Utils/Cloudinary.js"
+
 import NotModel from "../models/NotificationModel.js"
 import NotsRoute from "../routes/NotsRoute.js"
 import TrendModel from "../models/Trend.js"
@@ -35,6 +36,7 @@ export const addPost = async (req, res) => {
                     newTrend = await newTrend.save()
                     trendIds.push(newTrend._id)
                 }
+
 
             }
             for (const trendId of trendIds) {
@@ -82,6 +84,7 @@ export const updatePost = async (req, res) => {
             }
 
             post.desc = desc
+
             res.status(200).json(post)
         } else {
             res.status(403).json("Action forbidden Son!!")
@@ -232,12 +235,14 @@ export const getTimelinePosts = async (req, res) => {
         let results = [];
         for (const post of posts) {
             try {
+
                 //console.log(post);
                 const { username, profilePicture, followers, following, _id } = await UserModel.findById(post.userId)
                 userd = { username, profilePicture, followers, following, _id }
                 //console.log(doc);
                 const sharesCount = await SharedPostModel.find({ postId: post._id }).count()
                 results.push({ ...post, user: userd, sharesCount })
+
             } catch (error) {
                 res.status(400).json(error.message)
             }
@@ -249,6 +254,7 @@ export const getTimelinePosts = async (req, res) => {
     } catch (error) {
         res.status(400).json(error.message)
     }
-
-
 }
+
+
+

@@ -8,5 +8,4 @@ postRoute.put('/update/:id',updatePost)
 postRoute.put('/like/:id',likePost)
 postRoute.get('/timelinePosts/:id',getTimelinePosts)
 postRoute.delete('/delete/:id',deletePost)
-
  export default postRoute

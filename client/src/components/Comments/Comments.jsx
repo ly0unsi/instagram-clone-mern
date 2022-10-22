@@ -12,20 +12,24 @@ const Comments = ({ comments, postId, setcommentsNumber, socket, post }) => {
   const dispatch = useDispatch()
   const isPostRoute = useMatch("/post/*");
   const [formData, setformData] = useState({
+
     body: "",
     postId: postId,
     userId: user._id,
     senderId: user._id,
     receverId: (!isPostRoute ? post.userId : post.user._id)
+
   })
   const HandleComment = async () => {
     dispatch(addComment(formData))
     resetForm()
+
     setcommentsNumber((prev) => prev += 1)
     socket.emit('sendNotification', {
       receiverName: post.user.username,
       type: 2,
       sender: user,
+
     })
   }
   const resetForm = () => {

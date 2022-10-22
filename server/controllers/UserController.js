@@ -43,6 +43,7 @@ export const updateUser = async (req, res) => {
                 req.body.password = await bcrypt(password, salt)
             }
 
+
             let result1, result2 = null
             if (profilePicture) {
                 result1 = await cloudinary.uploader.upload(profilePicture,

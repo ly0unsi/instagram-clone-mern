@@ -11,9 +11,11 @@ import uploadRoute from "./routes/UploadRoute.js";
 import ChatRoute from './routes/ChatRoute.js'
 import MessageRoute from './routes/MessageRoute.js'
 import CommentRoute from "./routes/CommentRoute.js";
+
 import NotsRoute from "./routes/NotsRoute.js";
 import trendRoute from "./routes/TrendRoute.js";
 import sharedPostRoute from "./routes/SharedPostRoute.js";
+
 
 const app = express();
 app.use(express.static('public'))
@@ -31,8 +33,8 @@ mongoose.connect(process.env.MONGO_DB, { useNewUrlParser: true, useUnifiedTopolo
     .then(() => app.listen(process.env.PORT, () => console.log("listening at port 5000")))
     .catch((e) => console.log(e))
 
-
 //routes
+
 app.use('/auth', AuthRoute)
 app.use('/user', UserRoute)
 app.use('/post', postRoute)
@@ -46,3 +48,4 @@ app.use('/sharedpost', sharedPostRoute)
 app.use('/', (req, res) => {
     res.send('welcome!!')
 })
+

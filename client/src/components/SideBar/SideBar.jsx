@@ -1,11 +1,14 @@
+
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
+
 import { useLocation } from 'react-router-dom';
 import FollowersCard from '../FollowersCard/FollowersCard'
 import LogoSearch from '../logoSearch/LogoSearch'
 import NavBar from '../NavBar/Navbar';
 import '../RightSide/RightSide.css'
 import TrendsCard from '../TrendsCard/TrendsCard';
+
 
 const SideBar = ({ setnavOpened, socket }) => {
   const { posts } = useSelector((state) => state.postReducer)
@@ -15,6 +18,7 @@ const SideBar = ({ setnavOpened, socket }) => {
       setnavOpened(false)
     }
   }, [location.pathname])
+
 
 
   return (
