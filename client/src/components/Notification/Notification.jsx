@@ -10,8 +10,8 @@ export const Notifications = () => {
     return (
         <>
 
-            <div className="absolute top-10 right-5 p-4 rounded-lg  border-blue-500 bg-slate-100 w-[300px] z-index-10 text-zinc-800 dark:bg-zinc-700 dark:text-slate-50 flex align-center gap-5" >
-                <h1>{call.name} is calling:</h1>
+            <div className="fixed float top-5 right-5 p-4 rounded-lg  border-blue-500 bg-slate-100 w-[300px] z-index-10 text-zinc-800 dark:bg-zinc-700 dark:text-slate-50 flex align-center gap-5" >
+                <h1 className='text-white'>{call.name} is calling:</h1>
                 <button className='button px-2 z-1' onClick={answerCall}>
                     Answer
                 </button>

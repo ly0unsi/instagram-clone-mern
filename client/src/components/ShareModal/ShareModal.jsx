@@ -1,13 +1,15 @@
 import { Modal, useMantineTheme } from "@mantine/core";
+import useDarkMode from "../../Utils/UseDark";
 import PostShare from "../PostShare/PostShare";
 
 function ShareModal({ modalOpened, setModalOpened }) {
   const theme = useMantineTheme();
+  const [colorTheme, settheme] = useDarkMode()
 
   return (
     <Modal
       overlayColor={
-        theme.colorScheme === "dark"
+        colorTheme !== "dark"
           ? theme.colors.dark[9]
           : theme.colors.gray[2]
       }
@@ -17,7 +19,7 @@ function ShareModal({ modalOpened, setModalOpened }) {
       opened={modalOpened}
       onClose={() => setModalOpened(false)}
     >
-    <PostShare/>
+      <PostShare />
     </Modal>
   );
 }

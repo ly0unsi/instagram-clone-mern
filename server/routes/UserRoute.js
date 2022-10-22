@@ -1,5 +1,8 @@
 import express from "express";
-import { deleteUser, followUser, getAllUsers, getFollowers, getFollowings, getUser, getUserById, updateUser } from "../controllers/UserController.js";
+import {
+    deleteUser, followUser, getAllUsers, getFollowers, getFollowings,
+    getUser, getUserById, updateUser
+} from "../controllers/UserController.js";
 
 const UserRoute = express.Router()
 UserRoute.get('/:username', getUser)

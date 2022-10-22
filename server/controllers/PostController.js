@@ -93,9 +93,10 @@ export const updatePost = async (req, res) => {
 }
 export const deletePost = async (req, res) => {
     const postId = req.params.id
-    const { userId } = req.body
+    const { userId, shared } = req.body
+    let post = null
     try {
-        const post = await PostModel.findById(postId)
+        shared ? post = await SharedPostModel.findById(postId) : post = await PostModel.findById(postId)
         await CommentModel.deleteMany({ "postId": post._id })
         await SharedPostModel.deleteMany({ "postId": post._id })
 
@@ -114,7 +115,7 @@ export const deletePost = async (req, res) => {
                 }
 
             }
-            await PostModel.deleteOne(post)
+            shared ? await SharedPostModel.deleteOne(post) : await PostModel.deleteOne(post)
 
             res.status(200).json("Post deleted Son!!")
         } else {
@@ -128,10 +129,12 @@ export const deletePost = async (req, res) => {
 export const likePost = async (req, res) => {
 
     const id = req.params.id;
-    const { userId } = req.body;
-
+    const { userId, shared } = req.body;
+    let post = null
     try {
-        const post = await PostModel.findById(id);
+        if (shared) post = await SharedPostModel.findById(id);
+        else post = await PostModel.findById(id);
+
         if (post.likes.includes(userId)) {
             await post.updateOne({ $pull: { likes: userId } });
             res.status(200).json("Post disliked");
@@ -152,8 +155,8 @@ export const likePost = async (req, res) => {
 export const getTimelinePosts = async (req, res) => {
     const userId = req.params.id
     try {
-        const userPosts = await PostModel.find({ userId: userId });
-        const followingPosts = await UserModel.aggregate([
+        const userPosts = await PostModel.find({ userId: userId }).lean();
+        var followingPosts = await UserModel.aggregate([
             {
                 $match: {
                     _id: new mongoose.Types.ObjectId(userId)
@@ -166,38 +169,75 @@ export const getTimelinePosts = async (req, res) => {
                     foreignField: "userId",
                     as: "followingPosts"
                 }
+
             },
+
             {
                 $project: {
                     followingPosts: 1,
+                    followingsharedPosts: 1,
                     _id: 0
                 }
             }
 
         ])
 
+        followingPosts = followingPosts[0].followingPosts
+        //res.status(200).json(followingPosts)
         let userd = {};
         let postd = {}
         let sharedPostswPost = []
-        const SharedPosts = await SharedPostModel.find({ userId })
+        var SharedPosts = await SharedPostModel.find({ userId }).lean()
+        var followingSharedPosts = await UserModel.aggregate([
+            {
+                $match: {
+                    _id: new mongoose.Types.ObjectId(userId)
+                }
+            },
+
+            {
+                $lookup: {
+                    from: "sharedposts",
+                    localField: "following",
+                    foreignField: "userId",
+                    as: "followingsharedPosts"
+                }
+
+            },
+            {
+                $project: {
+                    followingsharedPosts: 1,
+                    _id: 0
+                }
+            }
+
+        ])
+        followingSharedPosts = followingSharedPosts[0].followingsharedPosts
+        SharedPosts = SharedPosts.concat(followingSharedPosts)
+
         for (const post of SharedPosts) {
             const { image, desc, createdAt } = await PostModel.findOne({ _id: post.postId })
             const { username, profilePicture, followers, following, _id } = await UserModel.findById(post.postOwnerId)
             userd = { username, profilePicture, followers, following, _id }
-            postd = { ...post._doc, post: { image, desc, createdAt }, owner: userd }
+            postd = { ...post, post: { image, desc, createdAt }, owner: userd }
+
             sharedPostswPost.push(postd)
         }
+
         // res.status(200).json(sharedPostswPost)
-        let posts = userPosts.concat(...followingPosts[0].followingPosts, sharedPostswPost).sort((a, b) => {
+        let posts = userPosts.concat(followingPosts, sharedPostswPost).sort((a, b) => {
             return b.createdAt - a.createdAt
         })
         // res.status(200).json(posts)
         let results = [];
-        for (const doc of posts) {
+        for (const post of posts) {
             try {
-                const { username, profilePicture, followers, following, _id } = await UserModel.findById(doc.userId)
+                //console.log(post);
+                const { username, profilePicture, followers, following, _id } = await UserModel.findById(post.userId)
                 userd = { username, profilePicture, followers, following, _id }
-                doc.userId === userId && !doc.userDesc ? results.push({ ...doc._doc, user: userd }) : results.push({ ...doc, user: userd })
+                //console.log(doc);
+                const sharesCount = await SharedPostModel.find({ postId: post._id }).count()
+                results.push({ ...post, user: userd, sharesCount })
             } catch (error) {
                 res.status(400).json(error.message)
             }

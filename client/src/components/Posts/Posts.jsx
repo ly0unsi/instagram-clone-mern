@@ -13,12 +13,13 @@ const Posts = ({ profileUser, socket }) => {
   const { comments, cloading } = useSelector((state) => state.CommentReducer)
   const { posts, loading, isTrend } = useSelector((state) => state.postReducer)
   const location = useLocation()
+
   useEffect(() => {
     if (isTrend === false) {
-
       dispatch(getTimelinePosts(user._id))
     }
   }, [dispatch, user.following.length, posts.length, isTrend])
+
   useEffect(() => {
 
     dispatch(getPostComments())

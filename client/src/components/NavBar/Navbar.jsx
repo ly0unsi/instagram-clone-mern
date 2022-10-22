@@ -1,24 +1,30 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { BulbOutlined, CheckOutlined } from '@ant-design/icons'
 import Dropdown from 'react-bootstrap/Dropdown';
 import '../RightSide/RightSide.css'
 import profileImage from '../../img/defaultProfile.png'
 import { EllipsisOutlined, HeartFilled, HeartOutlined } from '@ant-design/icons';
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { Switch } from 'antd'
 import { getNots, readNot, unreadedNots } from '../../Api/PostApi'
 import useDarkMode from '../../Utils/UseDark';
+import { getUserMessages } from '../../Api/MessageApi';
+import { toast } from 'react-toastify';
+import { io } from 'socket.io-client';
 const NavBar = ({ socket }) => {
   const [colorTheme, settheme] = useDarkMode()
   const [notifs, setnotifs] = useState([])
-
-  const [unreaded, setunreaded] = useState([])
+  const location = useLocation()
+  const [msgsCount, setmsgsCount] = useState(0)
+  const [unreaded, setunreaded] = useState(0)
+  const msgSocket = useRef();
   const { user } = useSelector((state) => state.authReducer.authData)
   const handleRead = async () => {
     setunreaded([])
     await readNot(user._id)
   }
+
   const displayNotification = ({ sender, type, postId }, key) => {
     let action;
     let icon
@@ -59,12 +65,40 @@ const NavBar = ({ socket }) => {
       const { data: unreadedN } = await unreadedNots(user._id)
       setunreaded(unreadedN)
     });
+
   }, [socket]);
+
+  const getUnreadMessages = async () => {
+    const { data } = await getUserMessages(user._id)
+    setmsgsCount(data)
+  }
+  // useEffect(() => {
+  //   // if (location.pathname !== '/chat') {
+
+  //   socket?.on("recieve-message", ({ senderName, text }) => {
+  //     getUnreadMessages()
+  //     // toast.success(senderName + ": " + text, {
+  //     //   position: "bottom-center",
+  //     //   autoClose: 6000,
+  //     //   icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" /></svg>,
+  //     //   hideProgressBar: false,
+  //     //   closeOnClick: true,
+  //     //   pauseOnHover: true,
+  //     //   draggable: true,
+  //     //   progress: undefined,
+  //     // });
+  //   });
+  //   // }
+
+  // }, [msgSocket])
+
+
   useEffect(async () => {
     const { data: nots } = await getNots(user._id)
     setnotifs(nots)
     const { data: unreadedN } = await unreadedNots(user._id)
     setunreaded(unreadedN)
+    getUnreadMessages()
   }, [])
   return (
     <div className="navIcons gap-[10%] justify-center">
@@ -77,19 +111,23 @@ const NavBar = ({ socket }) => {
           <Dropdown.Toggle className='border-none text-[0px] p-0' variant='none'>
             <svg onClick={handleRead} className="w-6 h-6 dark:text-gray-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
             {
-              unreaded.length !== 0 &&
-              <div className="counter">{unreaded.filter(n => n.receverId === user._id).length}</div>
+              unreaded > 0 &&
+              <div className="counter">{unreaded}</div>
             }
           </Dropdown.Toggle>
           <Dropdown.Menu className='w-[250px] dark:bg-zinc-900 right-10'>
 
-            {notifs.filter(n => n.receverId === user._id).map((n, key) => displayNotification(n, key))}
+            {notifs.map((n, key) => displayNotification(n, key))}
           </Dropdown.Menu>
         </Dropdown>
 
       </div>
-      <Link to="../chat">
+      <Link to="../chat" className='relative'>
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" /></svg>
+        {
+          msgsCount !== 0 &&
+          <div className="counter">{msgsCount}</div>
+        }
       </Link>
       <Switch
         checkedChildren={<BulbOutlined />}

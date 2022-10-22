@@ -26,33 +26,37 @@ const ProfileCard = ({ location, profileUser }) => {
   }, [user._id]);
   const isIncluded = () => {
     for (const chat of chats) {
+
       if (chat.members.includes(profileUser._id)) {
+
         return true;
       }
-      return false
+
     }
+    return false
   }
   const handleMessage = async () => {
+
     if (!isIncluded()) {
       setdisabled(true)
       const data = {
         senderId: user._id,
         receiverId: profileUser._id
       }
-      try {
-        await createChat(data)
-      } catch (error) {
-        toast.error(error.response.data, {
-          position: "bottom-center",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+      // try {
+      //   await createChat(data)
+      // } catch (error) {
+      //   toast.error(error.response.data, {
+      //     position: "bottom-center",
+      //     autoClose: 3000,
+      //     hideProgressBar: false,
+      //     closeOnClick: true,
+      //     pauseOnHover: true,
+      //     draggable: true,
+      //     progress: undefined,
+      //   });
 
-      }
+      // }
 
     } else {
       navigate('/chat', { replace: true })

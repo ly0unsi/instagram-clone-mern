@@ -14,8 +14,15 @@ import { Link } from 'react-router-dom';
 
 const storageLink = process.env.REACT_APP_STORAGE_URL
 const PostShare = () => {
+
+
+    //l'etat de l'image (exist ou vide) 
     const [image, setImage] = useState(null)
+    //l'etat de l'image (affichée ou cachéee)
     const [showImage, setshowImage] = useState(false)
+
+
+
     const { user } = useSelector((state) => state.authReducer.authData)
     const loading = useSelector((state) => state.postReducer.uploading)
     const error = useSelector((state) => state.postReducer.error)
@@ -75,24 +82,21 @@ const PostShare = () => {
             <div>
                 <input ref={desc} type="text" className='dark:bg-zinc-900' placeholder="What's Popin ?" />
                 <div className="postOptions">
-                    <div className="option" style={{ color: "var(--photo)" }}
+                    <div className="option flex" style={{ color: "var(--photo)" }}
                         onClick={() => imageRef.current.click()}
                     >
                         <UilScenery />
                         Photo
                     </div>
-                    <div className="option hidden lg:block" style={{ color: "var(--video)" }}>
+                    <div className="option hidden lg:flex" style={{ color: "var(--video)" }}>
                         <UilPlayCircle />
                         Video
                     </div>
-                    <div className="option" style={{ color: "var(--location)" }}>
+                    <div className="option flex" style={{ color: "var(--location)" }}>
                         <UilLocationPoint />
                         Location
                     </div>
-                    <div className="option hidden lg:block" style={{ color: "var(--shedule)" }}>
-                        <UilSchedule />
-                        Shedule
-                    </div>
+
                     <Button loading={loading} className='button ps-button' onClick={handleSubmit}> {loading ? "uploading" : "Share"}</Button>
 
                     <div style={{ display: "none" }}>

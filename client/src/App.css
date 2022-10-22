@@ -10,11 +10,9 @@
   --profileShadow: 0px 4px 17px 2px rgba(0, 0, 0, 0.25);
   --hrColor: #cfcdcd;
   --cardColor: rgba(255, 255, 255, 0.64);
-  --buttonBg: linear-gradient(
-    160deg,
-    rgba(142, 90, 255, 1) 0%,
-    rgba(32, 159, 246, 1) 100%
-  );
+  --buttonBg: linear-gradient(160deg,
+      rgba(142, 90, 255, 1) 0%,
+      rgba(32, 159, 246, 1) 100%);
   --inputColor: rgba(40, 52, 62, 0.07);
   --photo: #4cb256;
   --video: #4a4eb7;
@@ -24,25 +22,71 @@
 
   --shedule: #e1ae4a;
 }
+
 .mantine-1abbsss {
   background: rgba(34, 34, 34, 0.425) !important;
 
   border-radius: 7px;
 }
+
 .mantine-Modal-close {
   background: #557efb;
   color: white;
   border-radius: 20px;
 }
+
 .mantine-Modal-close:hover {
   color: #557efb;
 }
+
+.float {
+  animation-name: float;
+  -webkit-animation-name: float;
+
+  animation-duration: 1.5s;
+  -webkit-animation-duration: 1.5s;
+
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
+}
+
+
+
+@keyframes float {
+  0% {
+    transform: translateY(0%);
+  }
+
+  50% {
+    transform: translateY(12%);
+  }
+
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+@-webkit-keyframes float {
+  0% {
+    -webkit-transform: translateY(0%);
+  }
+
+  50% {
+    -webkit-transform: translateY(8%);
+  }
+
+  100% {
+    -webkit-transform: translateY(0%);
+  }
+}
+
 video {
   max-width: none;
 }
+
 .react-input-emoji--button {
   position: absolute !important;
-  right: 48px;
+  right: 84px;
   z-index: 2;
 }
 

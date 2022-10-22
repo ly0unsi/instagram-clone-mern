@@ -40,7 +40,8 @@ const Chat = () => {
 
     // Connect to Socket.io
     useEffect(() => {
-        socket.current = io("ws://localhost:3001");
+        socket.current = io("http://localhost:3001");
+
         socket.current.emit("new-user-add", user._id);
         socket.current.on("get-users", (users) => {
             setOnlineUsers(users);
@@ -58,13 +59,13 @@ const Chat = () => {
     // Get the message from socket server
     useEffect(() => {
         socket.current.on("recieve-message", (data) => {
-            console.log(data)
+            console.log("received");
             setReceivedMessage(data);
         }
 
         );
 
-    }, []);
+    }, [socket]);
 
     const checkOnlineStatus = (chat) => {
         const chatMember = chat?.members.find((member) => member !== user._id);
@@ -73,7 +74,7 @@ const Chat = () => {
     };
 
     return (
-        <div className="row h-[100vh] overflow-y-scroll">
+        <div className="row h-[100vh] overflow-y-scroll ">
             {call.isReceivingCall && isMe === false && !callAccepted && (
 
                 <Notifications />
@@ -90,9 +91,9 @@ const Chat = () => {
                             <NavBar />
                         </div>
                     }
-                    <div className="Chat-container dark:bg-zinc-800 dark:text-gray-50 transition duration-300 mt-4 h-auto overflow-y-scroll">
-                        <h2 className="text-white">Chats</h2>
-                        <div className="Chat-list">
+                    <div className="Chat-container dark:bg-zinc-800 dark:text-gray-50 transition duration-300 mt-4 ">
+                        <h2 className="text-white  ">Chats</h2>
+                        <div className="Chat-list max-h-[75vh] overflow-y-scroll">
                             {chats.map((chat, key) => (
                                 <div key={key}
                                     onClick={() => {

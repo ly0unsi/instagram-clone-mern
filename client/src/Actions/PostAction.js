@@ -20,9 +20,9 @@ export const getTimelinePosts = (id) => async (dispatch) => {
     dispatch({ type: "RETREIVING_FAIL" });
   }
 };
-export const likePost = (id, userId) => async (dispatch) => {
+export const likePost = (id, data) => async (dispatch) => {
   try {
-    await PostsApi.likePost(id, userId)
+    await PostsApi.likePost(id, data)
   } catch (error) {
     var errMsg
     if (error.response.data.message)
@@ -40,9 +40,9 @@ export const likePost = (id, userId) => async (dispatch) => {
     });
   }
 }
-export const deletePost = (postId, userId) => async (dispatch) => {
+export const deletePost = (postId, data) => async (dispatch) => {
   try {
-    await PostsApi.deletePost(postId, userId)
+    await PostsApi.deletePost(postId, data)
     dispatch({ type: "DELETE_SUCCESS", postId: postId })
   } catch (error) {
     var errMsg

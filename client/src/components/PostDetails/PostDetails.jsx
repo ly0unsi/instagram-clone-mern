@@ -56,7 +56,7 @@ const PostDetails = ({ socket }) => {
         {
           !pLoading ?
 
-            <Comments comments={comments} post={post} socket={socket} setcommentsNumber={setcommentsNumber} postId={post?._id} />
+            <Comments comments={comments} post={post} socket={socket} setcommentsNumber={setcommentsNumber} postId={post._id} />
             : "waiting comments"
         }
       </div>

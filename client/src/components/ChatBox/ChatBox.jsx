@@ -7,22 +7,41 @@ import { getUserById } from "../../Api/UserApi";
 import "./ChatBox.css";
 import { format } from "timeago.js";
 import InputEmoji from 'react-input-emoji'
-
+import { UilScenery } from "@iconscout/react-unicons";
 import { VideoSidebar } from "../VideoSideBar/VideoSideBar";
-
+import { UilTimes } from "@iconscout/react-unicons";
 import { SocketContext } from "../../Context/Context";
 import { useSelector } from "react-redux";
+import { CSSTransition } from "react-transition-group";
 
 const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage, online }) => {
     const [userData, setUserData] = useState(null);
     const { user } = useSelector((state) => state.authReducer.authData)
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState("");
+    const imageRef = useRef()
+    const [image, setImage] = useState(null)
+    const [showImage, setshowImage] = useState(false)
+    const toBase64 = file => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
     const { callAccepted, callEnded, setName } = useContext(SocketContext);
     const handleChange = (newMessage) => {
         setNewMessage(newMessage)
     }
 
+    const onImageChange = (event) => {
+        console.log("changed")
+        if (event.target.files && event.target.files[0]) {
+            let img = event.target.files[0]
+            setImage(img)
+
+            setshowImage(true)
+        }
+    }
 
     // fetching data for header
     useEffect(() => {
@@ -63,20 +82,37 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage, online })
         setName(user.userName)
 
     }, [])
-
-
+    const sendNotification = (message, user) => {
+        const notification = new Notification("New message from Open Chat", {
+            icon: "https://cdn-icons-png.flaticon.com/512/733/733585.png",
+            body: `@${user}: ${message}`
+        })
+        notification.onclick = () => function () {
+            window.open("http://localhost:3000/chat")
+        }
+    }
     // Send Message
     const handleSend = async (e) => {
         e.preventDefault()
+
+
+        const receiverId = chat.members.find((id) => id !== currentUser);
+
         const message = {
             senderId: currentUser,
+            senderName: user.username,
             text: newMessage,
             chatId: chat._id,
-            seen: false
+            seen: false,
+            receiverId
         }
-        const receiverId = chat.members.find((id) => id !== currentUser);
         // send message to socket server
-        setSendMessage({ ...message, receiverId })
+
+        if (image) {
+            const file = await toBase64(image)
+            message.image = file
+        }
+        setSendMessage(message)
         // send message to database
         try {
             const { data } = await addMessage(message);
@@ -98,11 +134,7 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage, online })
 
     }, [receivedMessage])
 
-
-
-
     const scroll = useRef();
-    const imageRef = useRef();
     return (
         <>
             <div className="ChatBox-container dark:bg-zinc-800 dark:text-gray-50 transition duration-300 mt-2 h-[90vh] overflow-y-scroll">
@@ -169,6 +201,23 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage, online })
                                 </div>
                             }
                             {/* chat-sender */}
+                            <CSSTransition
+                                in={showImage}
+                                timeout={400}
+                                classNames="alert"
+                                unmountOnExit
+
+                            >
+                                <div className="previewImage w-[50%] ml-[10%]">
+                                    <UilTimes onClick={() => {
+                                        setshowImage(false)
+                                        setImage(null)
+                                        imageRef.current.value = null
+                                    }
+                                    } />
+                                    <img src={image && URL.createObjectURL(image)} alt="" className='object-cover' />
+                                </div>
+                            </CSSTransition>
                             <div className="chat-sender relative bg-transparent dark:text-white">
                                 <div className="hidden" onClick={() => imageRef.current.click()}>+</div>
                                 <InputEmoji
@@ -177,7 +226,20 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage, online })
                                     theme="dark"
                                 />
                                 <div className="p-4  dark:text-zinc-500 z-10 absolute right-6 text-xl bottom-6" onClick={handleSend}><SendOutlined /></div>
+                                <div className="p-4 right-[3.5rem] dark:text-zinc-500 z-10 absolute top-[-1px] text-xl bottom-6"
+                                    onClick={() => imageRef.current.click()}
+                                >
+                                    <UilScenery />
+                                </div>
+                                <div style={{ display: "none" }}>
+                                    <input
+                                        type="file"
+                                        name="myImage"
+                                        ref={imageRef}
+                                        onChange={onImageChange}
 
+                                    />
+                                </div>
                             </div>{" "}
 
                         </>

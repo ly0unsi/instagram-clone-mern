@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import './Home.css'
 
 const Home = ({ socket }) => {
+
   return (
     <div className='row'>
       <ProfileSide />

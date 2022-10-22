@@ -27,6 +27,7 @@ io.on("connection", (socket) => {
 
   socket.on("sendNotification", ({ receiverName, type, sender }) => {
     const receiver = getUser(receiverName)
+    console.log(receiverName);
     io.to(receiver?.socketId).emit("getNotification", { type, sender })
   })
   // add new User
@@ -56,6 +57,7 @@ io.on("connection", (socket) => {
     const user = activeUsers.find((user) => user.userId === receiverId);
     // console.log("Sending from socket to :", receiverId)
     // console.log("Data: ", data)
+    console.log(user.socketId);
     if (user) {
       io.to(user.socketId).emit("recieve-message", data);
     }

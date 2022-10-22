@@ -91,17 +91,20 @@ const LogoSearch = ({ isNav, setnavOpened }) => {
   }, [tabOpend])
 
   return (
-    <div className='LogoSearch items-center'>
+    <div className='LogoSearch items-center flex'>
       {
         isNav ? <ArrowRightOutlined className=' dark:text-gray-100 pl-3' onClick={() => setnavOpened(false)} /> : <span className='font-bold text-[24px] ml-3'>
           ShutApp
         </span>
       }
       <div className="Search dark:bg-zinc-800 relative ml-auto order-2 w-[78%] flex">
+
         <input type="text" placeholder='#Explore' value={input} onChange={handleChange} onFocus={() => settabOpend(true)} />
         <div className="s-icon ml-auto">
           <UilSearch />
         </div>
+
+
         {
           tabOpend &&
           <div onBlur={() => settabOpend(false)} className="absolute shadow-lg h-auto w-[100%] bg-zinc-800 top-12 z-10 p-4 rounded-lg left-0">

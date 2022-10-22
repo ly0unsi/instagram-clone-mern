@@ -19,6 +19,7 @@ const EditModal = ({ post, modalOpened, setModalOpened }) => {
     const { user } = useSelector((state) => state.authReducer.authData)
     const loading = useSelector((state) => state.postReducer.uploading)
     const error = useSelector((state) => state.postReducer.error)
+
     const imageRef = useRef()
     const [formdata, setformdata] = useState({
         userId: user._id,
@@ -70,7 +71,9 @@ const EditModal = ({ post, modalOpened, setModalOpened }) => {
     return (
         <Modal
             overlayColor={
-                theme.colors.dark[9]
+                colorTheme !== "dark"
+                    ? theme.colors.dark[9]
+                    : theme.colors.gray[2]
             }
             overlayOpacity={0.55}
             overlayBlur={3}

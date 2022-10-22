@@ -52,6 +52,7 @@ const ContextProvider = ({ children }) => {
         socket.on('callDeclined', () => {
             setCallDeclined((prev) => !prev)
             setCall({ isReceivingCall: false })
+
         })
     }, [callAccepted,]);
 

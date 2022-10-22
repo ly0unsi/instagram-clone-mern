@@ -39,12 +39,13 @@ function App() {
   useEffect(() => {
 
     socket?.emit("newUser", user?.user?.username)
+    //socket?.emit("new-user-add", user._id);
 
 
   }, [socket, user])
 
   return (
-    <div className="App flex flex-col dark:text-gray-50 dark:bg-zinc-900 transition duration-300">
+    <div className="App flex flex-col dark:text-gray-50 dark:bg-zinc-900 transition duration-300 bg-[#e7eaec] relative">
 
       <div className="blur" style={{ top: '-18%', right: '0' }}></div>
       <div className="blur" style={{ top: '36%', left: '-8%' }}>
