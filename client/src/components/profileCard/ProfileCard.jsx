@@ -57,7 +57,7 @@ const ProfileCard = ({ location, profileUser }) => {
       //   });
 
       // }
-
+      navigate('/chat', { replace: true })
     } else {
       navigate('/chat', { replace: true })
     }

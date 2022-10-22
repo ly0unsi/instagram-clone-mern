@@ -65,7 +65,7 @@ const Chat = () => {
 
         );
 
-    }, [socket]);
+    }, []);
 
     const checkOnlineStatus = (chat) => {
         const chatMember = chat?.members.find((member) => member !== user._id);
