@@ -5,15 +5,12 @@ import '../RightSide/RightSide.css'
 import profileImage from '../../img/defaultProfile.png'
 import { EllipsisOutlined, HeartFilled, HeartOutlined } from '@ant-design/icons';
 import { useSelector } from 'react-redux'
-<<<<<<< HEAD
+
 import { Link, useLocation } from 'react-router-dom'
-=======
-import { Link  } from 'react-router-dom'
->>>>>>> 9f1199212cdf7837a4a2b6f99a35f44f69fbb13c
+
 import { Switch } from 'antd'
 import { getNots, readNot, unreadedNots } from '../../Api/PostApi'
 import useDarkMode from '../../Utils/UseDark';
-<<<<<<< HEAD
 import { getUserMessages } from '../../Api/MessageApi';
 import { toast } from 'react-toastify';
 import { io } from 'socket.io-client';

@@ -63,7 +63,7 @@ io.on("connection", (socket) => {
       io.to(user.socketId).emit("recieve-message", data);
     }
   });
-  socket.emit("me", socket.id);
+  socket?.emit("me", socket.id);
   socket.on("callUser", ({ userToCall, signalData, from, name }) => {
 
     const user = activeUsers.find((user) => user.userId === userToCall);

@@ -30,7 +30,6 @@ const ContextProvider = ({ children }) => {
     }
 
     useEffect(() => {
-
         navigator.mediaDevices.getUserMedia({ video: true, audio: true })
             .then((currentStream) => {
                 setStream(currentStream);
@@ -54,7 +53,7 @@ const ContextProvider = ({ children }) => {
             setCall({ isReceivingCall: false })
 
         })
-    }, [callAccepted,]);
+    }, [callAccepted]);
 
     const answerCall = () => {
         setCallAccepted(true);

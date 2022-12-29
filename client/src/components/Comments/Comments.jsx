@@ -25,7 +25,7 @@ const Comments = ({ comments, postId, setcommentsNumber, socket, post }) => {
     resetForm()
 
     setcommentsNumber((prev) => prev += 1)
-    socket.emit('sendNotification', {
+    socket?.emit('sendNotification', {
       receiverName: post.user.username,
       type: 2,
       sender: user,
