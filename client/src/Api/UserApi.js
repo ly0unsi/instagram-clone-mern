@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-const Api = axios.create({ baseURL: "http://localhost:5000" })
+
+const Api = axios.create({ baseURL: "https://rs-mern.onrender.com/" })
 export const getUserById = (userId) => Api.get(`/user/byid/${userId}`)
 export const getUser = (username) => Api.get(`/user/${username}`)
 export const updateUser = (userId, formData) => Api.put(`user/update/${userId}`, formData)

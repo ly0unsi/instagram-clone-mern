@@ -6,6 +6,7 @@ import profileImage from '../../img/defaultProfile.png'
 import { EllipsisOutlined, HeartFilled, HeartOutlined } from '@ant-design/icons';
 import { useSelector } from 'react-redux'
 
+
 import { Link, useLocation } from 'react-router-dom'
 
 import { Switch } from 'antd'
@@ -74,6 +75,7 @@ const NavBar = ({ socket }) => {
     const { data } = await getUserMessages(user._id)
     setmsgsCount(data)
   }
+
   // useEffect(() => {
   //   // if (location.pathname !== '/chat') {
 
@@ -93,6 +95,7 @@ const NavBar = ({ socket }) => {
   //   // }
 
   // }, [msgSocket])
+
 
 
   useEffect(async () => {

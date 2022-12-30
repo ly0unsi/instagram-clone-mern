@@ -43,20 +43,22 @@ const ProfileCard = ({ location, profileUser }) => {
         senderId: user._id,
         receiverId: profileUser._id
       }
-      // try {
-      //   await createChat(data)
-      // } catch (error) {
-      //   toast.error(error.response.data, {
-      //     position: "bottom-center",
-      //     autoClose: 3000,
-      //     hideProgressBar: false,
-      //     closeOnClick: true,
-      //     pauseOnHover: true,
-      //     draggable: true,
-      //     progress: undefined,
-      //   });
 
-      // }
+      try {
+        await createChat(data)
+      } catch (error) {
+        toast.error(error.response.data, {
+          position: "bottom-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+
+      }
+
       navigate('/chat', { replace: true })
     } else {
       navigate('/chat', { replace: true })

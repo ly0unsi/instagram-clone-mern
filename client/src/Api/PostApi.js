@@ -1,7 +1,7 @@
 import axios from 'axios'
 
+const API = axios.create({ baseURL: "https://rs-mern.onrender.com/" })
 
-const API = axios.create({ baseURL: "http://localhost:5000" })
 export const getTimelinePosts = (id) => API.get(`post/timelineposts/${id}`);
 export const likePost = (id, data) => API.put(`post/like/${id}`, { userId: data.userId, shared: data.shared });
 export const deletePost = (postId, data) => API.delete(`post/delete/${postId}`, { data: { userId: data.userId, shared: data.shared } })

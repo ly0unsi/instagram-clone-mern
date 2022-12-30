@@ -35,7 +35,9 @@ function App() {
     }
   }
   useEffect(() => {
-    setsocket(io("http://localhost:3001"))
+
+    setsocket(io("https://rs-mern-socket.onrender.com"))
+
   }, [])
   useEffect(() => {
 
